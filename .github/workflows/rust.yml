@@ -1,38 +1,118 @@
+# github workflows action file for rust activities
 ---
 name: Rust
 on:
   push:
-    branches: [main]
   pull_request:
-    branches: [main]
 env:
   CARGO_TERM_COLOR: always
   RUST_BACKTRACE: 1
 jobs:
+  # do all the basic rust stuff
   job_fmt_clippy_build_buildrelease_test_doc:
+    name: job fmt clippy build test doc
     runs-on: ubuntu-latest
     steps:
-      # git checkout
       - uses: actions/checkout@v2
-      # rustfmt
       - name: Check rustfmt
         run: cargo fmt --verbose --check
-      # clippy
       - name: Check clippy
-        run:  cargo clippy --no-deps --verbose --all-targets --all-features -- -D warnings
-      # build debug and release
+        run: cargo clippy --no-deps --verbose --all-targets --all-features --
+             -D warnings
       - name: Build Debug and Release
         run: |
           set -eux
           cargo build --verbose
           cargo build --verbose --release
-      # test
       - name: Run Tests
         run: |
           set -eux
           cargo test -j1 --verbose -- --test-threads=1
           cargo test -j2 --verbose -- --test-threads=2
           cargo test -j8 --verbose -- --test-threads=8
-      # doc
       - name: Build Documentation
         run: cargo doc --locked --release --frozen --no-deps -v
+  # run code coverage with rust "nightly", upload to codecov.io
+  # help from
+  # - https://github.com/marketplace/actions/rust-grcov
+  # - https://eipi.xyz/blog/rust-code-coverage-with-github-workflows/
+  # - https://github.com/mozilla/grcov#lcov-output
+  job_grcov:
+    name: grcov
+    runs-on: ubuntu-latest
+    needs: job_fmt_clippy_build_buildrelease_test_doc
+    steps:
+      - name: apt install
+        run: |
+          set -eux
+          sudo apt install -y file
+      - name: git checkout
+        uses: actions/checkout@v1
+      - name: get toolchain nightly
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: nightly
+          override: true
+      - name: cargo install
+        uses: actions-rs/cargo@v1
+        with:
+          command: install
+          args: --verbose -- rustfilt grcov
+      - name: cargo build with special profiling
+        uses: actions-rs/cargo@v1
+        env:
+          CARGO_INCREMENTAL: 0
+          RUSTFLAGS: -Zprofile
+                     -Ccodegen-units=1 -Cinline-threshold=0
+                     -Clink-dead-code -Coverflow-checks=off
+                     -Cpanic=abort -Zpanic_abort_tests
+        with:
+          command: build
+          args: --verbose
+      - name: cargo test with special profiling
+        uses: actions-rs/cargo@v1
+        env:
+          CARGO_INCREMENTAL: 0
+          RUSTFLAGS: -Zprofile
+                     -Ccodegen-units=1 -Cinline-threshold=0
+                     -Clink-dead-code -Coverflow-checks=off
+                     -Cpanic=abort -Zpanic_abort_tests
+        with:
+          command: test
+          args: --no-fail-fast
+      - name: grcov
+        env:
+          CARGO_INCREMENTAL: 0
+          RUSTFLAGS: -Zprofile
+                     -Ccodegen-units=1 -Cinline-threshold=0
+                     -Clink-dead-code -Coverflow-checks=off
+                     -Cpanic=abort -Zpanic_abort_tests
+        run: |
+          set -eux
+          grcov \
+              . \
+              --source-dir ./src \
+              --log-level DEBUG \
+              --llvm \
+              --binary-path ./target/debug/ \
+              --branch \
+              --ignore-not-existing \
+              --output-type lcov \
+              --output-path lcov.info
+          ls -l
+          file lcov.info
+          head lcov.info
+      # action from https://github.com/codecov/codecov-action
+      - name: upload codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: lcov.info
+          verbose: true
+          fail_ci_if_error: true
+          # public repository does not need secret section `with: token`
+          # see
+          # https://about.codecov.io/blog/javascript-code-coverage-using-github-actions-and-codecov/
+          #
+          # list of acceptable formats
+          # https://docs.codecov.com/docs/supported-report-formats
