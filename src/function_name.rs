@@ -1,7 +1,12 @@
 // src/function_name.rs
 
+//! Macros to derive the current function name.
+
 /// Return the current the current function name as a `&'static str`,
 /// e.g. `"my_func"`.
+///
+/// `function_name` must be a macro (and not a function) to use
+/// `std::any::type_name::<T>()` introspection.
 #[macro_export]
 macro_rules! function_name {
     () => {{
@@ -38,6 +43,9 @@ pub use function_name;
 
 /// Return the current current function name full path as a `&'static str`,
 /// e.g. `"my_lib::my_mod::my_func"`.
+///
+/// `function_name_full` must be a macro (and not a function) to use
+/// `std::any::type_name::<T>()` introspection.
 ///
 /// Credit to <https://github.com/popzxc/stdext-rs/blob/2179f94475f925a2eacdc2f2408d7ab352d0052c/src/macros.rs#L44-L74>
 #[macro_export]

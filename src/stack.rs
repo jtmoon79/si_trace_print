@@ -7,16 +7,17 @@
 //! According the [_The Rust Performance Book_]:
 //!
 //! > Inline attributes do not guarantee that a function is inlined or not
-/// > inlined, but in practice, `#[inline(always)]` will cause inlining in all
-/// > but the most exceptional cases.
-///
-/// At worst, the indentation may not change and all printing will align
-/// at the same column.
-///
-/// Lack of indentation may also occur in `--release` or other profile-optimized
-/// builds.
-///
-/// [_The Rust Performance Book_]: https://nnethercote.github.io/perf-book/inlining.html
+//! > inlined, but in practice, `#[inline(always)]` will cause inlining in all
+//! > but the most exceptional cases.
+//!
+//! At worst, the indentation may not change and all printing will align
+//! at the same column.
+//!
+//! Lack of indentation may also occur in `--release` or other profile-optimized
+//! builds.
+//!
+//! [_The Rust Performance Book_]: https://nnethercote.github.io/perf-book/inlining.html
+
 use std::collections::HashMap;
 use std::thread;
 use std::thread::ThreadId;
@@ -246,7 +247,8 @@ const S_29: &str = "                                                            
 #[rustfmt::skip]
 const S__: &str = "                                                                                                                        ";
 
-/// Return a string of `s`paces a multiple of [`stack_offset()`].
+/// Return a string of **s**paces that is a multiple of [`stack_offset()`] plus
+/// one.
 ///
 /// [`stack_offset()`]: stack_offset
 pub fn so() -> &'static str {
@@ -287,8 +289,8 @@ pub fn so() -> &'static str {
     }
 }
 
-/// Return a string of `s`paces a multiple of [`stack_offset()`] with trailing
-/// `→` signifying e**n**tering a function.
+/// Return a string of **s**paces tjat os a multiple of [`stack_offset()`] with
+/// trailing `→` signifying e**n**tering a function.
 ///
 /// [`stack_offset()`]: stack_offset
 pub fn sn() -> &'static str {
@@ -329,8 +331,8 @@ pub fn sn() -> &'static str {
     }
 }
 
-/// Return a string of `s`paces a multiple of [`stack_offset()`] with trailing
-/// `←` signifying e**x**iting a function.
+/// Return a string of **s**paces that is a multiple of [`stack_offset()`] with
+/// trailing `←` signifying e**x**iting a function.
 ///
 /// [`stack_offset()`]: stack_offset
 pub fn sx() -> &'static str {
@@ -371,8 +373,8 @@ pub fn sx() -> &'static str {
     }
 }
 
-/// Return a string of `s`paces a multiple of [`stack_offset()`] with trailing
-/// `↔` signifying e**n**tering and e**x**iting a function.
+/// Return a string of **s**paces that is a multiple of [`stack_offset()`] with
+/// trailing `↔` signifying e**n**tering and e**x**iting a function.
 ///
 /// [`stack_offset()`]: stack_offset
 pub fn sñ() -> &'static str {

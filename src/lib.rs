@@ -1,6 +1,6 @@
 // src/lib.rs
 
-//! Functions for printing stack-indented trace-like print statements.
+//! Macros for printing stack-indented trace-like print statements.
 
 #![allow(uncommon_codepoints)]
 

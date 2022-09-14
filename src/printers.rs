@@ -10,6 +10,27 @@
 ///
 /// For completeness, wrap [`println!`].
 ///
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::p;
+/// fn func1() {
+///     p!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+/// hello
+/// ←main:
+/// ```
+///
 /// [`println!`]: println!
 #[macro_export]
 macro_rules! p {
@@ -26,7 +47,28 @@ pub use p;
 /// To signify printing within a function.
 /// Use this to [`println!`] within a function.
 ///
-/// Aided by [`so()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::po;
+/// fn func1() {
+///     po!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     hello
+/// ←main:
+/// ```
+///
+/// Uses [`so()`].
 ///
 /// [`println!`]: println!
 /// [`so()`]: crate::stack::so
@@ -46,7 +88,28 @@ pub use po;
 /// To signify entering a function.
 /// Use this as the first [`println!`] in a function.
 ///
-/// Aided by [`sn()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::pn;
+/// fn func1() {
+///     pn!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///    →hello
+/// ←main:
+/// ```
+///
+/// Uses [`sn()`].
 ///
 /// [`println!`]: println!
 /// [`sn()`]: crate::stack::sn
@@ -66,7 +129,28 @@ pub use pn;
 /// To signify exiting a function.
 /// Use this as the last [`println!`] in a function.
 ///
-/// Aided by [`sx()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::px;
+/// fn func1() {
+///     px!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///    ←hello
+/// ←main:
+/// ```
+///
+/// Uses [`sx()`].
 ///
 /// [`println!`]: println!
 /// [`sx()`]: crate::stack::sx
@@ -87,7 +171,28 @@ pub use px;
 /// Use this as the only [`println!`] in a function.
 /// Most suited for short functions.
 ///
-/// Aided by [`sñ()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::pñ;
+/// fn func1() {
+///     pñ!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///    ↔hello
+/// ←main:
+/// ```
+///
+/// Uses [`sñ()`].
 ///
 /// [`println!`]: println!
 /// [`sñ()`]: crate::stack::sñ
@@ -107,7 +212,28 @@ pub use pñ;
 /// To signify printing wihtin a function.
 /// Use to [`println!`] in a [function].
 ///
-/// Aided by [`so()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::pfo;
+/// fn func1() {
+///     pfo!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`so()`].
 ///
 /// [`println!`]: println!
 /// [function]: crate::function_name::function_name
@@ -128,7 +254,28 @@ pub use pfo;
 /// To signify entering a function.
 /// Use this as the first [`println!`] in a [function].
 ///
-/// Aided by [`sn()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::pfn;
+/// fn func1() {
+///     pfn!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///    →func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`sn()`].
 ///
 /// [`println!`]: println!
 /// [function]: crate::function_name::function_name
@@ -149,7 +296,28 @@ pub use pfn;
 /// To signify exiting a function.
 /// Use this as the last [`println!`] in a [function].
 ///
-/// Aided by [`sx()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::pfn;
+/// fn func1() {
+///     pfn!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///    ←func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`sx()`].
 ///
 /// [`println!`]: println!
 /// [function]: crate::function_name::function_name
@@ -171,7 +339,28 @@ pub use pfx;
 /// Use this as the only [`println!`] in a [function].
 /// Most suited for short functions.
 ///
-/// Aided by [`sñ()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::pfn;
+/// fn func1() {
+///     pfn!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///    ↔func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`sñ()`].
 ///
 /// [`println!`]: println!
 /// [function]: crate::function_name::function_name
@@ -195,6 +384,27 @@ pub use pfñ;
 ///
 /// For completeness, wrap [`eprintln!`].
 ///
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::e;
+/// fn func1() {
+///     e!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+/// hello
+/// ←main:
+/// ```
+///
 /// [`eprintln!`]: eprintln!
 #[macro_export]
 macro_rules! e {
@@ -211,7 +421,28 @@ pub use e;
 /// To signify printing within a function.
 /// Use this to [`eprintln!`] within a function.
 ///
-/// Aided by [`so()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::eo;
+/// fn func1() {
+///     eo!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///      hello
+/// ←main:
+/// ```
+///
+/// Uses [`so()`].
 ///
 /// [`eprintln!`]: eprintln!
 /// [`so()`]: crate::stack::so
@@ -231,7 +462,28 @@ pub use eo;
 /// To signify entering a function.
 /// Use this as the first [`eprintln!`] in a function.
 ///
-/// Aided by [`sn()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::en;
+/// fn func1() {
+///     en!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     →hello
+/// ←main:
+/// ```
+///
+/// Uses [`sn()`].
 ///
 /// [`eprintln!`]: eprintln!
 /// [`sn()`]: crate::stack::sn
@@ -251,7 +503,28 @@ pub use en;
 /// To signify exiting a function.
 /// Use this as the last [`eprintln!`] in a function.
 ///
-/// Aided by [`sx()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::ex;
+/// fn func1() {
+///     ex!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     ←hello
+/// ←main:
+/// ```
+///
+/// Uses [`sx()`].
 ///
 /// [`eprintln!`]: eprintln!
 /// [`sx()`]: crate::stack::sx
@@ -272,7 +545,28 @@ pub use ex;
 /// Use this as the only [`eprintln!`] in a function.
 /// Most suited for short functions.
 ///
-/// Aided by [`sñ()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::eñ;
+/// fn func1() {
+///     eñ!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     ↔hello
+/// ←main:
+/// ```
+///
+/// Uses [`sñ()`].
 ///
 /// [`eprintln!`]: eprintln!
 /// [`sñ()`]: crate::stack::sñ
@@ -292,7 +586,28 @@ pub use eñ;
 /// To signify printing wihtin a function.
 /// Use to [`eprintln!`] in a [function].
 ///
-/// Aided by [`so()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::efo;
+/// fn func1() {
+///     efo!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///      func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`so()`].
 ///
 /// [`eprintln!`]: eprintln!
 /// [function]: crate::function_name::function_name
@@ -313,7 +628,27 @@ pub use efo;
 /// To signify entering a function.
 /// Use this as the first [`eprintln!`] in a [function].
 ///
-/// Aided by [`sn()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// fn func1() {
+///     efn!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     →func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`sn()`].
 ///
 /// [`eprintln!`]: eprintln!
 /// [function]: crate::function_name::function_name
@@ -334,7 +669,27 @@ pub use efn;
 /// To signify exiting a function.
 /// Use this as the last [`eprintln!`] in a [function].
 ///
-/// Aided by [`sx()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// fn func1() {
+///     efx!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     ←func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`sx()`].
 ///
 /// [`eprintln!`]: eprintln!
 /// [function]: crate::function_name::function_name
@@ -356,7 +711,28 @@ pub use efx;
 /// Use this as the only [`eprintln!`] in a [function].
 /// Most suited for short functions.
 ///
-/// Aided by [`sñ()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::efñ;
+/// fn func1() {
+///     efñ!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     ↔func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`sñ()`].
 ///
 /// [`eprintln!`]: eprintln!
 /// [function]: crate::function_name::function_name
@@ -378,7 +754,30 @@ pub use efñ;
 
 /// **d**ebug **p**rintln!
 ///
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::dp;
+/// fn func1() {
+///     dp!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+/// hello
+/// ←main:
+/// ```
+///
 /// For completeness, wraps [`println!`] for debug builds.
+///
+/// For debug builds.
 ///
 /// [`println!`]: println!
 #[macro_export]
@@ -397,7 +796,28 @@ pub use dp;
 /// To signify printing within a function.
 /// Use this to [`println!`] within a function.
 ///
-/// Aided by [`so()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::dpo;
+/// fn func1() {
+///     dpo!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///      hello
+/// ←main:
+/// ```
+///
+/// Uses [`so()`].
 ///
 /// For debug builds.
 ///
@@ -421,7 +841,28 @@ pub use dpo;
 /// To signify entering a function.
 /// Use this as the first [`println!`] in a function.
 ///
-/// Aided by [`sn()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::dpn;
+/// fn func1() {
+///     dpn!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     →hello
+/// ←main:
+/// ```
+///
+/// Uses [`sn()`].
 ///
 /// For debug builds.
 ///
@@ -445,7 +886,28 @@ pub use dpn;
 /// To signify exiting a function.
 /// Use this as the last [`println!`] in a function.
 ///
-/// Aided by [`sx()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::dpx;
+/// fn func1() {
+///     dpx!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     ←hello
+/// ←main:
+/// ```
+///
+/// Uses [`sx()`].
 ///
 /// For debug builds.
 ///
@@ -470,7 +932,28 @@ pub use dpx;
 /// Use this as the only [`println!`] in a function.
 /// Most suited for short functions.
 ///
-/// Aided by [`sñ()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::dpñ;
+/// fn func1() {
+///     dpñ!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     ↔hello
+/// ←main:
+/// ```
+///
+/// Uses [`sñ()`].
 ///
 /// For debug builds.
 ///
@@ -494,7 +977,28 @@ pub use dpñ;
 /// To signify printing wihtin a function.
 /// Use to [`println!`] in a [function].
 ///
-/// Aided by [`so()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::dpfo;
+/// fn func1() {
+///     dpfo!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///      func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`so()`].
 ///
 /// For debug builds.
 ///
@@ -519,7 +1023,28 @@ pub use dpfo;
 /// To signify entering a function.
 /// Use this as the first [`println!`] in a [function].
 ///
-/// Aided by [`sn()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::dpfn;
+/// fn func1() {
+///     dpfn!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     →func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`sn()`].
 ///
 /// For debug builds.
 ///
@@ -544,7 +1069,28 @@ pub use dpfn;
 /// To signify exiting a function.
 /// Use this as the last [`println!`] in a [function].
 ///
-/// Aided by [`sx()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::dpfx;
+/// fn func1() {
+///     dpfx!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     ←func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`sx()`].
 ///
 /// For debug builds.
 ///
@@ -570,7 +1116,28 @@ pub use dpfx;
 /// Use this as the only [`println!`] in a [function].
 /// Most suited for short functions.
 ///
-/// Aided by [`sñ()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::dpfñ;
+/// fn func1() {
+///     dpfñ!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     ↔func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`sñ()`].
 ///
 /// For debug builds.
 ///
@@ -598,6 +1165,27 @@ pub use dpfñ;
 ///
 /// For completeness, wrap [`eprintln!`].
 ///
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::de;
+/// fn func1() {
+///     de!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+/// hello
+/// ←main:
+/// ```
+///
 /// For debug builds.
 ///
 /// [`eprintln!`]: eprintln!
@@ -617,7 +1205,28 @@ pub use de;
 /// To signify printing within a function.
 /// Use this to [`eprintln!`] within a function.
 ///
-/// Aided by [`so()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::deo;
+/// fn func1() {
+///     deo!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///      hello
+/// ←main:
+/// ```
+///
+/// Uses [`so()`].
 ///
 /// For debug builds.
 ///
@@ -641,7 +1250,28 @@ pub use deo;
 /// To signify entering a function.
 /// Use this as the first [`eprintln!`] in a function.
 ///
-/// Aided by [`sn()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::den;
+/// fn func1() {
+///     den!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     →hello
+/// ←main:
+/// ```
+///
+/// Uses [`sn()`].
 ///
 /// For debug builds.
 ///
@@ -665,7 +1295,28 @@ pub use den;
 /// To signify exiting a function.
 /// Use this as the last [`eprintln!`] in a function.
 ///
-/// Aided by [`sx()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::dex;
+/// fn func1() {
+///     dex!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     ←hello
+/// ←main:
+/// ```
+///
+/// Uses [`sx()`].
 ///
 /// For debug builds.
 ///
@@ -690,7 +1341,28 @@ pub use dex;
 /// Use this as the only [`eprintln!`] in a function.
 /// Most suited for short functions.
 ///
-/// Aided by [`sñ()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::deñ;
+/// fn func1() {
+///     deñ!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     ↔hello
+/// ←main:
+/// ```
+///
+/// Uses [`sñ()`].
 ///
 /// For debug builds.
 ///
@@ -714,7 +1386,28 @@ pub use deñ;
 /// To signify printing wihtin a function.
 /// Use to [`eprintln!`] in a [function].
 ///
-/// Aided by [`so()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::defo;
+/// fn func1() {
+///     defo!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///      func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`so()`].
 ///
 /// For debug builds.
 ///
@@ -739,7 +1432,28 @@ pub use defo;
 /// To signify entering a function.
 /// Use this as the first [`eprintln!`] in a [function].
 ///
-/// Aided by [`sn()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::defn;
+/// fn func1() {
+///     defn!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     →func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`sn()`].
 ///
 /// For debug builds.
 ///
@@ -764,7 +1478,28 @@ pub use defn;
 /// To signify exiting a function.
 /// Use this as the last [`eprintln!`] in a [function].
 ///
-/// Aided by [`sx()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::defx;
+/// fn func1() {
+///     defx!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     ←func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`sx()`].
 ///
 /// For debug builds.
 ///
@@ -790,7 +1525,28 @@ pub use defx;
 /// Use this as the only [`eprintln!`] in a [function].
 /// Most suited for short functions.
 ///
-/// Aided by [`sñ()`].
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::defñ;
+/// fn func1() {
+///     defñ!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     ↔func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`sñ()`].
 ///
 /// For debug builds.
 ///
