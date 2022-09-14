@@ -27,7 +27,8 @@ jobs:
       - name: Run Tests
         run: |
           set -eux
-          cargo test -j1 --verbose -- --test-threads=1
+          cargo test -j1 --verbose --all-targets --all-features -- \
+              --test-threads=1
           cargo test -j2 --verbose -- --test-threads=2
           cargo test -j8 --verbose -- --test-threads=8
       - name: Build Documentation
