@@ -9,4 +9,4 @@ cd "$(dirname -- "${0}")/.."
 
 set -x
 
-exec cargo fmt "${@}"
+exec cargo fmt --verbose "${@}"
