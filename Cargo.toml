@@ -13,6 +13,10 @@ readme = "README.md"
 # See <https://rust-lang.github.io/api-guidelines/documentation.html#cargotoml-includes-all-common-metadata-c-metadata>
 exclude = [
     "tools/*",
+    "configs/*",
+    ".github/*",
+    ".codedov.yml",
+    "rustfmt.toml",
 ]
 
 [dependencies]
