@@ -12,11 +12,12 @@ jobs:
   job_build_debug_release_test:
     runs-on: ubuntu-latest
     steps:
+      # git checkout
+      - uses: actions/checkout@v2
       # rustfmt
       - name: Check rustfmt
         run: cargo fmt --verbose --check
       # build debug and release
-      - uses: actions/checkout@v2
       - name: Build Debug and Release
         run: |
           set -eux
@@ -30,5 +31,5 @@ jobs:
           cargo test -j2 --verbose -- --test-threads=2
           cargo test -j8 --verbose -- --test-threads=8
       # doc
-      - name: Build documentation
+      - name: Build Documentation
         run: cargo doc --locked --release --frozen --no-deps -v
