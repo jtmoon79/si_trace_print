@@ -33,6 +33,7 @@ macro_rules! function_name {
                 }
             }
             None => {
+                // this `None` should never happen... but if it does then
                 // fallback to full name
                 name
             }

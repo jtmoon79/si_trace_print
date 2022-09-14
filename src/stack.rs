@@ -43,10 +43,7 @@ lazy_static! {
     /// Call `stack_offset_set` to set `STACK_OFFSET_TABLE` once per thread.
     /// Call `stack_offset` to get current stack offset using
     /// `STACK_OFFSET_TABLE`.
-    //
-    // BUG: no mutex to guard access; however, it's written to once per thread
-    //      and so this has not proven a problem in practice 🤞
-    //
+    ///
     // XXX: a mutable static reference for "complex types" is not allowed in
     //      rust.
     //      The `STACK_OFFSET_TABLE` instance is a combined `lazy_static` and
