@@ -1,6 +1,22 @@
 // src/stack.rs
 
 //! Functions to find current stack depth for indented trace prints.
+//!
+//! The stack-based indentation amount depend on `inline` attributes being used
+//! predictably.
+//! According the [_The Rust Performance Book_]:
+//!
+//! > Inline attributes do not guarantee that a function is inlined or not
+/// > inlined, but in practice, `#[inline(always)]` will cause inlining in all
+/// > but the most exceptional cases.
+///
+/// At worst, the indentation may not change and all printing will align
+/// at the same column.
+///
+/// Lack of indentation may also occur in `--release` or other profile-optimized
+/// builds.
+///
+/// [_The Rust Performance Book_]: https://nnethercote.github.io/perf-book/inlining.html
 
 use std::collections::HashMap;
 use std::thread;
@@ -264,7 +280,7 @@ pub fn sn() -> &'static str {
 }
 
 /// Return a string of `s`paces a multiple of [`stack_offset()`] with trailing
-/// `←` signifying e`x`iting a function.
+/// `←` signifying e**x**iting a function.
 ///
 /// [`stack_offset()`]: stack_offset
 pub fn sx() -> &'static str {
@@ -306,7 +322,7 @@ pub fn sx() -> &'static str {
 }
 
 /// Return a string of `s`paces a multiple of [`stack_offset()`] with trailing
-/// `↔` signifying e`n`tering and e`x`iting a function.
+/// `↔` signifying e**n**tering and e**x**iting a function.
 ///
 /// [`stack_offset()`]: stack_offset
 pub fn sn͓() -> &'static str {
