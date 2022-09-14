@@ -1,4 +1,4 @@
-# github workflows action file for rust activities
+# github workflows action file for si_trace_print
 ---
 name: Rust
 on:
@@ -10,10 +10,11 @@ env:
 jobs:
   # do all the basic rust stuff
   job_fmt_clippy_build_buildrelease_test_doc:
-    name: job fmt clippy build test doc
+    name: fmt clippy build test doc
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: git checkout
+        uses: actions/checkout@v2
       - name: Check rustfmt
         run: cargo fmt --verbose --check
       - name: Check clippy
