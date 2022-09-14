@@ -20,7 +20,7 @@
 
 use std::collections::HashMap;
 use std::thread;
-use std::thread::{Thread, ThreadId};
+use std::thread::ThreadId;
 
 extern crate backtrace;
 
@@ -44,22 +44,30 @@ lazy_static! {
     /// Call `stack_offset` to get current stack offset using
     /// `STACK_OFFSET_TABLE`.
     //
-    // XXX: no mutex to guard access; it's rarely written to 🤞
+    // BUG: no mutex to guard access; however, it's written to once per thread
+    //      and so this has not proven a problem in practice 🤞
     //
-    // XXX: a mutable static reference for "complex types" is not allowed in rust
-    //      using `lazy_static` and `mut_static` to create one
-    //      see https://github.com/tyleo/mut_static#quickstart
+    // XXX: a mutable static reference for "complex types" is not allowed in
+    //      rust.
+    //      The `STACK_OFFSET_TABLE` instance is a combined `lazy_static` and
+    //      `mut_static`.
+    //      See https://github.com/tyleo/mut_static#quickstart
     //
-    static ref STACK_OFFSET_TABLE: mut_static::MutStatic<MapThreadidSd<'static>> =
-        mut_static::MutStatic::new();
+    static ref STACK_OFFSET_TABLE: mut_static::MutStatic<MapThreadidSd<'static>> = {
+        mut_static::MutStatic::new()
+    };
 }
 
 /// Return current absolute stack depth according to [`backtrace::trace`],
-/// including this function `stack_depth`.
+/// not including this function `stack_depth`.
 /// Users should prefer to use [`stack_offset`].
+///
+/// `stack_depth` decrements it's own stack depth by implied result of
+/// attribute `#[inline(always)]`.
 ///
 /// [`stack_offset`]: stack_offset
 /// [`backtrace::trace`]: https://docs.rs/backtrace/0.3.66/backtrace/fn.trace.html
+/// [_The Rust Performance Book_]: https://nnethercote.github.io/perf-book/inlining.html
 #[inline(always)]
 pub fn stack_depth() -> StackDepth {
     let mut sd: StackDepth = 0;
@@ -71,30 +79,67 @@ pub fn stack_depth() -> StackDepth {
     sd
 }
 
-/// Return current stack depth _offset_ compared to "original" stack depth.
-/// The "original" stack depth should have been recorded at the beginning of the
-/// thread by calling [`stack_offset_set`].
-///
-/// [`stack_offset_set`]: stack_offset_set
-pub fn stack_offset() -> StackDepth {
-    if !(cfg!(debug_assertions) || cfg!(test)) {
-        return 0;
-    }
-    let mut sd: StackDepth = stack_depth() - 1;
-    let sd2: StackDepth = sd; // XXX: copy `sd` to avoid borrow error
-    let tid: ThreadId = thread::current().id();
-    // XXX: for tests, just set on first call
-    if !STACK_OFFSET_TABLE.is_set().unwrap() {
-        #[allow(clippy::single_match)]
-        match STACK_OFFSET_TABLE.set(MapThreadidSd::new()) {
-            Err(err) => {
-                eprintln!("ERROR: stack_offset: STACK_OFFSET_TABLE.set failed {:?}", err);
+/// Make sure the global STACK_OFFSET_TABLE has been created.
+#[inline(never)]
+fn stack_offset_table_create() -> bool {
+    match STACK_OFFSET_TABLE.is_set() {
+        Ok(false) => {
+            // STACK_OFFSET_TABLE not yet created so create it.
+            #[allow(clippy::single_match)]
+            match STACK_OFFSET_TABLE.set(MapThreadidSd::new()) {
+                Err(err) => {
+                    // rare case that depends on runtime race conditions.
+                    if matches!(err.kind(), mut_static::ErrorKind::StaticIsAlreadySet) {
+                        // this is fine
+                        return true;
+                    }
+                    // this is not fine
+                    let tid = thread::current().id();
+                    eprintln!("ERROR: stack_offset: STACK_OFFSET_TABLE.set failed in thread {:?}; {:?}", tid, err);
+                    return false;
+                }
+                _ => {}
             }
-            _ => {}
+        }
+        Ok(true) => {}
+        Err(err) => {
+            panic!("STACK_OFFSET_TABLE.is_set() failed {}", err);
         }
     }
-    let so_table = STACK_OFFSET_TABLE.read().unwrap();
-    let so: &usize = so_table.get(&tid).unwrap_or(&sd2);
+
+    true
+}
+
+/// Return current stack depth _offset_ compared to "original" stack depth.
+///
+/// The "original" stack depth is recorded by either:
+/// - an explicit call to [`stack_offset_set`].
+/// - an implicit call to [`stack_offset_set`] via calling this `stack_offset`.
+///
+/// [`stack_offset_set`]: stack_offset_set
+#[inline(never)]
+pub fn stack_offset() -> StackDepth {
+    // call `stack_offset_set` which will both check the table exists
+    // and has an offset entry for this thread. If an entry is not already
+    // present than initialize with `1` correction, to correct this function
+    // `stack_offset`.
+    stack_offset_set(Some(1));
+    let mut sd: StackDepth = stack_depth();
+    if sd > 0 {
+        sd -= 1;
+    }
+
+    let tid: ThreadId = thread::current().id();
+    let so_table = match STACK_OFFSET_TABLE.read() {
+        Ok(table) => table,
+        Err(_err) => {
+            //eprintln!("ERROR: stack_offset: STACK_OFFSET_TABLE.read failed {:?}", err);
+            return 0;
+        }
+    };
+    let sd_: StackDepth = sd; // XXX: copy `sd` to avoid borrow error
+    // "original" stack offset
+    let so: &usize = so_table.get(&tid).unwrap_or(&sd_);
     if &sd < so {
         return 0;
     }
@@ -123,34 +168,37 @@ pub fn stack_offset() -> StackDepth {
 /// left-most column (and not be indented to the right).
 /// This may improve readability.
 ///
+/// Only the first call to `stack_offset_set` within a thread is used.
+/// Subsequent calls are ignored.
+///
 /// [`stack_depth`]: stack_depth
+#[inline(never)]
 pub fn stack_offset_set(correction: Option<isize>) {
-    //if ! (cfg!(debug_assertions) || cfg!(test)) {
-    //    return;
-    //}
-    let sd_: usize = stack_depth();
-    let sdi: isize = (sd_ as isize) - correction.unwrap_or(0);
-    let so: usize = std::cmp::max(sdi, 0) as usize;
-    let thread_cur: Thread = thread::current();
-    let tid: ThreadId = thread_cur.id();
-    if !STACK_OFFSET_TABLE.is_set().unwrap() {
-        // BUG: multiple simlutaneous calls to `STACK_OFFSET_TABLE.is_set()`
-        //      then `STACK_OFFSET_TABLE.set(…)` may cause `.set(…)` to return
-        //      an error.
-        //      Seen in some calls to `cargo test` with filtering where many
-        //      tests call `stack_offset_set`. Needs a mutex.
-        #[allow(clippy::single_match)]
-        match STACK_OFFSET_TABLE.set(MapThreadidSd::new()) {
-            Err(err) => {
-                eprintln!("ERROR: stack_offset_set: STACK_OFFSET_TABLE.set failed {:?}", err);
-            }
-            _ => {}
-        }
-    }
-    if STACK_OFFSET_TABLE.read().unwrap().contains_key(&tid) {
+    if !stack_offset_table_create() {
         return;
     }
-    STACK_OFFSET_TABLE.write().unwrap().insert(tid, so);
+    let tid: ThreadId = thread::current().id();
+    {
+        if STACK_OFFSET_TABLE.read().unwrap().contains_key(&tid) {
+            // only the first call to `stack_offset_set` is used, ignore further
+            // calls
+            return;
+        }
+    }
+    let mut sd: StackDepth = stack_depth();
+    if sd > 0 {
+        // remove this function `stack_offset_set` stack frame depth
+        sd -= 1;
+    }
+    let sdi: isize = (sd as isize) - correction.unwrap_or(0);
+    // set the "original" stack offset
+    let so: StackDepth = std::cmp::max(sdi, 0) as StackDepth;
+    match STACK_OFFSET_TABLE.write() {
+        Ok(mut table) => {
+            table.insert(tid, so);
+        }
+        Err(_err) => {}
+    }
 }
 
 const S_0: &str = "";
@@ -238,7 +286,7 @@ pub fn so() -> &'static str {
 }
 
 /// Return a string of `s`paces a multiple of [`stack_offset()`] with trailing
-/// `→` signifying e`n`tering a function.
+/// `→` signifying e**n**tering a function.
 ///
 /// [`stack_offset()`]: stack_offset
 pub fn sn() -> &'static str {
@@ -325,7 +373,7 @@ pub fn sx() -> &'static str {
 /// `↔` signifying e**n**tering and e**x**iting a function.
 ///
 /// [`stack_offset()`]: stack_offset
-pub fn sn͓() -> &'static str {
+pub fn sñ() -> &'static str {
     const LEAD: &str = "↔";
     let so = stack_offset();
     match so {
@@ -365,7 +413,7 @@ pub fn sn͓() -> &'static str {
 
 #[cfg(test)]
 mod tests {
-    use super::{sn, sn͓, so, stack_depth, stack_offset, stack_offset_set, sx, StackDepth};
+    use super::{sn, sñ, so, stack_depth, stack_offset, stack_offset_set, sx, StackDepth};
 
     #[test]
     fn test_stack_depth() {
@@ -373,25 +421,140 @@ mod tests {
         fn func1() -> StackDepth {
             stack_depth()
         }
+        fn func2() -> StackDepth {
+            stack_depth()
+        }
         let b = func1();
+        let c = func2();
         assert!(
             b - 1 == a,
             "expected stack depth difference of 1, got stack depth {}, plus a function stack depth {}",
             a,
             b,
         );
+        assert!(
+            b == c,
+            "expected same, got stack depths {} {}",
+            b,
+            c,
+        );
     }
 
     #[test]
-    fn test_stack_offset() {
-        stack_offset_set(Some(1));
+    fn test_stack_offset_a_b() {
         let a = stack_offset();
         fn func1() -> StackDepth {
             stack_offset()
         }
         let b = func1();
         assert!(
-            b - 1 == a,
+            b == a + 1,
+            "expected stack offset difference of 1, got stack offset {}, plus a function stack offset {}",
+            a,
+            b,
+        );
+    }
+
+    #[test]
+    fn test_stack_offset_a_b_c() {
+        let a = stack_offset();
+        fn func1() -> StackDepth {
+            stack_offset()
+        }
+        fn func2() -> StackDepth {
+            stack_offset()
+        }
+        let b = func1();
+        let c = func2();
+        assert!(
+            b == a + 1,
+            "expected stack offset difference of 1, got stack offset {}, plus a function stack offset {}",
+            a,
+            b,
+        );
+        assert!(
+            b == c,
+            "expected same, got stack depths {} {}",
+            b,
+            c,
+        );
+    }
+
+    #[test]
+    fn test_stack_offset_set_none() {
+        stack_offset_set(None);
+        let a = stack_offset();
+        fn func1() -> StackDepth {
+            stack_offset()
+        }
+        let b = func1();
+        assert!(
+            b == a + 1,
+            "expected stack offset difference of 1, got stack offset {}, plus a function stack offset {}",
+            a,
+            b,
+        );
+    }
+
+    #[test]
+    fn test_stack_offset_set_none_999() {
+        stack_offset_set(None);
+        let a = stack_offset();
+        fn func1() -> StackDepth {
+            // attempt to set again
+            stack_offset_set(Some(999));
+            stack_offset()
+        }
+        let b = func1();
+        assert!(
+            b == a + 1,
+            "expected stack offset difference of 1, got stack offset {}, plus a function stack offset {}",
+            a,
+            b,
+        );
+    }
+
+    #[test]
+    fn test_stack_offset_set_multiple_threads() {
+        let mut handles = Vec::<std::thread::JoinHandle::<()>>::new();
+
+        for _i in 1..99 {
+            let handle = std::thread::spawn(|| {
+                stack_offset_set(None);
+                let a = stack_offset();
+                fn func1() -> StackDepth {
+                    stack_offset()
+                }
+                let b = func1();
+                assert!(
+                    b == a + 1,
+                    "expected stack offset difference of 1, got stack offset {}, plus a function stack offset {}",
+                    a,
+                    b,
+                );
+            });
+            handles.push(handle);
+        }
+        for handle in handles.into_iter() {
+            match handle.join() {
+                Ok(_) => {},
+                Err(err) => {
+                    panic!("handle.join failed {:?}", err);
+                },
+            }
+        }
+    }
+
+    #[test]
+    fn test_stack_offset_set_10() {
+        stack_offset_set(Some(10));
+        let a = stack_offset();
+        fn func1() -> StackDepth {
+            stack_offset()
+        }
+        let b = func1();
+        assert!(
+            b == a + 1,
             "expected stack offset difference of 1, got stack offset {}, plus a function stack offset {}",
             a,
             b,
@@ -414,7 +577,7 @@ mod tests {
     }
 
     #[test]
-    fn test_sn͓() {
-        sn͓();
+    fn test_sñ() {
+        sñ();
     }
 }
