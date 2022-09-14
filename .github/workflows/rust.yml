@@ -17,6 +17,9 @@ jobs:
       # rustfmt
       - name: Check rustfmt
         run: cargo fmt --verbose --check
+      # clippy
+      - name: Check clippy
+        run:  cargo clippy --frozen --no-deps --verbose --all-targets --all-features -- -D warnings
       # build debug and release
       - name: Build Debug and Release
         run: |
