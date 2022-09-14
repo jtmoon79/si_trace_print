@@ -11,6 +11,9 @@ readme = "README.md"
 # Do not set metadata fields `documentation` or `homepage` unless using
 # non-standard websites.
 # See <https://rust-lang.github.io/api-guidelines/documentation.html#cargotoml-includes-all-common-metadata-c-metadata>
+exclude = [
+    "tools/*",
+]
 
 [dependencies]
 backtrace = "0.3.66"
