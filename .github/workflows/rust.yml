@@ -9,7 +9,7 @@ env:
   CARGO_TERM_COLOR: always
   RUST_BACKTRACE: 1
 jobs:
-  job_build_debug_release_test:
+  job_fmt_build_buildrelease_test_doc:
     runs-on: ubuntu-latest
     steps:
       # git checkout
