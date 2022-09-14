@@ -9,7 +9,7 @@ env:
   CARGO_TERM_COLOR: always
   RUST_BACKTRACE: 1
 jobs:
-  job_fmt_build_buildrelease_test_doc:
+  job_fmt_clippy_build_buildrelease_test_doc:
     runs-on: ubuntu-latest
     steps:
       # git checkout
@@ -19,7 +19,7 @@ jobs:
         run: cargo fmt --verbose --check
       # clippy
       - name: Check clippy
-        run:  cargo clippy --frozen --no-deps --verbose --all-targets --all-features -- -D warnings
+        run:  cargo clippy --no-deps --verbose --all-targets --all-features -- -D warnings
       # build debug and release
       - name: Build Debug and Release
         run: |
