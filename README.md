@@ -16,8 +16,8 @@ Useful for trace printing function flows.
   - [Trace-printing example](#trace-printing-example)
   - [Manually setting the indentation](#manually-setting-the-indentation)
 - [Shortcomings](#shortcomings)
-  - [Release builds](#release-builds)
   - [Slow](#slow)
+  - [Release builds](#release-builds)
 
 ---
 
@@ -37,7 +37,6 @@ fn main() {
     po!("main will be doing stuff...");
     my_func1(3);
     po!("main is done doing stuff...");
-    p!("macro {:?} is just a call to {:?} using fewer characters.", "p!", "println!");
     px!("goodbye from main");
 }
 
@@ -57,7 +56,7 @@ fn my_func2(var: usize) {
 fn my_func3() {
     pfn!();
     my_func4();
-    pfo!("...");
+    pfo!("almost complete...");
     pfx!();
 }
 
@@ -73,11 +72,10 @@ should print
  main will be doing stuff...
     →my_func1: (3)
         →my_func2: (4)
-This "p!" is just a call to "println!" but fewer characters.
          my_func2: calling func3...
             →my_func3:
                 ↔my_func4: func4 is a short function.
-             my_func3: ...
+             my_func3: almost complete...
             ←my_func3:
         ←my_func2: (4)
     ←my_func1: (3)
@@ -118,18 +116,13 @@ $ cargo run
 ←goodbye from main
 ```
 
-But with `--release` the statements are not compiled so this prints
-
-<!-- markdownlint-disable commands-show-output -->
-```text
-$ cargo run --release
-```
-<!-- markdownlint-enable commands-show-output -->
-
-(no program output is printed)
+If built with `--release` then the statements are not compiled and nothing would
+be printed.
 
 ### Manually setting the indentation
 
+The first use of a library macro will set the "original" stack depth.
+This is later used to calculate indentation offsets.
 If the first use of this library is several functions into a program then
 later printing may be lose indentation.
 
@@ -203,7 +196,7 @@ this printed
     ←main: goodbye from main
 ```
 
-The indentation is improved but slightly too much.
+The indentation is improved but is too far indented.
 The indentation amount to pass to `stack_offset_set` can be somewhat unpredictable.
 It depends on build settings and which thread is running, among other things.
 In this case, experimentation revealed value `-1` to be best:
@@ -227,6 +220,11 @@ this printed
 
 ## Shortcomings
 
+### Slow
+
+This trace function may significantly slow a program. It is recommended to
+use the **d**ebug version of provided macros.
+
 ### Release builds
 
 The calculation of function depth depends on stack frames counted by
@@ -235,11 +233,6 @@ The count of stack frames may not change among function calls.
 This means the printed indentation will not reflect function call depth.
 This can be forcibly avoided by adding attribute `#[inline(never)]` to such
 functions.
-
-### Slow
-
-This trace function may signifcantly slow a program. It is recommended to
-use the **d**ebug version of provided macros.
 
 <!-- links -->
 
