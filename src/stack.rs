@@ -17,7 +17,6 @@
 /// builds.
 ///
 /// [_The Rust Performance Book_]: https://nnethercote.github.io/perf-book/inlining.html
-
 use std::collections::HashMap;
 use std::thread;
 use std::thread::ThreadId;
@@ -95,7 +94,10 @@ fn stack_offset_table_create() -> bool {
                     }
                     // this is not fine
                     let tid = thread::current().id();
-                    eprintln!("ERROR: stack_offset: STACK_OFFSET_TABLE.set failed in thread {:?}; {:?}", tid, err);
+                    eprintln!(
+                        "ERROR: stack_offset: STACK_OFFSET_TABLE.set failed in thread {:?}; {:?}",
+                        tid, err
+                    );
                     return false;
                 }
                 _ => {}
@@ -138,7 +140,7 @@ pub fn stack_offset() -> StackDepth {
         }
     };
     let sd_: StackDepth = sd; // XXX: copy `sd` to avoid borrow error
-    // "original" stack offset
+                              // "original" stack offset
     let so: &usize = so_table.get(&tid).unwrap_or(&sd_);
     if &sd < so {
         return 0;
@@ -413,7 +415,7 @@ pub fn sñ() -> &'static str {
 
 #[cfg(test)]
 mod tests {
-    use super::{sn, sñ, so, stack_depth, stack_offset, stack_offset_set, sx, StackDepth};
+    use super::{sn, so, stack_depth, stack_offset, stack_offset_set, sx, sñ, StackDepth};
 
     #[test]
     fn test_stack_depth() {
@@ -432,12 +434,7 @@ mod tests {
             a,
             b,
         );
-        assert!(
-            b == c,
-            "expected same, got stack depths {} {}",
-            b,
-            c,
-        );
+        assert!(b == c, "expected same, got stack depths {} {}", b, c,);
     }
 
     #[test]
@@ -472,12 +469,7 @@ mod tests {
             a,
             b,
         );
-        assert!(
-            b == c,
-            "expected same, got stack depths {} {}",
-            b,
-            c,
-        );
+        assert!(b == c, "expected same, got stack depths {} {}", b, c,);
     }
 
     #[test]
@@ -516,7 +508,7 @@ mod tests {
 
     #[test]
     fn test_stack_offset_set_multiple_threads() {
-        let mut handles = Vec::<std::thread::JoinHandle::<()>>::new();
+        let mut handles = Vec::<std::thread::JoinHandle<()>>::new();
 
         for _i in 1..99 {
             let handle = std::thread::spawn(|| {
@@ -537,10 +529,10 @@ mod tests {
         }
         for handle in handles.into_iter() {
             match handle.join() {
-                Ok(_) => {},
+                Ok(_) => {}
                 Err(err) => {
                     panic!("handle.join failed {:?}", err);
-                },
+                }
             }
         }
     }
