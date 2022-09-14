@@ -1,0 +1,34 @@
+---
+name: Rust
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: 1
+jobs:
+  job_build_debug_release_test:
+    runs-on: ubuntu-latest
+    steps:
+      # rustfmt
+      - name: Check rustfmt
+        run: cargo fmt --verbose --check
+      # build debug and release
+      - uses: actions/checkout@v2
+      - name: Build Debug and Release
+        run: |
+          set -eux
+          cargo build --verbose
+          cargo build --verbose --release
+      # test
+      - name: Run Tests
+        run: |
+          set -eux
+          cargo test -j1 --verbose -- --test-threads=1
+          cargo test -j2 --verbose -- --test-threads=2
+          cargo test -j8 --verbose -- --test-threads=8
+      # doc
+      - name: Build documentation
+        run: cargo doc --locked --release --frozen --no-deps -v
