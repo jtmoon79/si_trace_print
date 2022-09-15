@@ -25,13 +25,16 @@ jobs:
           set -eux
           cargo build --verbose
           cargo build --verbose --release
-      - name: Run Tests
+      - name: Run All Tests Single-threaded
         run: |
           set -eux
           cargo test -j1 --verbose --all-targets --all-features -- \
               --test-threads=1
-          cargo test -j2 --verbose -- --test-threads=2
-          cargo test -j8 --verbose -- --test-threads=8
+      - name: Run Lib Tests Multi-threaded
+        run: |
+          set -eux
+          cargo test -j2 --lib --verbose -- --test-threads=2
+          cargo test -j8 --lib --verbose -- --test-threads=8
       - name: Build Documentation
         run: cargo doc --locked --release --frozen --no-deps -v
   # run code coverage with rust "nightly", upload to codecov.io
