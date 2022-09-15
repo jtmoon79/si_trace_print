@@ -4,7 +4,7 @@
 //!
 //! The stack-based indentation amount depend on `inline` attributes being used
 //! predictably.
-//! According the [_The Rust Performance Book_]:
+//! According to [_The Rust Performance Book_]:
 //!
 //! > Inline attributes do not guarantee that a function is inlined or not
 //! > inlined, but in practice, `#[inline(always)]` will cause inlining in all
@@ -13,7 +13,7 @@
 //! At worst, the indentation may not change and all printing will align
 //! at the same column.
 //!
-//! Lack of indentation may also occur in `--release` or other profile-optimized
+//! Lack of indentation may also occur in a `--release` build or other optimized
 //! builds.
 //!
 //! [_The Rust Performance Book_]: https://nnethercote.github.io/perf-book/inlining.html
@@ -148,10 +148,13 @@ pub fn stack_offset() -> StackDepth {
     sd
 }
 
-/// Call `stack_offset_set` once in each thread, preferably before using
-/// dependent macros (e.g. `so()`, `den()`, etc.) and before calling any
-/// functions. Gets a baseline "offset" value (retrieved from [`stack_depth`])
-/// and stores it in the private global `STACK_OFFSET_TABLE`.
+/// `stack_offset_set` gets a baseline "offset" value
+/// (retrieved from [`stack_depth`]) and stores it in the private global
+/// `STACK_OFFSET_TABLE`. `stack_offset_set` can be explicitly called to force
+/// the "original" stack depth value to be set.
+/// This explicit call must be done before calling dependent macros
+/// (e.g. `po()`, `den()`, etc.) and before calling any dependent
+/// functions (e.g. `so()`).
 ///
 /// A positive value `correction` will move the printed output to the right.
 /// If the `correction` is too negative then it will print to the left-most
@@ -244,8 +247,8 @@ const S_29: &str = "                                                            
 #[rustfmt::skip]
 const S__: &str = "                                                                                                                        ";
 
-/// Return a string of **s**paces that is a multiple of [`stack_offset()`] plus
-/// one.
+/// Return a string of **s**paces that is a multiple of [`stack_offset()`] with
+/// one trailing space.
 ///
 /// [`stack_offset()`]: stack_offset
 pub fn so() -> &'static str {
@@ -286,7 +289,7 @@ pub fn so() -> &'static str {
     }
 }
 
-/// Return a string of **s**paces tjat os a multiple of [`stack_offset()`] with
+/// Return a string of **s**paces that is a multiple of [`stack_offset()`] with
 /// trailing `→` signifying e**n**tering a function.
 ///
 /// [`stack_offset()`]: stack_offset
