@@ -4,10 +4,10 @@ A rust library to print messages indented to stack depth optionally preceded by 
 
 Useful for trace printing function flows.
 
-[![Build status](https://github.com/jtmoon79/si_trace_print/actions/workflows/rust.yml/badge.svg)](https://github.com/jtmoon79/si_trace_print/actions?query=workflow:build)
-[![Docs](https://docs.rs/si_trace_print/badge.svg)](https://docs.rs/si_trace_print)
-[![codecov](https://codecov.io/gh/jtmoon79/si_trace_print/branch/main/graph/badge.svg?token=Q2OXTL7U02)](https://codecov.io/gh/jtmoon79/si_trace_print)
-[![Crates.io](https://img.shields.io/crates/v/si_trace_print.svg)](https://crates.io/crates/si_trace_print)
+[![Build status](https://github.com/jtmoon79/si_trace_print/actions/workflows/rust.yml/badge.svg)](https://github.com/jtmoon79/si_trace_print/actions?query=workflow%3Arust)
+[![docs.rs](https://docs.rs/si_trace_print/badge.svg)](https://docs.rs/si_trace_print)
+[![codecov.io](https://codecov.io/gh/jtmoon79/si_trace_print/branch/main/graph/badge.svg?token=Q2OXTL7U02)](https://codecov.io/gh/jtmoon79/si_trace_print)
+[![crates.io](https://img.shields.io/crates/v/si_trace_print.svg)](https://crates.io/crates/si_trace_print)
 
 ---
 
