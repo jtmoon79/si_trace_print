@@ -35,32 +35,32 @@ use si_trace_print::{
 fn main() {
     pn!("hello from main");
     po!("main will be doing stuff...");
-    my_func1(3);
+    func1(3);
     po!("main is done doing stuff...");
     px!("goodbye from main");
 }
 
-fn my_func1(var: usize) {
+fn func1(var: usize) {
     pfn!("({:?})", var);
-    my_func2(var + 1);
+    func2(var + 1);
     pfx!("({:?})", var);
 }
 
-fn my_func2(var: usize) {
+fn func2(var: usize) {
     pfn!("({:?})", var);
     pfo!("calling func3...");
-    my_func3();
+    func3();
     pfx!("({:?})", var);
 }
 
-fn my_func3() {
+fn func3() {
     pfn!();
-    my_func4();
+    func4();
     pfo!("almost complete...");
     pfx!();
 }
 
-fn my_func4() {
+fn func4() {
     pfñ!("func4 is a short function.");
 }
 ```
@@ -70,15 +70,15 @@ should print
 ```text
 →hello from main
  main will be doing stuff...
-    →my_func1: (3)
-        →my_func2: (4)
-         my_func2: calling func3...
-            →my_func3:
-                ↔my_func4: func4 is a short function.
-             my_func3: almost complete...
-            ←my_func3:
-        ←my_func2: (4)
-    ←my_func1: (3)
+    →func1: (3)
+        →func2: (4)
+         func2: calling func3...
+            →func3:
+                ↔func4: func4 is a short function.
+             func3: almost complete...
+            ←func3:
+        ←func2: (4)
+    ←func1: (3)
  main is done doing stuff...
 ←goodbye from main
 ```
@@ -93,12 +93,12 @@ use si_trace_print::{
 fn main() {
     den!("hello from main");
     deo!("main will be doing stuff...");
-    my_func1(3);
+    func1(3);
     deo!("main is done doing stuff...");
     dex!("goodbye from main");
 }
 
-fn my_func1(_var: usize) {
+fn func1(_var: usize) {
     defn!("({:?})", _var);
     defx!("({:?})", _var);
 }
@@ -110,8 +110,8 @@ This printed
 $ cargo run
 →hello from main
  main will be doing stuff...
-    →my_func1: (3)
-    ←my_func1: (3)
+    →func1: (3)
+    ←func1: (3)
  main is done doing stuff...
 ←goodbye from main
 ```
@@ -132,16 +132,16 @@ use si_trace_print::{
 };
 
 fn main() {
-    my_func1(3);
+    func1(3);
     pfx!("goodbye from main (this is not indented!)");
 }
 
-fn my_func1(var: usize) {
-    my_func2(var);
+fn func1(var: usize) {
+    func2(var);
     pfñ!("({:?}) (this is not indented!)", var);
 }
 
-fn my_func2(var: usize) {
+fn func2(var: usize) {
     // this is the first call to a si_trace_print function
     // the "original" stack offset will be set from here
     pfn!("({:?})", var);
@@ -153,10 +153,10 @@ fn my_func2(var: usize) {
 prints poorly indented output
 
 ```text
-→my_func2: (3)
- my_func2: stack_depth 15, stack_offset 0
-←my_func2: (3)
-↔my_func1: (3) (this is not indented!)
+→func2: (3)
+ func2: stack_depth 15, stack_offset 0
+←func2: (3)
+↔func1: (3) (this is not indented!)
 ←main: goodbye from main (this is not indented!)
 ```
 
@@ -170,16 +170,16 @@ use si_trace_print::{
 fn main() {
     // the "original" stack offset will be set from here
     stack_offset_set(None);
-    my_func1(3);
+    func1(3);
     pfx!("goodbye from main");
 }
 
-fn my_func1(var: usize) {
-    my_func2(var);
+fn func1(var: usize) {
+    func2(var);
     pfñ!("stack_depth {:?}, stack_offset {:?}", stack_depth(), stack_offset());
 }
 
-fn my_func2(var: usize) {
+fn func2(var: usize) {
     pfn!("({:?})", var);
     pfo!("stack_depth {:?}, stack_offset {:?}", stack_depth(), stack_offset());
     pfx!("({:?})", var);
@@ -189,10 +189,10 @@ fn my_func2(var: usize) {
 this printed
 
 ```text
-            →my_func2: (3)
-             my_func2: stack_depth 15, stack_offset 2
-            ←my_func2: (3)
-        ↔my_func1: stack_depth 14, stack_offset 1
+            →func2: (3)
+             func2: stack_depth 15, stack_offset 2
+            ←func2: (3)
+        ↔func1: stack_depth 14, stack_offset 1
     ←main: goodbye from main
 ```
 
@@ -211,10 +211,10 @@ fn main() {
 this printed
 
 ```text
-        →my_func2: (3)
-         my_func2: stack_depth 15, stack_offset 1
-        ←my_func2: (3)
-    ↔my_func1: stack_depth 14, stack_offset 0
+        →func2: (3)
+         func2: stack_depth 15, stack_offset 1
+        ←func2: (3)
+    ↔func1: stack_depth 14, stack_offset 0
 ←main: goodbye from main
 ```
 
