@@ -37,7 +37,9 @@ jobs:
         run: |
           set -eux
           cargo test -j2 --lib --verbose -- --test-threads=2
+          cargo test -j4 --lib --verbose -- --test-threads=4
           cargo test -j8 --lib --verbose -- --test-threads=8
+          cargo test -j8 --lib --verbose -- --test-threads=16
       - name: Build Documentation
         run: cargo doc --locked --release --frozen --no-deps -v
   # run code coverage with rust "nightly", upload to codecov.io
