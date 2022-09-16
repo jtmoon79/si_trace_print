@@ -1,6 +1,16 @@
 // src/printers.rs
 
-//! Macros for trace printing with printing stack offset indentation.
+//! Macros to print trace statements with stack offset indentation.
+//!
+//! Library users should use these macros.
+//!
+//! These macros call [`sn`], [`so`], [`sx`], [`sñ`], for the preprinted
+//! indentation and signifier symbol.
+//!
+//! [`sn`]: crate::stack::sn
+//! [`so`]: crate::stack::so
+//! [`sx`]: crate::stack::sx
+//! [`sñ`]: crate::stack::sñ
 
 //
 // `p`rintln
@@ -37,6 +47,9 @@ macro_rules! p {
     (
         $($args:tt)*
     ) => {
+        // for consistency with other macros, invoke setting the
+        // "original" stack depth via `so`
+        $crate::stack::so();
         println!($($args)*)
     }
 }
@@ -411,6 +424,9 @@ macro_rules! e {
     (
         $($args:tt)*
     ) => {
+        // for consistency with other macros, invoke setting the
+        // "original" stack depth via `so`
+        $crate::stack::so();
         eprintln!($($args)*)
     }
 }

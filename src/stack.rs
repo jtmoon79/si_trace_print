@@ -1,9 +1,20 @@
 // src/stack.rs
 
-//! Functions to find current stack depth for indented trace prints.
+//! Functions to store a stack offset for indented trace prints and
+//! return the appropriate preprint `str`.
 //!
-//! The stack-based indentation amount depend on `inline` attributes being used
-//! predictably.
+//! Library users should use macros provided in [`printers`].
+//!
+//! Function `stack_offset_set` is to force the setting of the "original" stack
+//! depth for a thread.
+//!
+//! Functions `sn`, `so`, `sx`, and `sñ` return a `&str` to preprint before
+//! tracing messages. These functions are used by macros in `printers`.
+//!
+//! The stack-based indentation amount depend on optimization settings.
+//! In an optimized build, an inlined function will not add to the stack
+//! depth.
+//! Adding explicit `inline` attributes may fix such a problem.
 //! According to [_The Rust Performance Book_]:
 //!
 //! > Inline attributes do not guarantee that a function is inlined or not
@@ -13,9 +24,10 @@
 //! At worst, the indentation may not change and all printing will align
 //! at the same column.
 //!
-//! Lack of indentation may also occur in a `--release` build or other optimized
+//! Lack of indentation may occur in a `--release` build or other optimized
 //! builds.
 //!
+//! [`printers`]: crate::printers
 //! [_The Rust Performance Book_]: https://nnethercote.github.io/perf-book/inlining.html
 
 use std::collections::HashMap;
@@ -66,7 +78,7 @@ lazy_static! {
 /// [`backtrace::trace`]: https://docs.rs/backtrace/0.3.66/backtrace/fn.trace.html
 /// [_The Rust Performance Book_]: https://nnethercote.github.io/perf-book/inlining.html
 #[inline(always)]
-pub fn stack_depth() -> StackDepth {
+fn stack_depth() -> StackDepth {
     let mut sd: StackDepth = 0;
     backtrace::trace(|_| {
         sd += 1;
@@ -118,7 +130,7 @@ fn stack_offset_table_create() -> bool {
 ///
 /// [`stack_offset_set`]: stack_offset_set
 #[inline(never)]
-pub fn stack_offset() -> StackDepth {
+fn stack_offset() -> StackDepth {
     // call `stack_offset_set` which will both check the table exists
     // and has an offset entry for this thread. If an entry is not already
     // present than initialize with `1` correction, to correct this function
@@ -148,13 +160,19 @@ pub fn stack_offset() -> StackDepth {
     sd
 }
 
-/// `stack_offset_set` gets a baseline "offset" value
-/// (retrieved from [`stack_depth`]) and stores it in the private global
-/// `STACK_OFFSET_TABLE`. `stack_offset_set` can be explicitly called to force
+/// Function `stack_offset_set` gets a baseline "offset" value
+/// (retrieved from private function `stack_depth`) and stores it in the
+/// private global `STACK_OFFSET_TABLE`.
+/// `stack_offset_set` can be explicitly called to force
 /// the "original" stack depth value to be set.
 /// This explicit call must be done before calling dependent macros
 /// (e.g. `po()`, `den()`, etc.) and before calling any dependent
-/// functions (e.g. `so()`).
+/// functions (e.g. `so()`), otherwise the call will be ignored.
+/// Function `stack_offset_set` is implicitly called by the macros in
+/// [`printers`].
+///
+/// Only the first call to `stack_offset_set` within a thread is used.
+/// Subsequent calls are ignored.
 ///
 /// A positive value `correction` will move the printed output to the right.
 /// If the `correction` is too negative then it will print to the left-most
@@ -171,10 +189,7 @@ pub fn stack_offset() -> StackDepth {
 /// left-most column (and not be indented to the right).
 /// This may improve readability.
 ///
-/// Only the first call to `stack_offset_set` within a thread is used.
-/// Subsequent calls are ignored.
-///
-/// [`stack_depth`]: stack_depth
+/// [`printers`]: crate::printers
 #[inline(never)]
 pub fn stack_offset_set(correction: Option<isize>) {
     if !stack_offset_table_create() {
@@ -247,10 +262,8 @@ const S_29: &str = "                                                            
 #[rustfmt::skip]
 const S__: &str = "                                                                                                                        ";
 
-/// Return a string of **s**paces that is a multiple of [`stack_offset()`] with
-/// one trailing space.
-///
-/// [`stack_offset()`]: stack_offset
+/// Return a string of **s**paces that is a multiple of the current
+/// stack offset with one trailing space.
 pub fn so() -> &'static str {
     const LEAD: &str = " ";
     let so_ = stack_offset();
@@ -289,8 +302,8 @@ pub fn so() -> &'static str {
     }
 }
 
-/// Return a string of **s**paces that is a multiple of [`stack_offset()`] with
-/// trailing `→` signifying e**n**tering a function.
+/// Return a string of **s**paces that is a multiple of the current
+/// stack offset with trailing `→` signifying e**n**tering a function.
 ///
 /// [`stack_offset()`]: stack_offset
 pub fn sn() -> &'static str {
@@ -331,8 +344,8 @@ pub fn sn() -> &'static str {
     }
 }
 
-/// Return a string of **s**paces that is a multiple of [`stack_offset()`] with
-/// trailing `←` signifying e**x**iting a function.
+/// Return a string of **s**paces that is a multiple of the current
+/// stack offset with trailing `←` signifying e**x**iting a function.
 ///
 /// [`stack_offset()`]: stack_offset
 pub fn sx() -> &'static str {
@@ -373,8 +386,9 @@ pub fn sx() -> &'static str {
     }
 }
 
-/// Return a string of **s**paces that is a multiple of [`stack_offset()`] with
-/// trailing `↔` signifying e**n**tering and e**x**iting a function.
+/// Return a string of **s**paces that is a multiple of the current
+/// stack_offset with trailing `↔` signifying e**n**tering and e**x**iting
+/// a function.
 ///
 /// [`stack_offset()`]: stack_offset
 pub fn sñ() -> &'static str {
