@@ -237,3 +237,7 @@ functions.
 <!-- links -->
 
 [`backtrace::trace`]: https://docs.rs/backtrace/0.3.66/backtrace/fn.trace.html
+
+---
+
+<a href="https://stackexchange.com/users/216253/jamesthomasmoon1979"><img src="https://stackexchange.com/users/flair/216253.png" width="208" height="58" alt="profile for JamesThomasMoon1979 on Stack Exchange, a network of free, community-driven Q&amp;A sites" title="profile for JamesThomasMoon1979 on Stack Exchange, a network of free, community-driven Q&amp;A sites" /></a>
