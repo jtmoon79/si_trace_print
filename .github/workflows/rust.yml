@@ -28,7 +28,10 @@ jobs:
       - name: Run All Tests Single-threaded
         run: |
           set -eux
-          cargo test -j1 --verbose --all-targets --all-features -- \
+          cargo test -j1 --verbose \
+              --all-features \
+              --future-incompat-report \
+              -- \
               --test-threads=1
       - name: Run Lib Tests Multi-threaded
         run: |
