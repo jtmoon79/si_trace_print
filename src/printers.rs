@@ -354,9 +354,9 @@ pub use pfx;
 ///
 /// ```rust
 /// use si_trace_print::{efn, efx};
-/// use si_trace_print::pfn;
+/// use si_trace_print::pfñ;
 /// fn func1() {
-///     pfn!("hello");
+///     pfñ!("hello");
 /// }
 /// fn main() {
 ///     efn!();
@@ -388,6 +388,183 @@ macro_rules! pfñ {
     }
 }
 pub use pfñ;
+
+//
+// print with **two** namespace levels
+//
+
+
+/// **p**rintln! in a **f**unction with **two** namespace levels with
+/// **o**ffset.
+///
+/// To signify printing within a function.
+/// Use to [`println!`] in a [function].
+///
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::pf2o;
+/// fn func1() {
+///     pf2o!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///      si_trace_print::main::func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`so()`].
+///
+/// [`println!`]: println!
+/// [function]: crate::function_name::function_name_plus
+/// [`so()`]: crate::stack::so
+#[macro_export]
+macro_rules! pf2o {
+    (
+        $($args:tt)*
+    ) => {
+        print!("{}{}: ", $crate::stack::so(), $crate::function_name::function_name_plus!(2));
+        println!($($args)*)
+    }
+}
+pub use pf2o;
+
+/// **p**rintln! in a **f**unction with **two** namespace levels when
+/// e**n**tering.
+///
+/// To signify entering a function.
+/// Use this as the first [`println!`] in a [function].
+///
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::pf2n;
+/// fn func1() {
+///     pf2n!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     →si_trace_print::main::func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`sn()`].
+///
+/// [`println!`]: println!
+/// [function]: crate::function_name::function_name_plus
+/// [`sn()`]: crate::stack::sn
+#[macro_export]
+macro_rules! pf2n {
+    (
+        $($args:tt)*
+    ) => {
+        print!("{}{}: ", $crate::stack::sn(), $crate::function_name::function_name_plus!(2));
+        println!($($args)*)
+    }
+}
+pub use pf2n;
+
+/// **p**rintln! in a **f**unction with **two** namespace levels when
+/// e**x**iting.
+///
+/// To signify exiting a function.
+/// Use this as the last [`println!`] in a [function].
+///
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::pf2x;
+/// fn func1() {
+///     pf2x!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     ←si_trace_print::main::func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`sx()`].
+///
+/// [`println!`]: println!
+/// [function]: crate::function_name::function_name
+/// [`sx()`]: crate::stack::sx
+#[macro_export]
+macro_rules! pf2x {
+    (
+        $($args:tt)*
+    ) => {
+        print!("{}{}: ", $crate::stack::sx(), $crate::function_name::function_name_plus!(2));
+        println!($($args)*)
+    }
+}
+pub use pf2x;
+
+/// **p**rintln! in a **f**unction when e**n**tering and e**x**iting.
+///
+/// To signify entering and exiting a function.
+/// Use this as the only [`println!`] in a [function].
+/// Most suited for short functions.
+///
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::pf2ñ;
+/// fn func1() {
+///     pf2ñ!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     ↔si_trace_print::main::func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`sñ()`].
+///
+/// [`println!`]: println!
+/// [function]: crate::function_name::function_name_plus
+/// [`sñ()`]: crate::stack::sñ
+#[macro_export]
+macro_rules! pf2ñ {
+    (
+        $($args:tt)*
+    ) => {
+        print!("{}{}: ", $crate::stack::sñ(), $crate::function_name::function_name_plus!(2));
+        println!($($args)*)
+    }
+}
+pub use pf2ñ;
 
 //
 // `e`println
@@ -472,6 +649,10 @@ macro_rules! eo {
     }
 }
 pub use eo;
+
+//
+// `e`println with offset in a function
+//
 
 /// **e**println! when e**n**tering.
 ///
@@ -596,6 +777,10 @@ macro_rules! eñ {
     }
 }
 pub use eñ;
+
+//
+// `e`println with offset with a `f`unction name
+//
 
 /// **e**println! in a **f**unction with **o**ffset.
 ///
@@ -763,6 +948,184 @@ macro_rules! efñ {
     }
 }
 pub use efñ;
+
+
+//
+// `e`println with offset with a `f`unction name with `two` namespace levels
+//
+
+/// **e**println! in a **f**unction with **two** namespace levels and
+/// **o**ffset.
+///
+/// To signify printing wihtin a function.
+/// Use to [`eprintln!`] in a [function].
+///
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::ef2o;
+/// fn func1() {
+///     ef2o!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///      si_trace_print::main::func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`so()`].
+///
+/// [`eprintln!`]: eprintln!
+/// [function]: crate::function_name::function_name_plus
+/// [`so()`]: crate::stack::so
+#[macro_export]
+macro_rules! ef2o {
+    (
+        $($args:tt)*
+    ) => {
+        eprint!("{}{}: ", $crate::stack::so(), $crate::function_name::function_name_plus!(2));
+        eprintln!($($args)*)
+    }
+}
+pub use ef2o;
+
+/// **e**println! in a **f**unction with **two** namespace levels
+/// when e**n**tering.
+///
+/// To signify entering a function.
+/// Use this as the first [`eprintln!`] in a [function].
+///
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::ef2n;
+/// fn func1() {
+///     ef2n!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     →si_trace_print::main::func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`sn()`].
+///
+/// [`eprintln!`]: eprintln!
+/// [function]: crate::function_name::function_name_plus
+/// [`sn()`]: crate::stack::sn
+#[macro_export]
+macro_rules! ef2n {
+    (
+        $($args:tt)*
+    ) => {
+        eprint!("{}{}: ", $crate::stack::sn(), $crate::function_name::function_name_plus!(2));
+        eprintln!($($args)*)
+    }
+}
+pub use ef2n;
+
+/// **e**println! in a **f**unction with **two** namespace levels
+/// when e**x**iting.
+///
+/// To signify exiting a function.
+/// Use this as the last [`eprintln!`] in a [function].
+///
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::ef2x;
+/// fn func1() {
+///     ef2x!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     ←si_trace_print::main::func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`sx()`].
+///
+/// [`eprintln!`]: eprintln!
+/// [function]: crate::function_name::function_name_plus
+/// [`sx()`]: crate::stack::sx
+#[macro_export]
+macro_rules! ef2x {
+    (
+        $($args:tt)*
+    ) => {
+        eprint!("{}{}: ", $crate::stack::sx(), $crate::function_name::function_name_plus!(2));
+        eprintln!($($args)*)
+    }
+}
+pub use ef2x;
+
+/// **e**println! in a **f**unction with **two** namespace levels
+/// when e**n**tering and e**x**iting.
+///
+/// To signify entering and exiting a function.
+/// Use this as the only [`eprintln!`] in a [function].
+/// Most suited for short functions.
+///
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::ef2ñ;
+/// fn func1() {
+///     ef2ñ!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     ↔si_trace_print::main::func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`sñ()`].
+///
+/// [`eprintln!`]: eprintln!
+/// [function]: crate::function_name::function_name_plus
+/// [`sñ()`]: crate::stack::sñ
+#[macro_export]
+macro_rules! ef2ñ {
+    (
+        $($args:tt)*
+    ) => {
+        eprint!("{}{}: ", $crate::stack::sñ(), $crate::function_name::function_name_plus!(2));
+        eprintln!($($args)*)
+    }
+}
+pub use ef2ñ;
 
 //
 // **d**ebug `p`rintln
@@ -1034,6 +1397,10 @@ macro_rules! dpfo {
 }
 pub use dpfo;
 
+//
+// `d`ebug `p`rintln! with `f`unction name
+//
+
 /// **d**ebug **p**rintln! in a **f**unction when e**n**tering.
 ///
 /// To signify entering a function.
@@ -1172,6 +1539,199 @@ macro_rules! dpfñ {
     }
 }
 pub use dpfñ;
+
+//
+// `d`ebug `p`rintln! with `f`unction name and `two` namespace levels
+//
+
+
+/// **d**ebug **p**rintln! in a **f**unction with **o**ffset.
+///
+/// To signify printing wihtin a function.
+/// Use to [`println!`] in a [function].
+///
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::dpf2o;
+/// fn func1() {
+///     dpf2o!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///      si_trace_print::main::func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`so()`].
+///
+/// For debug builds.
+///
+/// [`println!`]: println!
+/// [function]: crate::function_name::function_name_plus
+/// [`so()`]: crate::stack::so
+#[macro_export]
+macro_rules! dpf2o {
+    (
+        $($args:tt)*
+    ) => {
+        #[cfg(any(debug_assertions,test))]
+        eprint!("{}{}: ", $crate::stack::so(), $crate::function_name::function_name_plus!(2));
+        #[cfg(any(debug_assertions,test))]
+        eprintln!($($args)*)
+    }
+}
+pub use dpf2o;
+
+
+/// **d**ebug **p**rintln! in a **f**unction when e**n**tering.
+///
+/// To signify entering a function.
+/// Use this as the first [`println!`] in a [function].
+///
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::dpf2n;
+/// fn func1() {
+///     dpf2n!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     →si_trace_print::main::func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`sn()`].
+///
+/// For debug builds.
+///
+/// [`println!`]: println!
+/// [function]: crate::function_name::function_name_plus
+/// [`sn()`]: crate::stack::sn
+#[macro_export]
+macro_rules! dpf2n {
+    (
+        $($args:tt)*
+    ) => {
+        #[cfg(any(debug_assertions,test))]
+        eprint!("{}{}: ", $crate::stack::sn(), $crate::function_name::function_name_plus!(2));
+        #[cfg(any(debug_assertions,test))]
+        eprintln!($($args)*)
+    }
+}
+pub use dpf2n;
+
+/// **d**ebug **p**rintln! in a **f**unction with **two** namespace
+/// levels when e**x**iting.
+///
+/// To signify exiting a function.
+/// Use this as the last [`println!`] in a [function].
+///
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::dpf2x;
+/// fn func1() {
+///     dpf2x!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     ←si_trace_print::main::func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`sx()`].
+///
+/// For debug builds.
+///
+/// [`println!`]: println!
+/// [function]: crate::function_name::function_name_plus
+/// [`sx()`]: crate::stack::sx
+#[macro_export]
+macro_rules! dpf2x {
+    (
+        $($args:tt)*
+    ) => {
+        #[cfg(any(debug_assertions,test))]
+        eprint!("{}{}: ", $crate::stack::sx(), $crate::function_name::function_name_plus!(2));
+        #[cfg(any(debug_assertions,test))]
+        eprintln!($($args)*)
+    }
+}
+pub use dpf2x;
+
+/// **d**ebug **p**rintln! in a **f**unction with **two** namespace levels when
+/// e**n**tering and e**x**iting.
+///
+/// To signify entering and exiting a function.
+/// Use this as the only [`println!`] in a [function].
+/// Most suited for short functions.
+///
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::dpf2ñ;
+/// fn func1() {
+///     dpf2ñ!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     ↔si_trace_print::main::func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`sñ()`].
+///
+/// For debug builds.
+///
+/// [`println!`]: println!
+/// [function]: crate::function_name::function_name_plus
+/// [`sñ()`]: crate::stack::sñ
+#[macro_export]
+macro_rules! dpf2ñ {
+    (
+        $($args:tt)*
+    ) => {
+        #[cfg(any(debug_assertions,test))]
+        eprint!("{}{}: ", $crate::stack::sñ(), $crate::function_name::function_name_plus!(2));
+        #[cfg(any(debug_assertions,test))]
+        eprintln!($($args)*)
+    }
+}
+pub use dpf2ñ;
 
 //
 // **d**ebug `e`println
@@ -1397,6 +1957,10 @@ macro_rules! deñ {
 }
 pub use deñ;
 
+//
+// `d`ebug `e`println with `f`unction name
+//
+
 /// **d**ebug **e**println! in a **f**unction with **o**ffset.
 ///
 /// To signify printing wihtin a function.
@@ -1583,20 +2147,214 @@ macro_rules! defñ {
 pub use defñ;
 
 //
+// `d`ebug `e`println with `f`unction name with `two` namespace levels
+//
+
+/// **d**ebug **e**println! in a **f**unction with **two** namespace levels
+/// with **o**ffset.
+///
+/// To signify printing wihtin a function.
+/// Use to [`eprintln!`] in a [function].
+///
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::def2o;
+/// fn func1() {
+///     def2o!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///      si_trace_print::main::func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`so()`].
+///
+/// For debug builds.
+///
+/// [`eprintln!`]: eprintln!
+/// [function]: crate::function_name::function_name_plus
+/// [`so()`]: crate::stack::so
+#[macro_export]
+macro_rules! def2o {
+    (
+        $($args:tt)*
+    ) => {
+        #[cfg(any(debug_assertions,test))]
+        eprint!("{}{}: ", $crate::stack::so(), $crate::function_name::function_name_plus!(2));
+        #[cfg(any(debug_assertions,test))]
+        eprintln!($($args)*)
+    }
+}
+pub use def2o;
+
+/// **d**ebug **e**println! in a **f**unction with **two** namespace levels
+/// when e**n**tering.
+///
+/// To signify entering a function.
+/// Use this as the first [`eprintln!`] in a [function].
+///
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::def2n;
+/// fn func1() {
+///     def2n!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     →si_trace_print::main::func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`sn()`].
+///
+/// For debug builds.
+///
+/// [`eprintln!`]: eprintln!
+/// [function]: crate::function_name::function_name_plus
+/// [`sn()`]: crate::stack::sn
+#[macro_export]
+macro_rules! def2n {
+    (
+        $($args:tt)*
+    ) => {
+        #[cfg(any(debug_assertions,test))]
+        eprint!("{}{}: ", $crate::stack::sn(), $crate::function_name::function_name_plus!(2));
+        #[cfg(any(debug_assertions,test))]
+        eprintln!($($args)*)
+    }
+}
+pub use def2n;
+
+/// **d**ebug **e**println! in a **f**unction with **two** namespace levels
+/// when e**x**iting.
+///
+/// To signify exiting a function.
+/// Use this as the last [`eprintln!`] in a [function].
+///
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::def2x;
+/// fn func1() {
+///     def2x!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     ←si_trace_print::main::func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`sx()`].
+///
+/// For debug builds.
+///
+/// [`eprintln!`]: eprintln!
+/// [function]: crate::function_name::function_name_plus
+/// [`sx()`]: crate::stack::sx
+#[macro_export]
+macro_rules! def2x {
+    (
+        $($args:tt)*
+    ) => {
+        #[cfg(any(debug_assertions,test))]
+        eprint!("{}{}: ", $crate::stack::sx(), $crate::function_name::function_name_plus!(2));
+        #[cfg(any(debug_assertions,test))]
+        eprintln!($($args)*)
+    }
+}
+pub use def2x;
+
+/// **d**ebug **e**println! in a **f**unction with **two** namespace levels
+/// when e**n**tering and e**x**iting.
+///
+/// To signify entering and exiting a function.
+/// Use this as the only [`eprintln!`] in a [function].
+/// Most suited for short functions.
+///
+/// ```rust
+/// use si_trace_print::{efn, efx};
+/// use si_trace_print::def2ñ;
+/// fn func1() {
+///     def2ñ!("hello");
+/// }
+/// fn main() {
+///     efn!();
+///     func1();
+///     efx!();
+/// }
+/// ```
+///
+/// prints
+///
+/// ```text
+/// →main:
+///     ↔si_trace_print::main::func1: hello
+/// ←main:
+/// ```
+///
+/// Uses [`sñ()`].
+///
+/// For debug builds.
+///
+/// [`eprintln!`]: eprintln!
+/// [function]: crate::function_name::function_name_plus
+/// [`sñ()`]: crate::stack::sñ
+#[macro_export]
+macro_rules! def2ñ {
+    (
+        $($args:tt)*
+    ) => {
+        #[cfg(any(debug_assertions,test))]
+        eprint!("{}{}: ", $crate::stack::sñ(), $crate::function_name::function_name_plus!(2));
+        #[cfg(any(debug_assertions,test))]
+        eprintln!($($args)*)
+    }
+}
+pub use def2ñ;
+
+
+//
 // tests
 //
 
 #[cfg(test)]
 mod tests {
-    use crate::function_name::function_name_full;
-    use crate::stack::stack_offset_set;
+    use crate::function_name::function_name;
+    use crate::stack::{stack_offset_set, SO_LEAD, SN_LEAD, SX_LEAD, SÑ_LEAD};
 
     // `p`rintln tests
 
     #[test]
     fn test_p() {
         println!();
-        p!("this printed line, with arg \"{}\"", function_name_full!());
+        p!("this printed line");
         p!();
         println!();
     }
@@ -1606,8 +2364,8 @@ mod tests {
         stack_offset_set(Some(2));
         println!();
         po!(
-            "this printed line should be indented with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented with arg {:?}",
+            function_name!()
         );
         po!();
         println!();
@@ -1618,8 +2376,8 @@ mod tests {
         stack_offset_set(Some(2));
         println!();
         pn!(
-            "this printed line should be indented with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented with arg {:?}",
+            SN_LEAD
         );
         pn!();
         println!();
@@ -1630,8 +2388,8 @@ mod tests {
         stack_offset_set(Some(2));
         println!();
         px!(
-            "this printed line should be indented with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented with arg {:?}",
+            SX_LEAD
         );
         px!();
         println!();
@@ -1642,20 +2400,22 @@ mod tests {
         stack_offset_set(Some(2));
         println!();
         pñ!(
-            "this printed line should be indented with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented with arg {:?}",
+            SÑ_LEAD
         );
         pñ!();
         println!();
     }
+
+    // `p`rintln tests and `f`unction name
 
     #[test]
     fn test_pfo() {
         stack_offset_set(Some(2));
         println!();
         pfo!(
-            "this printed line should be indented and preceded with function name 'test_pfo', with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented and preceded with function name 'test_pfo', with arg {:?}",
+            SO_LEAD
         );
         pfo!();
         println!();
@@ -1666,8 +2426,8 @@ mod tests {
         stack_offset_set(Some(2));
         println!();
         pfn!(
-            "this printed line should be indented and preceded with function name 'test_pfn', with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented and preceded with function name 'test_pfn', with arg {:?}",
+            SN_LEAD
         );
         pfn!();
         println!();
@@ -1678,8 +2438,8 @@ mod tests {
         stack_offset_set(Some(2));
         println!();
         pfx!(
-            "this printed line should be indented and preceded with function name 'test_pfx', with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented and preceded with function name 'test_pfx', with arg {:?}",
+            SX_LEAD
         );
         pfx!();
         println!();
@@ -1690,30 +2450,92 @@ mod tests {
         stack_offset_set(Some(2));
         println!();
         pfñ!(
-            "this printed line should be indented and preceded with function name 'test_pfñ', with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented and preceded with function name 'test_pfñ', with arg {:?}",
+            SÑ_LEAD
         );
         pfñ!();
         println!();
     }
 
     #[test]
-    fn test_ponxñf() {
+    fn test_pfonxñ() {
         stack_offset_set(Some(2));
         println!();
-        pfn!("pfn!");
         pfo!("pfo!");
+        pfn!("pfn!");
         pfñ!("pfñ!");
         pfx!("pfx!");
         println!();
     }
+
+    // `p`rintln tests and `f`unction and namespace `two` levels
+
+    #[test]
+    fn test_pf2o() {
+        stack_offset_set(Some(2));
+        println!();
+        pf2o!(
+            "this printed line should be indented and preceded with function name 'tests::test_pf2o', with arg {:?}",
+            SO_LEAD
+        );
+        pf2o!();
+        println!();
+    }
+
+    #[test]
+    fn test_pf2n() {
+        stack_offset_set(Some(2));
+        println!();
+        pf2n!(
+            "this printed line should be indented and preceded with function name 'tests::test_pf2n', with arg {:?}",
+            SN_LEAD
+        );
+        pf2n!();
+        println!();
+    }
+
+    #[test]
+    fn test_pf2x() {
+        stack_offset_set(Some(2));
+        println!();
+        pf2x!(
+            "this printed line should be indented and preceded with function name 'tests::test_pf2x', with arg {:?}",
+            SX_LEAD
+        );
+        pf2x!();
+        println!();
+    }
+
+    #[test]
+    fn test_pf2ñ() {
+        stack_offset_set(Some(2));
+        println!();
+        pf2ñ!(
+            "this printed line should be indented and preceded with function name 'tests::test_pf2ñ', with arg {:?}",
+            SÑ_LEAD
+        );
+        pf2ñ!();
+        println!();
+    }
+
+    #[test]
+    fn test_pf2onxñ() {
+        stack_offset_set(Some(2));
+        println!();
+        pf2o!("pf2o!");
+        pf2n!("pf2n!");
+        pf2ñ!("pf2ñ!");
+        pf2x!("pf2x!");
+        println!();
+    }
+
 
     // `e`println tests
 
     #[test]
     fn test_e() {
         eprintln!();
-        e!("this printed line, with arg \"{}\"", function_name_full!());
+        e!("this printed line should not be indented");
         e!();
         eprintln!();
     }
@@ -1722,10 +2544,7 @@ mod tests {
     fn test_eo() {
         stack_offset_set(Some(2));
         eprintln!();
-        eo!(
-            "this printed line should be indented with arg \"{}\"",
-            function_name_full!()
-        );
+        eo!("this printed line should be indented with arg {:?}", SO_LEAD);
         eo!();
         eprintln!();
     }
@@ -1734,10 +2553,7 @@ mod tests {
     fn test_en() {
         stack_offset_set(Some(2));
         eprintln!();
-        en!(
-            "this printed line should be indented with arg \"{}\"",
-            function_name_full!()
-        );
+        en!("this printed line should be indented with arg {:?}", SN_LEAD);
         en!();
         eprintln!();
     }
@@ -1746,10 +2562,7 @@ mod tests {
     fn test_ex() {
         stack_offset_set(Some(2));
         eprintln!();
-        ex!(
-            "this printed line should be indented with arg \"{}\"",
-            function_name_full!()
-        );
+        ex!("this printed line should be indented with arg {:?}", SX_LEAD);
         ex!();
         eprintln!();
     }
@@ -1758,10 +2571,7 @@ mod tests {
     fn test_eñ() {
         stack_offset_set(Some(2));
         eprintln!();
-        eñ!(
-            "this printed line should be indented with arg \"{}\"",
-            function_name_full!()
-        );
+        eñ!("this printed line should be indented with arg {:?}", SÑ_LEAD);
         eñ!();
         eprintln!();
     }
@@ -1770,8 +2580,8 @@ mod tests {
     fn test_eonxñ() {
         stack_offset_set(Some(2));
         eprintln!();
-        en!("en!");
         eo!("eo!");
+        en!("en!");
         eñ!("eñ!");
         ex!("ex!");
         eprintln!();
@@ -1782,8 +2592,8 @@ mod tests {
         stack_offset_set(Some(2));
         eprintln!();
         efo!(
-            "this printed line should be indented and preceded with function name 'test_efo', with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented and preceded with function name 'test_efo', with arg {:?}",
+            SO_LEAD
         );
         efo!();
         eprintln!();
@@ -1794,8 +2604,8 @@ mod tests {
         stack_offset_set(Some(2));
         eprintln!();
         efn!(
-            "this printed line should be indented and preceded with function name 'test_efn', with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented and preceded with function name 'test_efn', with arg {:?}",
+            SN_LEAD
         );
         efn!();
         eprintln!();
@@ -1806,8 +2616,8 @@ mod tests {
         stack_offset_set(Some(2));
         eprintln!();
         efx!(
-            "this printed line should be indented and preceded with function name 'test_efx', with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented and preceded with function name 'test_efx', with arg {:?}",
+            SX_LEAD
         );
         efx!();
         eprintln!();
@@ -1818,21 +2628,80 @@ mod tests {
         stack_offset_set(Some(2));
         eprintln!();
         efñ!(
-            "this printed line should be indented and preceded with function name 'test_efñ', with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented and preceded with function name 'test_efñ', with arg {:?}",
+            SÑ_LEAD
         );
         efñ!();
         eprintln!();
     }
 
     #[test]
-    fn test_eonxñf() {
+    fn test_efonxñ() {
         stack_offset_set(Some(2));
         eprintln!();
-        efn!("efn!");
         efo!("efo!");
+        efn!("efn!");
         efñ!("efñ!");
         efx!("efx!");
+        eprintln!();
+    }
+
+    #[test]
+    fn test_ef2o() {
+        stack_offset_set(Some(2));
+        eprintln!();
+        ef2o!(
+            "this printed line should be indented and preceded with function name 'tests::test_ef2o', with arg {:?}",
+            SO_LEAD
+        );
+        ef2o!();
+        eprintln!();
+    }
+
+    #[test]
+    fn test_ef2n() {
+        stack_offset_set(Some(2));
+        eprintln!();
+        ef2n!(
+            "this printed line should be indented and preceded with function name 'tests::test_ef2n', with arg {:?}",
+            SN_LEAD
+        );
+        ef2n!();
+        eprintln!();
+    }
+
+    #[test]
+    fn test_ef2x() {
+        stack_offset_set(Some(2));
+        eprintln!();
+        ef2x!(
+            "this printed line should be indented and preceded with function name 'tests::test_ef2x', with arg {:?}",
+            SX_LEAD
+        );
+        ef2x!();
+        eprintln!();
+    }
+
+    #[test]
+    fn test_ef2ñ() {
+        stack_offset_set(Some(2));
+        eprintln!();
+        ef2ñ!(
+            "this printed line should be indented and preceded with function name 'tests::test_ef2ñ', with arg {:?}",
+            SÑ_LEAD
+        );
+        ef2ñ!();
+        eprintln!();
+    }
+
+    #[test]
+    fn test_ef2onxñ() {
+        stack_offset_set(Some(2));
+        eprintln!();
+        ef2o!("ef2o!");
+        ef2n!("ef2n!");
+        ef2ñ!("ef2ñ!");
+        ef2x!("ef2x!");
         eprintln!();
     }
 
@@ -1841,7 +2710,7 @@ mod tests {
     #[test]
     fn test_dp() {
         println!();
-        dp!("this printed line, with arg \"{}\"", function_name_full!());
+        dp!("this printed line should not be indented");
         dp!();
         println!();
     }
@@ -1851,8 +2720,8 @@ mod tests {
         stack_offset_set(Some(2));
         println!();
         dpo!(
-            "this printed line should be indented with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented with arg {:?}",
+            SO_LEAD
         );
         dpo!();
         println!();
@@ -1863,8 +2732,8 @@ mod tests {
         stack_offset_set(Some(2));
         println!();
         dpn!(
-            "this printed line should be indented with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented with arg {:?}",
+            SN_LEAD
         );
         dpn!();
         println!();
@@ -1875,8 +2744,8 @@ mod tests {
         stack_offset_set(Some(2));
         println!();
         dpx!(
-            "this printed line should be indented with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented with arg {:?}",
+            SX_LEAD
         );
         dpx!();
         println!();
@@ -1887,8 +2756,8 @@ mod tests {
         stack_offset_set(Some(2));
         println!();
         dpñ!(
-            "this printed line should be indented with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented with arg {:?}",
+            SÑ_LEAD
         );
         dpñ!();
         println!();
@@ -1898,8 +2767,8 @@ mod tests {
     fn test_dponxñ() {
         stack_offset_set(Some(2));
         println!();
-        dpn!("dpn!");
         dpo!("dpo!");
+        dpn!("dpn!");
         dpñ!("dpñ!");
         dpx!("dpx!");
         println!();
@@ -1910,8 +2779,8 @@ mod tests {
         stack_offset_set(Some(2));
         println!();
         dpfo!(
-            "this printed line should be indented and preceded with function name 'test_dpfo', with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented and preceded with function name 'test_dpfo', with arg {:?}",
+            SO_LEAD
         );
         dpfo!();
         println!();
@@ -1922,8 +2791,8 @@ mod tests {
         stack_offset_set(Some(2));
         println!();
         dpfn!(
-            "this printed line should be indented and preceded with function name 'test_dpfn', with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented and preceded with function name 'test_dpfn', with arg {:?}",
+            SN_LEAD
         );
         dpfn!();
         println!();
@@ -1934,8 +2803,8 @@ mod tests {
         stack_offset_set(Some(2));
         println!();
         dpfx!(
-            "this printed line should be indented and preceded with function name 'test_dpfx', with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented and preceded with function name 'test_dpfx', with arg {:?}",
+            SX_LEAD
         );
         dpfx!();
         println!();
@@ -1946,21 +2815,80 @@ mod tests {
         stack_offset_set(Some(2));
         println!();
         dpfñ!(
-            "this printed line should be indented and preceded with function name 'test_dpfñ', with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented and preceded with function name 'test_dpfñ', with arg {:?}",
+            SÑ_LEAD
         );
         dpfñ!();
         println!();
     }
 
     #[test]
-    fn test_dponxñf() {
+    fn test_dpfonxñ() {
         stack_offset_set(Some(2));
         println!();
-        dpfn!("dpfn!");
         dpfo!("dpfo!");
+        dpfn!("dpfn!");
         dpfñ!("dpfñ!");
         dpfx!("dpfx!");
+        println!();
+    }
+
+    #[test]
+    fn test_dpf2o() {
+        stack_offset_set(Some(2));
+        println!();
+        dpf2o!(
+            "this printed line should be indented and preceded with function name 'tests::test_dpf2o', with arg {:?}",
+            SO_LEAD
+        );
+        dpf2o!();
+        println!();
+    }
+
+    #[test]
+    fn test_dpf2n() {
+        stack_offset_set(Some(2));
+        println!();
+        dpf2n!(
+            "this printed line should be indented and preceded with function name 'tests::test_dpf2n', with arg {:?}",
+            SN_LEAD
+        );
+        dpf2n!();
+        println!();
+    }
+
+    #[test]
+    fn test_dpf2x() {
+        stack_offset_set(Some(2));
+        println!();
+        dpf2x!(
+            "this printed line should be indented and preceded with function name 'tests::test_dpf2x', with arg {:?}",
+            SX_LEAD
+        );
+        dpf2x!();
+        println!();
+    }
+
+    #[test]
+    fn test_dpf2ñ() {
+        stack_offset_set(Some(2));
+        println!();
+        dpf2ñ!(
+            "this printed line should be indented and preceded with function name 'tests::test_dpf2ñ', with arg {:?}",
+            SÑ_LEAD
+        );
+        dpf2ñ!();
+        println!();
+    }
+
+    #[test]
+    fn test_dpf2onxñ() {
+        stack_offset_set(Some(2));
+        println!();
+        dpf2o!("dpf2o!");
+        dpf2n!("dpf2n!");
+        dpf2ñ!("dpf2ñ!");
+        dpf2x!("dpf2x!");
         println!();
     }
 
@@ -1969,7 +2897,7 @@ mod tests {
     #[test]
     fn test_de() {
         eprintln!();
-        de!("this printed line, with arg \"{}\"", function_name_full!());
+        de!("this printed line should not be indented");
         de!();
         eprintln!();
     }
@@ -1979,8 +2907,8 @@ mod tests {
         stack_offset_set(Some(2));
         eprintln!();
         deo!(
-            "this printed line should be indented with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented with arg {:?}",
+            SO_LEAD
         );
         deo!();
         eprintln!();
@@ -1991,8 +2919,8 @@ mod tests {
         stack_offset_set(Some(2));
         eprintln!();
         den!(
-            "this printed line should be indented with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented with arg {:?}",
+            SN_LEAD
         );
         den!();
         eprintln!();
@@ -2003,8 +2931,8 @@ mod tests {
         stack_offset_set(Some(2));
         eprintln!();
         dex!(
-            "this printed line should be indented with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented with arg {:?}",
+            SX_LEAD
         );
         dex!();
         eprintln!();
@@ -2015,8 +2943,8 @@ mod tests {
         stack_offset_set(Some(2));
         eprintln!();
         deñ!(
-            "this printed line should be indented with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented with arg {:?}",
+            SÑ_LEAD
         );
         deñ!();
         eprintln!();
@@ -2026,8 +2954,8 @@ mod tests {
     fn test_deonxñ() {
         stack_offset_set(Some(2));
         eprintln!();
-        den!("den!");
         deo!("deo!");
+        den!("den!");
         deñ!("deñ!");
         dex!("dex!");
         eprintln!();
@@ -2038,8 +2966,8 @@ mod tests {
         stack_offset_set(Some(2));
         eprintln!();
         defo!(
-            "this printed line should be indented and preceded with function name 'test_defo', with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented and preceded with function name 'test_defo', with arg {:?}",
+            SO_LEAD
         );
         defo!();
         eprintln!();
@@ -2050,8 +2978,8 @@ mod tests {
         stack_offset_set(Some(2));
         eprintln!();
         defn!(
-            "this printed line should be indented and preceded with function name 'test_defn', with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented and preceded with function name 'test_defn', with arg {:?}",
+            SN_LEAD
         );
         defn!();
         eprintln!();
@@ -2062,8 +2990,8 @@ mod tests {
         stack_offset_set(Some(2));
         eprintln!();
         defx!(
-            "this printed line should be indented and preceded with function name 'test_defx', with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented and preceded with function name 'test_defx', with arg {:?}",
+            SX_LEAD
         );
         defx!();
         eprintln!();
@@ -2074,21 +3002,82 @@ mod tests {
         stack_offset_set(Some(2));
         eprintln!();
         defñ!(
-            "this printed line should be indented and preceded with function name 'test_defñ', with arg \"{}\"",
-            function_name_full!()
+            "this printed line should be indented and preceded with function name 'test_defñ', with arg {:?}",
+            SÑ_LEAD
         );
         defñ!();
         eprintln!();
     }
 
     #[test]
-    fn test_deonxñf() {
+    fn test_defonxñ() {
         stack_offset_set(Some(2));
         eprintln!();
-        defn!("defn!");
         defo!("defo!");
+        defn!("defn!");
         defñ!("defñ!");
         defx!("defx!");
         eprintln!();
     }
+
+
+    #[test]
+    fn test_def2o() {
+        stack_offset_set(Some(2));
+        eprintln!();
+        def2o!(
+            "this printed line should be indented and preceded with function name 'tests::test_def2o', with arg {:?}",
+            SO_LEAD
+        );
+        def2o!();
+        eprintln!();
+    }
+
+    #[test]
+    fn test_def2n() {
+        stack_offset_set(Some(2));
+        eprintln!();
+        def2n!(
+            "this printed line should be indented and preceded with function name 'tests::test_def2n', with arg {:?}",
+            SN_LEAD
+        );
+        def2n!();
+        eprintln!();
+    }
+
+    #[test]
+    fn test_def2x() {
+        stack_offset_set(Some(2));
+        eprintln!();
+        def2x!(
+            "this printed line should be indented and preceded with function name 'tests::test_def2x', with arg {:?}",
+            SX_LEAD
+        );
+        def2x!();
+        eprintln!();
+    }
+
+    #[test]
+    fn test_def2ñ() {
+        stack_offset_set(Some(2));
+        eprintln!();
+        def2ñ!(
+            "this printed line should be indented and preceded with function name 'tests::test_def2ñ', with arg {:?}",
+            SÑ_LEAD
+        );
+        def2ñ!();
+        eprintln!();
+    }
+
+    #[test]
+    fn test_def2onxñ() {
+        stack_offset_set(Some(2));
+        eprintln!();
+        def2o!("def2o!");
+        def2n!("def2n!");
+        def2ñ!("def2ñ!");
+        def2x!("def2x!");
+        eprintln!();
+    }
+
 }

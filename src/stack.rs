@@ -262,129 +262,146 @@ const S_29: &str = "                                                            
 #[rustfmt::skip]
 const S__: &str = "                                                                                                                        ";
 
+/// Leading character for [`so()`]
+///
+/// [`so()`]: so
+pub(crate) const SO_LEAD: &str = " ";
+
 /// Return a string of **s**paces that is a multiple of the current
 /// stack offset with one trailing space.
 pub fn so() -> &'static str {
-    const LEAD: &str = " ";
     let so_ = stack_offset();
     match so_ {
-        0 => concatcp!(S_0, LEAD),
-        1 => concatcp!(S_1, LEAD),
-        2 => concatcp!(S_2, LEAD),
-        3 => concatcp!(S_3, LEAD),
-        4 => concatcp!(S_4, LEAD),
-        5 => concatcp!(S_5, LEAD),
-        6 => concatcp!(S_6, LEAD),
-        7 => concatcp!(S_7, LEAD),
-        8 => concatcp!(S_8, LEAD),
-        9 => concatcp!(S_9, LEAD),
-        10 => concatcp!(S_10, LEAD),
-        11 => concatcp!(S_11, LEAD),
-        12 => concatcp!(S_12, LEAD),
-        13 => concatcp!(S_13, LEAD),
-        14 => concatcp!(S_14, LEAD),
-        15 => concatcp!(S_15, LEAD),
-        16 => concatcp!(S_16, LEAD),
-        17 => concatcp!(S_17, LEAD),
-        18 => concatcp!(S_18, LEAD),
-        19 => concatcp!(S_19, LEAD),
-        20 => concatcp!(S_20, LEAD),
-        21 => concatcp!(S_21, LEAD),
-        22 => concatcp!(S_22, LEAD),
-        23 => concatcp!(S_23, LEAD),
-        24 => concatcp!(S_24, LEAD),
-        25 => concatcp!(S_25, LEAD),
-        26 => concatcp!(S_26, LEAD),
-        27 => concatcp!(S_27, LEAD),
-        28 => concatcp!(S_28, LEAD),
-        29 => concatcp!(S_29, LEAD),
-        _ => concatcp!(S__, LEAD),
+        0 => concatcp!(S_0, SO_LEAD),
+        1 => concatcp!(S_1, SO_LEAD),
+        2 => concatcp!(S_2, SO_LEAD),
+        3 => concatcp!(S_3, SO_LEAD),
+        4 => concatcp!(S_4, SO_LEAD),
+        5 => concatcp!(S_5, SO_LEAD),
+        6 => concatcp!(S_6, SO_LEAD),
+        7 => concatcp!(S_7, SO_LEAD),
+        8 => concatcp!(S_8, SO_LEAD),
+        9 => concatcp!(S_9, SO_LEAD),
+        10 => concatcp!(S_10, SO_LEAD),
+        11 => concatcp!(S_11, SO_LEAD),
+        12 => concatcp!(S_12, SO_LEAD),
+        13 => concatcp!(S_13, SO_LEAD),
+        14 => concatcp!(S_14, SO_LEAD),
+        15 => concatcp!(S_15, SO_LEAD),
+        16 => concatcp!(S_16, SO_LEAD),
+        17 => concatcp!(S_17, SO_LEAD),
+        18 => concatcp!(S_18, SO_LEAD),
+        19 => concatcp!(S_19, SO_LEAD),
+        20 => concatcp!(S_20, SO_LEAD),
+        21 => concatcp!(S_21, SO_LEAD),
+        22 => concatcp!(S_22, SO_LEAD),
+        23 => concatcp!(S_23, SO_LEAD),
+        24 => concatcp!(S_24, SO_LEAD),
+        25 => concatcp!(S_25, SO_LEAD),
+        26 => concatcp!(S_26, SO_LEAD),
+        27 => concatcp!(S_27, SO_LEAD),
+        28 => concatcp!(S_28, SO_LEAD),
+        29 => concatcp!(S_29, SO_LEAD),
+        _ => concatcp!(S__, SO_LEAD),
     }
 }
+
+/// Leading character for [`sn()`]
+///
+/// [`sn()`]: sn
+pub(crate) const SN_LEAD: &str = "→";
 
 /// Return a string of **s**paces that is a multiple of the current
 /// stack offset with trailing `→` signifying e**n**tering a function.
 ///
 /// [`stack_offset()`]: stack_offset
 pub fn sn() -> &'static str {
-    const LEAD: &str = "→";
     let so = stack_offset();
     match so {
-        0 => concatcp!(S_0, LEAD),
-        1 => concatcp!(S_1, LEAD),
-        2 => concatcp!(S_2, LEAD),
-        3 => concatcp!(S_3, LEAD),
-        4 => concatcp!(S_4, LEAD),
-        5 => concatcp!(S_5, LEAD),
-        6 => concatcp!(S_6, LEAD),
-        7 => concatcp!(S_7, LEAD),
-        8 => concatcp!(S_8, LEAD),
-        9 => concatcp!(S_9, LEAD),
-        10 => concatcp!(S_10, LEAD),
-        11 => concatcp!(S_11, LEAD),
-        12 => concatcp!(S_12, LEAD),
-        13 => concatcp!(S_13, LEAD),
-        14 => concatcp!(S_14, LEAD),
-        15 => concatcp!(S_15, LEAD),
-        16 => concatcp!(S_16, LEAD),
-        17 => concatcp!(S_17, LEAD),
-        18 => concatcp!(S_18, LEAD),
-        19 => concatcp!(S_19, LEAD),
-        20 => concatcp!(S_20, LEAD),
-        21 => concatcp!(S_21, LEAD),
-        22 => concatcp!(S_22, LEAD),
-        23 => concatcp!(S_23, LEAD),
-        24 => concatcp!(S_24, LEAD),
-        25 => concatcp!(S_25, LEAD),
-        26 => concatcp!(S_26, LEAD),
-        27 => concatcp!(S_27, LEAD),
-        28 => concatcp!(S_28, LEAD),
-        29 => concatcp!(S_29, LEAD),
-        _ => concatcp!(S__, LEAD),
+        0 => concatcp!(S_0, SN_LEAD),
+        1 => concatcp!(S_1, SN_LEAD),
+        2 => concatcp!(S_2, SN_LEAD),
+        3 => concatcp!(S_3, SN_LEAD),
+        4 => concatcp!(S_4, SN_LEAD),
+        5 => concatcp!(S_5, SN_LEAD),
+        6 => concatcp!(S_6, SN_LEAD),
+        7 => concatcp!(S_7, SN_LEAD),
+        8 => concatcp!(S_8, SN_LEAD),
+        9 => concatcp!(S_9, SN_LEAD),
+        10 => concatcp!(S_10, SN_LEAD),
+        11 => concatcp!(S_11, SN_LEAD),
+        12 => concatcp!(S_12, SN_LEAD),
+        13 => concatcp!(S_13, SN_LEAD),
+        14 => concatcp!(S_14, SN_LEAD),
+        15 => concatcp!(S_15, SN_LEAD),
+        16 => concatcp!(S_16, SN_LEAD),
+        17 => concatcp!(S_17, SN_LEAD),
+        18 => concatcp!(S_18, SN_LEAD),
+        19 => concatcp!(S_19, SN_LEAD),
+        20 => concatcp!(S_20, SN_LEAD),
+        21 => concatcp!(S_21, SN_LEAD),
+        22 => concatcp!(S_22, SN_LEAD),
+        23 => concatcp!(S_23, SN_LEAD),
+        24 => concatcp!(S_24, SN_LEAD),
+        25 => concatcp!(S_25, SN_LEAD),
+        26 => concatcp!(S_26, SN_LEAD),
+        27 => concatcp!(S_27, SN_LEAD),
+        28 => concatcp!(S_28, SN_LEAD),
+        29 => concatcp!(S_29, SN_LEAD),
+        _ => concatcp!(S__, SN_LEAD),
     }
 }
+
+/// Leading character for [`sx()`]
+///
+/// [`sx()`]: sx
+pub(crate) const SX_LEAD: &str = "←";
 
 /// Return a string of **s**paces that is a multiple of the current
 /// stack offset with trailing `←` signifying e**x**iting a function.
 ///
 /// [`stack_offset()`]: stack_offset
 pub fn sx() -> &'static str {
-    const LEAD: &str = "←";
     let so = stack_offset();
     match so {
-        0 => concatcp!(S_0, LEAD),
-        1 => concatcp!(S_1, LEAD),
-        2 => concatcp!(S_2, LEAD),
-        3 => concatcp!(S_3, LEAD),
-        4 => concatcp!(S_4, LEAD),
-        5 => concatcp!(S_5, LEAD),
-        6 => concatcp!(S_6, LEAD),
-        7 => concatcp!(S_7, LEAD),
-        8 => concatcp!(S_8, LEAD),
-        9 => concatcp!(S_9, LEAD),
-        10 => concatcp!(S_10, LEAD),
-        11 => concatcp!(S_11, LEAD),
-        12 => concatcp!(S_12, LEAD),
-        13 => concatcp!(S_13, LEAD),
-        14 => concatcp!(S_14, LEAD),
-        15 => concatcp!(S_15, LEAD),
-        16 => concatcp!(S_16, LEAD),
-        17 => concatcp!(S_17, LEAD),
-        18 => concatcp!(S_18, LEAD),
-        19 => concatcp!(S_19, LEAD),
-        20 => concatcp!(S_20, LEAD),
-        21 => concatcp!(S_21, LEAD),
-        22 => concatcp!(S_22, LEAD),
-        23 => concatcp!(S_23, LEAD),
-        24 => concatcp!(S_24, LEAD),
-        25 => concatcp!(S_25, LEAD),
-        26 => concatcp!(S_26, LEAD),
-        27 => concatcp!(S_27, LEAD),
-        28 => concatcp!(S_28, LEAD),
-        29 => concatcp!(S_29, LEAD),
-        _ => concatcp!(S__, LEAD),
+        0 => concatcp!(S_0, SX_LEAD),
+        1 => concatcp!(S_1, SX_LEAD),
+        2 => concatcp!(S_2, SX_LEAD),
+        3 => concatcp!(S_3, SX_LEAD),
+        4 => concatcp!(S_4, SX_LEAD),
+        5 => concatcp!(S_5, SX_LEAD),
+        6 => concatcp!(S_6, SX_LEAD),
+        7 => concatcp!(S_7, SX_LEAD),
+        8 => concatcp!(S_8, SX_LEAD),
+        9 => concatcp!(S_9, SX_LEAD),
+        10 => concatcp!(S_10, SX_LEAD),
+        11 => concatcp!(S_11, SX_LEAD),
+        12 => concatcp!(S_12, SX_LEAD),
+        13 => concatcp!(S_13, SX_LEAD),
+        14 => concatcp!(S_14, SX_LEAD),
+        15 => concatcp!(S_15, SX_LEAD),
+        16 => concatcp!(S_16, SX_LEAD),
+        17 => concatcp!(S_17, SX_LEAD),
+        18 => concatcp!(S_18, SX_LEAD),
+        19 => concatcp!(S_19, SX_LEAD),
+        20 => concatcp!(S_20, SX_LEAD),
+        21 => concatcp!(S_21, SX_LEAD),
+        22 => concatcp!(S_22, SX_LEAD),
+        23 => concatcp!(S_23, SX_LEAD),
+        24 => concatcp!(S_24, SX_LEAD),
+        25 => concatcp!(S_25, SX_LEAD),
+        26 => concatcp!(S_26, SX_LEAD),
+        27 => concatcp!(S_27, SX_LEAD),
+        28 => concatcp!(S_28, SX_LEAD),
+        29 => concatcp!(S_29, SX_LEAD),
+        _ => concatcp!(S__, SX_LEAD),
     }
 }
+
+/// Leading character for [`sñ()`]
+///
+/// [`sñ()`]: sñ
+pub(crate) const SÑ_LEAD: &str = "↔";
 
 /// Return a string of **s**paces that is a multiple of the current
 /// stack_offset with trailing `↔` signifying e**n**tering and e**x**iting
@@ -392,40 +409,39 @@ pub fn sx() -> &'static str {
 ///
 /// [`stack_offset()`]: stack_offset
 pub fn sñ() -> &'static str {
-    const LEAD: &str = "↔";
     let so = stack_offset();
     match so {
-        0 => concatcp!(S_0, LEAD),
-        1 => concatcp!(S_1, LEAD),
-        2 => concatcp!(S_2, LEAD),
-        3 => concatcp!(S_3, LEAD),
-        4 => concatcp!(S_4, LEAD),
-        5 => concatcp!(S_5, LEAD),
-        6 => concatcp!(S_6, LEAD),
-        7 => concatcp!(S_7, LEAD),
-        8 => concatcp!(S_8, LEAD),
-        9 => concatcp!(S_9, LEAD),
-        10 => concatcp!(S_10, LEAD),
-        11 => concatcp!(S_11, LEAD),
-        12 => concatcp!(S_12, LEAD),
-        13 => concatcp!(S_13, LEAD),
-        14 => concatcp!(S_14, LEAD),
-        15 => concatcp!(S_15, LEAD),
-        16 => concatcp!(S_16, LEAD),
-        17 => concatcp!(S_17, LEAD),
-        18 => concatcp!(S_18, LEAD),
-        19 => concatcp!(S_19, LEAD),
-        20 => concatcp!(S_10, LEAD),
-        21 => concatcp!(S_21, LEAD),
-        22 => concatcp!(S_22, LEAD),
-        23 => concatcp!(S_23, LEAD),
-        24 => concatcp!(S_24, LEAD),
-        25 => concatcp!(S_25, LEAD),
-        26 => concatcp!(S_26, LEAD),
-        27 => concatcp!(S_27, LEAD),
-        28 => concatcp!(S_28, LEAD),
-        29 => concatcp!(S_29, LEAD),
-        _ => concatcp!(S__, LEAD),
+        0 => concatcp!(S_0, SÑ_LEAD),
+        1 => concatcp!(S_1, SÑ_LEAD),
+        2 => concatcp!(S_2, SÑ_LEAD),
+        3 => concatcp!(S_3, SÑ_LEAD),
+        4 => concatcp!(S_4, SÑ_LEAD),
+        5 => concatcp!(S_5, SÑ_LEAD),
+        6 => concatcp!(S_6, SÑ_LEAD),
+        7 => concatcp!(S_7, SÑ_LEAD),
+        8 => concatcp!(S_8, SÑ_LEAD),
+        9 => concatcp!(S_9, SÑ_LEAD),
+        10 => concatcp!(S_10, SÑ_LEAD),
+        11 => concatcp!(S_11, SÑ_LEAD),
+        12 => concatcp!(S_12, SÑ_LEAD),
+        13 => concatcp!(S_13, SÑ_LEAD),
+        14 => concatcp!(S_14, SÑ_LEAD),
+        15 => concatcp!(S_15, SÑ_LEAD),
+        16 => concatcp!(S_16, SÑ_LEAD),
+        17 => concatcp!(S_17, SÑ_LEAD),
+        18 => concatcp!(S_18, SÑ_LEAD),
+        19 => concatcp!(S_19, SÑ_LEAD),
+        20 => concatcp!(S_10, SÑ_LEAD),
+        21 => concatcp!(S_21, SÑ_LEAD),
+        22 => concatcp!(S_22, SÑ_LEAD),
+        23 => concatcp!(S_23, SÑ_LEAD),
+        24 => concatcp!(S_24, SÑ_LEAD),
+        25 => concatcp!(S_25, SÑ_LEAD),
+        26 => concatcp!(S_26, SÑ_LEAD),
+        27 => concatcp!(S_27, SÑ_LEAD),
+        28 => concatcp!(S_28, SÑ_LEAD),
+        29 => concatcp!(S_29, SÑ_LEAD),
+        _ => concatcp!(S__, SÑ_LEAD),
     }
 }
 
