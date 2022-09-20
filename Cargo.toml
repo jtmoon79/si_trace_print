@@ -33,3 +33,4 @@ edition = "2021"
 test = true
 doc = true
 doctest = true
+proc-macro = true
