@@ -48,7 +48,6 @@ macro_rules! function_name {
 }
 pub use function_name;
 
-
 /// Return the current the current function name **plus** some namespaces as
 /// a `&'static str`.
 ///
@@ -101,7 +100,7 @@ macro_rules! function_name_plus {
             plus_ -= 1;
         }
         if at + SPLIT_LEN < name.len() {
-            &name[at+SPLIT_LEN..]
+            &name[at + SPLIT_LEN..]
         } else if at < name.len() {
             // this should not happen but also avoid panics
             &name[at..]
@@ -162,16 +161,10 @@ mod tests {
         eprintln!("function_name_plus!(0) \"{}\"", function_name_plus!(0));
         fn func1() {
             eprintln!("function_name_plus!(0) \"{}\"", function_name_plus!(0));
-            assert_eq!(
-                "func1",
-                function_name_plus!(0)
-            );
+            assert_eq!("func1", function_name_plus!(0));
         }
         func1();
-        assert_eq!(
-            "test_function_name_plus0",
-            function_name_plus!(0)
-        );
+        assert_eq!("test_function_name_plus0", function_name_plus!(0));
     }
 
     #[test]
@@ -179,16 +172,10 @@ mod tests {
         eprintln!("function_name_plus!(1) \"{}\"", function_name_plus!(1));
         fn func1() {
             eprintln!("function_name_plus!(1) \"{}\"", function_name_plus!(1));
-            assert_eq!(
-                "test_function_name_plus1::func1",
-                function_name_plus!(1)
-            );
+            assert_eq!("test_function_name_plus1::func1", function_name_plus!(1));
         }
         func1();
-        assert_eq!(
-            "tests::test_function_name_plus1",
-            function_name_plus!(1)
-        );
+        assert_eq!("tests::test_function_name_plus1", function_name_plus!(1));
     }
 
     #[test]
@@ -196,16 +183,10 @@ mod tests {
         eprintln!("function_name_plus!(2) \"{}\"", function_name_plus!(2));
         fn func1() {
             eprintln!("function_name_plus!(2) \"{}\"", function_name_plus!(2));
-            assert_eq!(
-                "tests::test_function_name_plus2::func1",
-                function_name_plus!(2)
-            );
+            assert_eq!("tests::test_function_name_plus2::func1", function_name_plus!(2));
         }
         func1();
-        assert_eq!(
-            "function_name::tests::test_function_name_plus2",
-            function_name_plus!(2)
-        );
+        assert_eq!("function_name::tests::test_function_name_plus2", function_name_plus!(2));
     }
 
     // test `function_name_plus!` within another namespace layer
@@ -216,16 +197,10 @@ mod tests {
             eprintln!("function_name_plus!(0) \"{}\"", function_name_plus!(0));
             fn func1() {
                 eprintln!("function_name_plus!(0) \"{}\"", function_name_plus!(0));
-                assert_eq!(
-                    "func1",
-                    function_name_plus!(0)
-                );
+                assert_eq!("func1", function_name_plus!(0));
             }
             func1();
-            assert_eq!(
-                "test_function_name_plus0",
-                function_name_plus!(0)
-            );
+            assert_eq!("test_function_name_plus0", function_name_plus!(0));
         }
 
         #[test]
@@ -233,16 +208,10 @@ mod tests {
             eprintln!("function_name_plus!(1) \"{}\"", function_name_plus!(1));
             fn func1() {
                 eprintln!("function_name_plus!(1) \"{}\"", function_name_plus!(1));
-                assert_eq!(
-                    "test_function_name_plus1::func1",
-                    function_name_plus!(1)
-                );
+                assert_eq!("test_function_name_plus1::func1", function_name_plus!(1));
             }
             func1();
-            assert_eq!(
-                "more_tests::test_function_name_plus1",
-                function_name_plus!(1)
-            );
+            assert_eq!("more_tests::test_function_name_plus1", function_name_plus!(1));
         }
 
         #[test]
@@ -250,16 +219,10 @@ mod tests {
             eprintln!("function_name_plus!(2) \"{}\"", function_name_plus!(2));
             fn func1() {
                 eprintln!("function_name_plus!(2) \"{}\"", function_name_plus!(2));
-                assert_eq!(
-                    "more_tests::test_function_name_plus2::func1",
-                    function_name_plus!(2)
-                );
+                assert_eq!("more_tests::test_function_name_plus2::func1", function_name_plus!(2));
             }
             func1();
-            assert_eq!(
-                "tests::more_tests::test_function_name_plus2",
-                function_name_plus!(2)
-            );
+            assert_eq!("tests::more_tests::test_function_name_plus2", function_name_plus!(2));
         }
     }
 

@@ -389,7 +389,6 @@ macro_rules! pfñ {
 }
 pub use pfñ;
 
-
 //
 // print with **one** namespace level
 //
@@ -566,7 +565,6 @@ macro_rules! pf1ñ {
     }
 }
 pub use pf1ñ;
-
 
 //
 // print with **two** namespace levels
@@ -1127,7 +1125,6 @@ macro_rules! efñ {
     }
 }
 pub use efñ;
-
 
 //
 // `e`println with offset with a `f`unction name with `one` namespace levels
@@ -1947,7 +1944,6 @@ macro_rules! dpf1o {
 }
 pub use dpf1o;
 
-
 /// **d**ebug **p**rintln! in a **f**unction plus **one** namespace level when
 /// e**n**tering.
 ///
@@ -2090,11 +2086,9 @@ macro_rules! dpf1ñ {
 }
 pub use dpf1ñ;
 
-
 //
 // `d`ebug `p`rintln! with `f`unction name and `two` namespace levels
 //
-
 
 /// **d**ebug **p**rintln! in a **f**unction plus **two** namespace levels with
 /// **o**ffset
@@ -2142,7 +2136,6 @@ macro_rules! dpf2o {
     }
 }
 pub use dpf2o;
-
 
 /// **d**ebug **p**rintln! in a **f**unction plus **two** namespace levels when
 /// e**n**tering.
@@ -2699,7 +2692,6 @@ macro_rules! defñ {
 }
 pub use defñ;
 
-
 //
 // `d`ebug `e`println with `f`unction name plus `one` namespace levels
 //
@@ -3086,7 +3078,6 @@ macro_rules! def2ñ {
 }
 pub use def2ñ;
 
-
 //
 // tests
 //
@@ -3094,7 +3085,7 @@ pub use def2ñ;
 #[cfg(test)]
 mod tests {
     use crate::function_name::function_name;
-    use crate::stack::{stack_offset_set, SO_LEAD, SN_LEAD, SX_LEAD, SÑ_LEAD};
+    use crate::stack::{stack_offset_set, SN_LEAD, SO_LEAD, SX_LEAD, SÑ_LEAD};
 
     // `p`rintln tests
 
@@ -3110,10 +3101,7 @@ mod tests {
     fn test_po() {
         stack_offset_set(Some(2));
         println!();
-        po!(
-            "this printed line should be indented with arg {:?}",
-            function_name!()
-        );
+        po!("this printed line should be indented with arg {:?}", function_name!());
         po!();
         println!();
     }
@@ -3122,10 +3110,7 @@ mod tests {
     fn test_pn() {
         stack_offset_set(Some(2));
         println!();
-        pn!(
-            "this printed line should be indented with arg {:?}",
-            SN_LEAD
-        );
+        pn!("this printed line should be indented with arg {:?}", SN_LEAD);
         pn!();
         println!();
     }
@@ -3134,10 +3119,7 @@ mod tests {
     fn test_px() {
         stack_offset_set(Some(2));
         println!();
-        px!(
-            "this printed line should be indented with arg {:?}",
-            SX_LEAD
-        );
+        px!("this printed line should be indented with arg {:?}", SX_LEAD);
         px!();
         println!();
     }
@@ -3146,10 +3128,7 @@ mod tests {
     fn test_pñ() {
         stack_offset_set(Some(2));
         println!();
-        pñ!(
-            "this printed line should be indented with arg {:?}",
-            SÑ_LEAD
-        );
+        pñ!("this printed line should be indented with arg {:?}", SÑ_LEAD);
         pñ!();
         println!();
     }
@@ -3585,10 +3564,7 @@ mod tests {
     fn test_dpo() {
         stack_offset_set(Some(2));
         println!();
-        dpo!(
-            "this printed line should be indented with arg {:?}",
-            SO_LEAD
-        );
+        dpo!("this printed line should be indented with arg {:?}", SO_LEAD);
         dpo!();
         println!();
     }
@@ -3597,10 +3573,7 @@ mod tests {
     fn test_dpn() {
         stack_offset_set(Some(2));
         println!();
-        dpn!(
-            "this printed line should be indented with arg {:?}",
-            SN_LEAD
-        );
+        dpn!("this printed line should be indented with arg {:?}", SN_LEAD);
         dpn!();
         println!();
     }
@@ -3609,10 +3582,7 @@ mod tests {
     fn test_dpx() {
         stack_offset_set(Some(2));
         println!();
-        dpx!(
-            "this printed line should be indented with arg {:?}",
-            SX_LEAD
-        );
+        dpx!("this printed line should be indented with arg {:?}", SX_LEAD);
         dpx!();
         println!();
     }
@@ -3621,10 +3591,7 @@ mod tests {
     fn test_dpñ() {
         stack_offset_set(Some(2));
         println!();
-        dpñ!(
-            "this printed line should be indented with arg {:?}",
-            SÑ_LEAD
-        );
+        dpñ!("this printed line should be indented with arg {:?}", SÑ_LEAD);
         dpñ!();
         println!();
     }
@@ -3831,10 +3798,7 @@ mod tests {
     fn test_deo() {
         stack_offset_set(Some(2));
         eprintln!();
-        deo!(
-            "this printed line should be indented with arg {:?}",
-            SO_LEAD
-        );
+        deo!("this printed line should be indented with arg {:?}", SO_LEAD);
         deo!();
         eprintln!();
     }
@@ -3843,10 +3807,7 @@ mod tests {
     fn test_den() {
         stack_offset_set(Some(2));
         eprintln!();
-        den!(
-            "this printed line should be indented with arg {:?}",
-            SN_LEAD
-        );
+        den!("this printed line should be indented with arg {:?}", SN_LEAD);
         den!();
         eprintln!();
     }
@@ -3855,10 +3816,7 @@ mod tests {
     fn test_dex() {
         stack_offset_set(Some(2));
         eprintln!();
-        dex!(
-            "this printed line should be indented with arg {:?}",
-            SX_LEAD
-        );
+        dex!("this printed line should be indented with arg {:?}", SX_LEAD);
         dex!();
         eprintln!();
     }
@@ -3867,10 +3825,7 @@ mod tests {
     fn test_deñ() {
         stack_offset_set(Some(2));
         eprintln!();
-        deñ!(
-            "this printed line should be indented with arg {:?}",
-            SÑ_LEAD
-        );
+        deñ!("this printed line should be indented with arg {:?}", SÑ_LEAD);
         deñ!();
         eprintln!();
     }
@@ -4062,5 +4017,4 @@ mod tests {
         def2x!("def2x!");
         eprintln!();
     }
-
 }
