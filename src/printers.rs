@@ -3084,8 +3084,7 @@ pub use def2ñ;
 
 #[cfg(test)]
 mod tests {
-    use crate::function_name::function_name;
-    use crate::stack::{stack_offset_set, SN_LEAD, SO_LEAD, SX_LEAD, SÑ_LEAD};
+    use crate::stack::stack_offset_set;
 
     // `p`rintln tests
 
@@ -3098,88 +3097,13 @@ mod tests {
     }
 
     #[test]
-    fn test_po() {
+    fn test_ponxñ() {
         stack_offset_set(Some(2));
         println!();
-        po!("this printed line should be indented with arg {:?}", function_name!());
-        po!();
-        println!();
-    }
-
-    #[test]
-    fn test_pn() {
-        stack_offset_set(Some(2));
-        println!();
-        pn!("this printed line should be indented with arg {:?}", SN_LEAD);
-        pn!();
-        println!();
-    }
-
-    #[test]
-    fn test_px() {
-        stack_offset_set(Some(2));
-        println!();
-        px!("this printed line should be indented with arg {:?}", SX_LEAD);
-        px!();
-        println!();
-    }
-
-    #[test]
-    fn test_pñ() {
-        stack_offset_set(Some(2));
-        println!();
-        pñ!("this printed line should be indented with arg {:?}", SÑ_LEAD);
-        pñ!();
-        println!();
-    }
-
-    // `p`rintln tests and `f`unction name
-
-    #[test]
-    fn test_pfo() {
-        stack_offset_set(Some(2));
-        println!();
-        pfo!(
-            "this printed line should be indented and preceded with function name 'test_pfo', with arg {:?}",
-            SO_LEAD
-        );
-        pfo!();
-        println!();
-    }
-
-    #[test]
-    fn test_pfn() {
-        stack_offset_set(Some(2));
-        println!();
-        pfn!(
-            "this printed line should be indented and preceded with function name 'test_pfn', with arg {:?}",
-            SN_LEAD
-        );
-        pfn!();
-        println!();
-    }
-
-    #[test]
-    fn test_pfx() {
-        stack_offset_set(Some(2));
-        println!();
-        pfx!(
-            "this printed line should be indented and preceded with function name 'test_pfx', with arg {:?}",
-            SX_LEAD
-        );
-        pfx!();
-        println!();
-    }
-
-    #[test]
-    fn test_pfñ() {
-        stack_offset_set(Some(2));
-        println!();
-        pfñ!(
-            "this printed line should be indented and preceded with function name 'test_pfñ', with arg {:?}",
-            SÑ_LEAD
-        );
-        pfñ!();
+        po!("po!");
+        pn!("pn!");
+        pñ!("pñ!");
+        px!("px!");
         println!();
     }
 
@@ -3194,56 +3118,6 @@ mod tests {
         println!();
     }
 
-    // `p`rintln tests and `f`unction and namespace `one` levels
-
-    #[test]
-    fn test_pf1o() {
-        stack_offset_set(Some(2));
-        println!();
-        pf1o!(
-            "this printed line should be indented and preceded with function name 'tests::test_pf1o', with arg {:?}",
-            SO_LEAD
-        );
-        pf1o!();
-        println!();
-    }
-
-    #[test]
-    fn test_pf1n() {
-        stack_offset_set(Some(2));
-        println!();
-        pf1n!(
-            "this printed line should be indented and preceded with function name 'tests::test_pf1n', with arg {:?}",
-            SN_LEAD
-        );
-        pf1n!();
-        println!();
-    }
-
-    #[test]
-    fn test_pf1x() {
-        stack_offset_set(Some(2));
-        println!();
-        pf1x!(
-            "this printed line should be indented and preceded with function name 'tests::test_pf1x', with arg {:?}",
-            SX_LEAD
-        );
-        pf1x!();
-        println!();
-    }
-
-    #[test]
-    fn test_pf1ñ() {
-        stack_offset_set(Some(2));
-        println!();
-        pf1ñ!(
-            "this printed line should be indented and preceded with function name 'tests::test_pf2ñ', with arg {:?}",
-            SÑ_LEAD
-        );
-        pf1ñ!();
-        println!();
-    }
-
     #[test]
     fn test_pf1onxñ() {
         stack_offset_set(Some(2));
@@ -3252,56 +3126,6 @@ mod tests {
         pf1n!("pf1n!");
         pf1ñ!("pf1ñ!");
         pf1x!("pf1x!");
-        println!();
-    }
-
-    // `p`rintln tests and `f`unction and namespace `two` levels
-
-    #[test]
-    fn test_pf2o() {
-        stack_offset_set(Some(2));
-        println!();
-        pf2o!(
-            "this printed line should be indented and preceded with function name 'printers::tests::test_pf2o', with arg {:?}",
-            SO_LEAD
-        );
-        pf2o!();
-        println!();
-    }
-
-    #[test]
-    fn test_pf2n() {
-        stack_offset_set(Some(2));
-        println!();
-        pf2n!(
-            "this printed line should be indented and preceded with function name 'printers::tests::test_pf2n', with arg {:?}",
-            SN_LEAD
-        );
-        pf2n!();
-        println!();
-    }
-
-    #[test]
-    fn test_pf2x() {
-        stack_offset_set(Some(2));
-        println!();
-        pf2x!(
-            "this printed line should be indented and preceded with function name 'printers::tests::test_pf2x', with arg {:?}",
-            SX_LEAD
-        );
-        pf2x!();
-        println!();
-    }
-
-    #[test]
-    fn test_pf2ñ() {
-        stack_offset_set(Some(2));
-        println!();
-        pf2ñ!(
-            "this printed line should be indented and preceded with function name 'printers::tests::test_pf2ñ', with arg {:?}",
-            SÑ_LEAD
-        );
-        pf2ñ!();
         println!();
     }
 
@@ -3327,42 +3151,6 @@ mod tests {
     }
 
     #[test]
-    fn test_eo() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        eo!("this printed line should be indented with arg {:?}", SO_LEAD);
-        eo!();
-        eprintln!();
-    }
-
-    #[test]
-    fn test_en() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        en!("this printed line should be indented with arg {:?}", SN_LEAD);
-        en!();
-        eprintln!();
-    }
-
-    #[test]
-    fn test_ex() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        ex!("this printed line should be indented with arg {:?}", SX_LEAD);
-        ex!();
-        eprintln!();
-    }
-
-    #[test]
-    fn test_eñ() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        eñ!("this printed line should be indented with arg {:?}", SÑ_LEAD);
-        eñ!();
-        eprintln!();
-    }
-
-    #[test]
     fn test_eonxñ() {
         stack_offset_set(Some(2));
         eprintln!();
@@ -3370,54 +3158,6 @@ mod tests {
         en!("en!");
         eñ!("eñ!");
         ex!("ex!");
-        eprintln!();
-    }
-
-    #[test]
-    fn test_efo() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        efo!(
-            "this printed line should be indented and preceded with function name 'test_efo', with arg {:?}",
-            SO_LEAD
-        );
-        efo!();
-        eprintln!();
-    }
-
-    #[test]
-    fn test_efn() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        efn!(
-            "this printed line should be indented and preceded with function name 'test_efn', with arg {:?}",
-            SN_LEAD
-        );
-        efn!();
-        eprintln!();
-    }
-
-    #[test]
-    fn test_efx() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        efx!(
-            "this printed line should be indented and preceded with function name 'test_efx', with arg {:?}",
-            SX_LEAD
-        );
-        efx!();
-        eprintln!();
-    }
-
-    #[test]
-    fn test_efñ() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        efñ!(
-            "this printed line should be indented and preceded with function name 'test_efñ', with arg {:?}",
-            SÑ_LEAD
-        );
-        efñ!();
         eprintln!();
     }
 
@@ -3433,54 +3173,6 @@ mod tests {
     }
 
     #[test]
-    fn test_ef1o() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        ef1o!(
-            "this printed line should be indented and preceded with function name 'tests::test_ef1o', with arg {:?}",
-            SO_LEAD
-        );
-        ef1o!();
-        eprintln!();
-    }
-
-    #[test]
-    fn test_ef1n() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        ef1n!(
-            "this printed line should be indented and preceded with function name 'tests::test_ef1n', with arg {:?}",
-            SN_LEAD
-        );
-        ef1n!();
-        eprintln!();
-    }
-
-    #[test]
-    fn test_ef1x() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        ef1x!(
-            "this printed line should be indented and preceded with function name 'tests::test_ef1x', with arg {:?}",
-            SX_LEAD
-        );
-        ef1x!();
-        eprintln!();
-    }
-
-    #[test]
-    fn test_ef1ñ() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        ef1ñ!(
-            "this printed line should be indented and preceded with function name 'tests::test_ef1ñ', with arg {:?}",
-            SÑ_LEAD
-        );
-        ef1ñ!();
-        eprintln!();
-    }
-
-    #[test]
     fn test_ef1onxñ() {
         stack_offset_set(Some(2));
         eprintln!();
@@ -3488,54 +3180,6 @@ mod tests {
         ef1n!("ef1n!");
         ef1ñ!("ef1ñ!");
         ef1x!("ef1x!");
-        eprintln!();
-    }
-
-    #[test]
-    fn test_ef2o() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        ef2o!(
-            "this printed line should be indented and preceded with function name 'tests::test_ef2o', with arg {:?}",
-            SO_LEAD
-        );
-        ef2o!();
-        eprintln!();
-    }
-
-    #[test]
-    fn test_ef2n() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        ef2n!(
-            "this printed line should be indented and preceded with function name 'printers::tests::test_ef2n', with arg {:?}",
-            SN_LEAD
-        );
-        ef2n!();
-        eprintln!();
-    }
-
-    #[test]
-    fn test_ef2x() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        ef2x!(
-            "this printed line should be indented and preceded with function name 'printers::tests::test_ef2x', with arg {:?}",
-            SX_LEAD
-        );
-        ef2x!();
-        eprintln!();
-    }
-
-    #[test]
-    fn test_ef2ñ() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        ef2ñ!(
-            "this printed line should be indented and preceded with function name 'printers::tests::test_ef2ñ', with arg {:?}",
-            SÑ_LEAD
-        );
-        ef2ñ!();
         eprintln!();
     }
 
@@ -3550,49 +3194,13 @@ mod tests {
         eprintln!();
     }
 
-    // **d**ebug `p`rintln tests
+    // `d`ebug `p`rintln tests
 
     #[test]
     fn test_dp() {
         println!();
         dp!("this printed line should not be indented");
         dp!();
-        println!();
-    }
-
-    #[test]
-    fn test_dpo() {
-        stack_offset_set(Some(2));
-        println!();
-        dpo!("this printed line should be indented with arg {:?}", SO_LEAD);
-        dpo!();
-        println!();
-    }
-
-    #[test]
-    fn test_dpn() {
-        stack_offset_set(Some(2));
-        println!();
-        dpn!("this printed line should be indented with arg {:?}", SN_LEAD);
-        dpn!();
-        println!();
-    }
-
-    #[test]
-    fn test_dpx() {
-        stack_offset_set(Some(2));
-        println!();
-        dpx!("this printed line should be indented with arg {:?}", SX_LEAD);
-        dpx!();
-        println!();
-    }
-
-    #[test]
-    fn test_dpñ() {
-        stack_offset_set(Some(2));
-        println!();
-        dpñ!("this printed line should be indented with arg {:?}", SÑ_LEAD);
-        dpñ!();
         println!();
     }
 
@@ -3608,54 +3216,6 @@ mod tests {
     }
 
     #[test]
-    fn test_dpfo() {
-        stack_offset_set(Some(2));
-        println!();
-        dpfo!(
-            "this printed line should be indented and preceded with function name 'test_dpfo', with arg {:?}",
-            SO_LEAD
-        );
-        dpfo!();
-        println!();
-    }
-
-    #[test]
-    fn test_dpfn() {
-        stack_offset_set(Some(2));
-        println!();
-        dpfn!(
-            "this printed line should be indented and preceded with function name 'test_dpfn', with arg {:?}",
-            SN_LEAD
-        );
-        dpfn!();
-        println!();
-    }
-
-    #[test]
-    fn test_dpfx() {
-        stack_offset_set(Some(2));
-        println!();
-        dpfx!(
-            "this printed line should be indented and preceded with function name 'test_dpfx', with arg {:?}",
-            SX_LEAD
-        );
-        dpfx!();
-        println!();
-    }
-
-    #[test]
-    fn test_dpfñ() {
-        stack_offset_set(Some(2));
-        println!();
-        dpfñ!(
-            "this printed line should be indented and preceded with function name 'test_dpfñ', with arg {:?}",
-            SÑ_LEAD
-        );
-        dpfñ!();
-        println!();
-    }
-
-    #[test]
     fn test_dpfonxñ() {
         stack_offset_set(Some(2));
         println!();
@@ -3663,54 +3223,6 @@ mod tests {
         dpfn!("dpfn!");
         dpfñ!("dpfñ!");
         dpfx!("dpfx!");
-        println!();
-    }
-
-    #[test]
-    fn test_dpf1o() {
-        stack_offset_set(Some(2));
-        println!();
-        dpf1o!(
-            "this printed line should be indented and preceded with function name 'tests::test_dpf1o', with arg {:?}",
-            SO_LEAD
-        );
-        dpf1o!();
-        println!();
-    }
-
-    #[test]
-    fn test_dpf1n() {
-        stack_offset_set(Some(2));
-        println!();
-        dpf1n!(
-            "this printed line should be indented and preceded with function name 'tests::test_dpf1n', with arg {:?}",
-            SN_LEAD
-        );
-        dpf1n!();
-        println!();
-    }
-
-    #[test]
-    fn test_dpf1x() {
-        stack_offset_set(Some(2));
-        println!();
-        dpf1x!(
-            "this printed line should be indented and preceded with function name 'tests::test_dpf1x', with arg {:?}",
-            SX_LEAD
-        );
-        dpf1x!();
-        println!();
-    }
-
-    #[test]
-    fn test_dpf1ñ() {
-        stack_offset_set(Some(2));
-        println!();
-        dpf1ñ!(
-            "this printed line should be indented and preceded with function name 'tests::test_dpf1ñ', with arg {:?}",
-            SÑ_LEAD
-        );
-        dpf1ñ!();
         println!();
     }
 
@@ -3726,54 +3238,6 @@ mod tests {
     }
 
     #[test]
-    fn test_dpf2o() {
-        stack_offset_set(Some(2));
-        println!();
-        dpf2o!(
-            "this printed line should be indented and preceded with function name 'printers::tests::test_dpf2o', with arg {:?}",
-            SO_LEAD
-        );
-        dpf2o!();
-        println!();
-    }
-
-    #[test]
-    fn test_dpf2n() {
-        stack_offset_set(Some(2));
-        println!();
-        dpf2n!(
-            "this printed line should be indented and preceded with function name 'printers::tests::test_dpf2n', with arg {:?}",
-            SN_LEAD
-        );
-        dpf2n!();
-        println!();
-    }
-
-    #[test]
-    fn test_dpf2x() {
-        stack_offset_set(Some(2));
-        println!();
-        dpf2x!(
-            "this printed line should be indented and preceded with function name 'printers::tests::test_dpf2x', with arg {:?}",
-            SX_LEAD
-        );
-        dpf2x!();
-        println!();
-    }
-
-    #[test]
-    fn test_dpf2ñ() {
-        stack_offset_set(Some(2));
-        println!();
-        dpf2ñ!(
-            "this printed line should be indented and preceded with function name 'printers::tests::test_dpf2ñ', with arg {:?}",
-            SÑ_LEAD
-        );
-        dpf2ñ!();
-        println!();
-    }
-
-    #[test]
     fn test_dpf2onxñ() {
         stack_offset_set(Some(2));
         println!();
@@ -3784,49 +3248,13 @@ mod tests {
         println!();
     }
 
-    // **d**ebug `e`println tests
+    // `d`ebug `e`println tests
 
     #[test]
     fn test_de() {
         eprintln!();
         de!("this printed line should not be indented");
         de!();
-        eprintln!();
-    }
-
-    #[test]
-    fn test_deo() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        deo!("this printed line should be indented with arg {:?}", SO_LEAD);
-        deo!();
-        eprintln!();
-    }
-
-    #[test]
-    fn test_den() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        den!("this printed line should be indented with arg {:?}", SN_LEAD);
-        den!();
-        eprintln!();
-    }
-
-    #[test]
-    fn test_dex() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        dex!("this printed line should be indented with arg {:?}", SX_LEAD);
-        dex!();
-        eprintln!();
-    }
-
-    #[test]
-    fn test_deñ() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        deñ!("this printed line should be indented with arg {:?}", SÑ_LEAD);
-        deñ!();
         eprintln!();
     }
 
@@ -3842,54 +3270,6 @@ mod tests {
     }
 
     #[test]
-    fn test_defo() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        defo!(
-            "this printed line should be indented and preceded with function name 'test_defo', with arg {:?}",
-            SO_LEAD
-        );
-        defo!();
-        eprintln!();
-    }
-
-    #[test]
-    fn test_defn() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        defn!(
-            "this printed line should be indented and preceded with function name 'test_defn', with arg {:?}",
-            SN_LEAD
-        );
-        defn!();
-        eprintln!();
-    }
-
-    #[test]
-    fn test_defx() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        defx!(
-            "this printed line should be indented and preceded with function name 'test_defx', with arg {:?}",
-            SX_LEAD
-        );
-        defx!();
-        eprintln!();
-    }
-
-    #[test]
-    fn test_defñ() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        defñ!(
-            "this printed line should be indented and preceded with function name 'test_defñ', with arg {:?}",
-            SÑ_LEAD
-        );
-        defñ!();
-        eprintln!();
-    }
-
-    #[test]
     fn test_defonxñ() {
         stack_offset_set(Some(2));
         eprintln!();
@@ -3901,54 +3281,6 @@ mod tests {
     }
 
     #[test]
-    fn test_def1o() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        def1o!(
-            "this printed line should be indented and preceded with function name 'tests::test_def1o', with arg {:?}",
-            SO_LEAD
-        );
-        def1o!();
-        eprintln!();
-    }
-
-    #[test]
-    fn test_def1n() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        def1n!(
-            "this printed line should be indented and preceded with function name 'tests::test_def1n', with arg {:?}",
-            SN_LEAD
-        );
-        def1n!();
-        eprintln!();
-    }
-
-    #[test]
-    fn test_def1x() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        def1x!(
-            "this printed line should be indented and preceded with function name 'tests::test_def1x', with arg {:?}",
-            SX_LEAD
-        );
-        def1x!();
-        eprintln!();
-    }
-
-    #[test]
-    fn test_def1ñ() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        def1ñ!(
-            "this printed line should be indented and preceded with function name 'tests::test_def1ñ', with arg {:?}",
-            SÑ_LEAD
-        );
-        def1ñ!();
-        eprintln!();
-    }
-
-    #[test]
     fn test_def1onxñ() {
         stack_offset_set(Some(2));
         eprintln!();
@@ -3956,54 +3288,6 @@ mod tests {
         def1n!("def1n!");
         def1ñ!("def1ñ!");
         def1x!("def1x!");
-        eprintln!();
-    }
-
-    #[test]
-    fn test_def2o() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        def2o!(
-            "this printed line should be indented and preceded with function name 'printers::tests::test_def2o', with arg {:?}",
-            SO_LEAD
-        );
-        def2o!();
-        eprintln!();
-    }
-
-    #[test]
-    fn test_def2n() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        def2n!(
-            "this printed line should be indented and preceded with function name 'printers::tests::test_def2n', with arg {:?}",
-            SN_LEAD
-        );
-        def2n!();
-        eprintln!();
-    }
-
-    #[test]
-    fn test_def2x() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        def2x!(
-            "this printed line should be indented and preceded with function name 'printers::tests::test_def2x', with arg {:?}",
-            SX_LEAD
-        );
-        def2x!();
-        eprintln!();
-    }
-
-    #[test]
-    fn test_def2ñ() {
-        stack_offset_set(Some(2));
-        eprintln!();
-        def2ñ!(
-            "this printed line should be indented and preceded with function name 'printers::tests::test_def2ñ', with arg {:?}",
-            SÑ_LEAD
-        );
-        def2ñ!();
         eprintln!();
     }
 
