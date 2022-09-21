@@ -31,7 +31,7 @@ Add `si_trace_print` entry to the project `Cargo.toml` section `[dependencies]`.
 ### Trace-printing example
 
 The most common use will likely be **d**ebug-only printing to std**e**rr with
-a precding **f**unction name.
+a preceding **f**unction name.
 
 ```rust
 use si_trace_print::{
