@@ -251,7 +251,7 @@ this printed
 ### Slow
 
 This trace function may significantly slow a program. It is recommended to
-use the **d**ebug version of provided macros.
+use the ***d***ebug version of provided macros.
 
 ### Release builds
 
