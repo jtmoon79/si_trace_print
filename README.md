@@ -31,8 +31,8 @@ Add `si_trace_print` entry to the project `Cargo.toml` section `[dependencies]`.
 
 ### Trace-printing example
 
-The most common use will likely be **d**ebug-only printing to std**e**rr with
-a preceding **f**unction name.
+The most common use will likely be ***d***ebug-only ***e***println with
+a preceding ***f***unction name.
 
 ```rust
 use si_trace_print::{
@@ -43,14 +43,14 @@ fn main() {
     den!("hello from main");
     deo!("main will be doing stuff...");
     func1(3);
-    deo!("main is done doing stuff...");
+    deo!("main is done doing stuff.");
     dex!("goodbye from main");
 }
 
 fn func1(_var: usize) {
     defn!("({:?})", _var);
     defo!("doing even more stuff...");
-    defx!("({:?})", _var);
+    defx!();
 }
 ```
 
@@ -62,17 +62,17 @@ $ cargo run
  main will be doing stuff...
     →func1: (3)
      func1: doing even more stuff...
-    ←func1: (3)
- main is done doing stuff...
+    ←func1: 
+ main is done doing stuff.
 ←goodbye from main
 ```
 
-If built with `--release` then the statements are not compiled and nothing would
+If built with `--release` then the `de` statements are not compiled and nothing would
 be printed.
 
 <br/>
 
-An example using a variety of the available **e**println macros.
+An example using a variety of the available ***p***rintln macros.
 
 ```rust
 extern crate si_trace_print;
