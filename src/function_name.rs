@@ -48,8 +48,8 @@ macro_rules! function_name {
 }
 pub use function_name;
 
-/// Return the current the current function name **plus** some namespaces as
-/// a `&'static str`.
+/// Return the current function name plus preceding namespaces as a
+/// `&'static str`.
 ///
 /// For example,
 /// - `function_name_plus!(1)` returns `"my_struct::my_func"`
@@ -86,14 +86,12 @@ macro_rules! function_name_plus {
                     if index < len {
                         index
                     } else {
-                        // this `else` should never happen... but if it does then
-                        // do not panic
+                        // this `else` should never happen but do not panic
                         len
                     }
                 }
                 None => {
-                    // this `None` should never happen... but if it does then
-                    // fallback to full name
+                    // this `None` should never happen but fallback to full name
                     len
                 }
             };
@@ -102,10 +100,10 @@ macro_rules! function_name_plus {
         if at + SPLIT_LEN < name.len() {
             &name[at + SPLIT_LEN..]
         } else if at < name.len() {
-            // this should not happen but also avoid panics
+            // this should not happen but do not panic
             &name[at..]
         } else {
-            // this should not happen but also avoid panics
+            // this should not happen but do not panic
             &name
         }
     }};
