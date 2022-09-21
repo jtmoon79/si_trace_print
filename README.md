@@ -1,6 +1,7 @@
 # si_trace_print<!-- omit in TOC -->
 
-A rust library to print messages indented to stack depth optionally preceded by the function name.
+***s***tack ***i***ndented ***trace*** ***print***ing;
+a rust library to print messages indented to stack depth optionally preceded by the function name.
 
 Useful for trace printing function flows.
 

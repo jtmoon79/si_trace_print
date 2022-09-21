@@ -2,7 +2,7 @@
 name = "si_trace_print"
 version = "0.2.4"
 edition = "2021"
-description = "A rust library to print trace messages indented to stack depth, optionally preceded by function name."
+description = "stack indented trace printing; a rust library to print messages indented to stack depth optionally preceded by the function name."
 repository = "https://github.com/jtmoon79/si_trace_print"
 authors = ["James Thomas Moon"]
 license = "MIT"
