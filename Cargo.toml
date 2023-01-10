@@ -7,6 +7,7 @@ repository = "https://github.com/jtmoon79/si_trace_print"
 authors = ["James Thomas Moon"]
 license = "MIT"
 keywords = ["trace", "debug", "print"]
+categories = ["development-tools::debugging"]
 readme = "README.md"
 # Do not set metadata fields `documentation` or `homepage` unless using
 # non-standard websites.
