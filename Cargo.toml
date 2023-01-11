@@ -1,6 +1,6 @@
 [package]
 name = "si_trace_print"
-version = "0.2.5"
+version = "0.3.6"
 edition = "2018"
 description = "stack indented trace printing; a rust library to print messages indented to stack depth optionally preceded by the function name."
 repository = "https://github.com/jtmoon79/si_trace_print"
