@@ -1561,9 +1561,9 @@ macro_rules! dpo {
         $($args:tt)*
     ) => {
         #[cfg(any(debug_assertions,test))]
-        eprint!("{}", $crate::stack::so());
+        print!("{}", $crate::stack::so());
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
+        println!($($args)*)
     }
 }
 pub use dpo;
@@ -1606,9 +1606,9 @@ macro_rules! dpn {
         $($args:tt)*
     ) => {
         #[cfg(any(debug_assertions,test))]
-        eprint!("{}", $crate::stack::sn());
+        print!("{}", $crate::stack::sn());
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
+        println!($($args)*)
     }
 }
 pub use dpn;
@@ -1651,9 +1651,9 @@ macro_rules! dpx {
         $($args:tt)*
     ) => {
         #[cfg(any(debug_assertions,test))]
-        eprint!("{}", $crate::stack::sx());
+        print!("{}", $crate::stack::sx());
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
+        println!($($args)*)
     }
 }
 pub use dpx;
@@ -1697,9 +1697,9 @@ macro_rules! dpñ {
         $($args:tt)*
     ) => {
         #[cfg(any(debug_assertions,test))]
-        eprint!("{}", $crate::stack::sñ());
+        print!("{}", $crate::stack::sñ());
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
+        println!($($args)*)
     }
 }
 pub use dpñ;
@@ -1743,9 +1743,9 @@ macro_rules! dpfo {
         $($args:tt)*
     ) => {
         #[cfg(any(debug_assertions,test))]
-        eprint!("{}{}: ", $crate::stack::so(), $crate::function_name::function_name!());
+        print!("{}{}: ", $crate::stack::so(), $crate::function_name::function_name!());
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
+        println!($($args)*)
     }
 }
 pub use dpfo;
@@ -1793,9 +1793,9 @@ macro_rules! dpfn {
         $($args:tt)*
     ) => {
         #[cfg(any(debug_assertions,test))]
-        eprint!("{}{}: ", $crate::stack::sn(), $crate::function_name::function_name!());
+        print!("{}{}: ", $crate::stack::sn(), $crate::function_name::function_name!());
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
+        println!($($args)*)
     }
 }
 pub use dpfn;
@@ -1839,9 +1839,9 @@ macro_rules! dpfx {
         $($args:tt)*
     ) => {
         #[cfg(any(debug_assertions,test))]
-        eprint!("{}{}: ", $crate::stack::sx(), $crate::function_name::function_name!());
+        print!("{}{}: ", $crate::stack::sx(), $crate::function_name::function_name!());
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
+        println!($($args)*)
     }
 }
 pub use dpfx;
@@ -1886,9 +1886,9 @@ macro_rules! dpfñ {
         $($args:tt)*
     ) => {
         #[cfg(any(debug_assertions,test))]
-        eprint!("{}{}: ", $crate::stack::sñ(), $crate::function_name::function_name!());
+        print!("{}{}: ", $crate::stack::sñ(), $crate::function_name::function_name!());
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
+        println!($($args)*)
     }
 }
 pub use dpfñ;
@@ -1937,9 +1937,9 @@ macro_rules! dpf1o {
         $($args:tt)*
     ) => {
         #[cfg(any(debug_assertions,test))]
-        eprint!("{}{}: ", $crate::stack::so(), $crate::function_name::function_name_plus!(1));
+        print!("{}{}: ", $crate::stack::so(), $crate::function_name::function_name_plus!(1));
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
+        println!($($args)*)
     }
 }
 pub use dpf1o;
@@ -1984,9 +1984,9 @@ macro_rules! dpf1n {
         $($args:tt)*
     ) => {
         #[cfg(any(debug_assertions,test))]
-        eprint!("{}{}: ", $crate::stack::sn(), $crate::function_name::function_name_plus!(1));
+        print!("{}{}: ", $crate::stack::sn(), $crate::function_name::function_name_plus!(1));
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
+        println!($($args)*)
     }
 }
 pub use dpf1n;
@@ -2031,9 +2031,9 @@ macro_rules! dpf1x {
         $($args:tt)*
     ) => {
         #[cfg(any(debug_assertions,test))]
-        eprint!("{}{}: ", $crate::stack::sx(), $crate::function_name::function_name_plus!(1));
+        print!("{}{}: ", $crate::stack::sx(), $crate::function_name::function_name_plus!(1));
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
+        println!($($args)*)
     }
 }
 pub use dpf1x;
@@ -2079,9 +2079,9 @@ macro_rules! dpf1ñ {
         $($args:tt)*
     ) => {
         #[cfg(any(debug_assertions,test))]
-        eprint!("{}{}: ", $crate::stack::sñ(), $crate::function_name::function_name_plus!(1));
+        print!("{}{}: ", $crate::stack::sñ(), $crate::function_name::function_name_plus!(1));
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
+        println!($($args)*)
     }
 }
 pub use dpf1ñ;
@@ -2130,9 +2130,9 @@ macro_rules! dpf2o {
         $($args:tt)*
     ) => {
         #[cfg(any(debug_assertions,test))]
-        eprint!("{}{}: ", $crate::stack::so(), $crate::function_name::function_name_plus!(2));
+        print!("{}{}: ", $crate::stack::so(), $crate::function_name::function_name_plus!(2));
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
+        println!($($args)*)
     }
 }
 pub use dpf2o;
@@ -2177,9 +2177,9 @@ macro_rules! dpf2n {
         $($args:tt)*
     ) => {
         #[cfg(any(debug_assertions,test))]
-        eprint!("{}{}: ", $crate::stack::sn(), $crate::function_name::function_name_plus!(2));
+        print!("{}{}: ", $crate::stack::sn(), $crate::function_name::function_name_plus!(2));
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
+        println!($($args)*)
     }
 }
 pub use dpf2n;
@@ -2224,9 +2224,9 @@ macro_rules! dpf2x {
         $($args:tt)*
     ) => {
         #[cfg(any(debug_assertions,test))]
-        eprint!("{}{}: ", $crate::stack::sx(), $crate::function_name::function_name_plus!(2));
+        print!("{}{}: ", $crate::stack::sx(), $crate::function_name::function_name_plus!(2));
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
+        println!($($args)*)
     }
 }
 pub use dpf2x;
@@ -2272,9 +2272,9 @@ macro_rules! dpf2ñ {
         $($args:tt)*
     ) => {
         #[cfg(any(debug_assertions,test))]
-        eprint!("{}{}: ", $crate::stack::sñ(), $crate::function_name::function_name_plus!(2));
+        print!("{}{}: ", $crate::stack::sñ(), $crate::function_name::function_name_plus!(2));
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
+        println!($($args)*)
     }
 }
 pub use dpf2ñ;
