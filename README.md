@@ -1,9 +1,9 @@
 # si_trace_print<!-- omit in TOC -->
 
 ***s***tack ***i***ndented ***trace*** ***print***ing;
-a rust library to print messages indented to stack depth optionally preceded by the function name.
+a simple rust library to print messages indented to stack depth optionally preceded by the function name.
 
-Useful for trace printing function flows.
+Useful for trace printing function flows in a simple manual approach.
 
 [![Build status](https://img.shields.io/github/actions/workflow/status/jtmoon79/si_trace_print/rust.yml?branch=main&style=flat-square&logo=github)](https://github.com/jtmoon79/si_trace_print/actions?query=workflow%3Arust)
 [![docs.rs](https://img.shields.io/docsrs/si_trace_print/latest?badge.svg&style=flat-square&logo=docsdotrs)](https://docs.rs/si_trace_print/latest/)
@@ -22,8 +22,14 @@ Useful for trace printing function flows.
   - [Shortcomings](#shortcomings)
     - [Slow](#slow)
     - [Release builds](#release-builds)
+  - [Other tracing crates](#other-tracing-crates)
 
 ---
+
+The aim of `si_trace_print` is to aid developers manually reviewing single
+program runs in a simple manner. It offers decent control
+over what is printed. It's great for anyone that needs some tracing in
+debug builds, and doesn't want an entire framework or compiler adjustments.
 
 ## Use
 
@@ -67,8 +73,8 @@ $ cargo run
 ←goodbye from main
 ```
 
-If built with `--release` then the `de` statements are not compiled and nothing would
-be printed.
+If built with `--release` then the `de` statements are not compiled and nothing
+would be printed.
 
 <br/>
 
@@ -225,7 +231,8 @@ this printed
 ```
 
 The indentation is improved but is too far indented.
-The indentation amount to pass to `stack_offset_set` can be somewhat unpredictable.
+The indentation amount to pass to `stack_offset_set` can be somewhat
+unpredictable.
 It depends on build settings and which thread is running, among other things.
 In this case, experimentation revealed value `-1` to be best:
 
@@ -256,11 +263,28 @@ use the ***d***ebug version of provided macros.
 ### Release builds
 
 The calculation of function depth depends on stack frames counted by
-[`backtrace::trace`]. In `--release` builds or under other optimization profiles, some functions may be optimized inline.
+[`backtrace::trace`]. In `--release` builds or under other optimization
+profiles, some functions may be optimized inline.
 The count of stack frames may not change among function calls.
 This means the printed indentation will not reflect function call depth.
 This can be forcibly avoided by adding attribute `#[inline(never)]` to such
 functions.
+
+## Other tracing crates
+
+`si_trace_print` is a great entry-level tracing crate.
+But a major drawback of `si_trace_print` is it may clutter your code. And it
+presumes to use either _stdout_ or _stdout_ which may preclude normal program
+operation.
+
+Here are some other tracing crates with different features.
+
+- [`trace`](https://crates.io/crates/trace) a procedural macro that acts like
+  function wrapper.
+- [`tracing`](https://crates.io/crates/tracing) a heavy-dute framework for
+  in-depth program analysis
+- [`rftrace`](https://crates.io/crates/rftrace) uses compiler-provided function
+  tracing. The crates page it's own section _Alternative Tracers_.
 
 <!-- links -->
 
