@@ -1,7 +1,7 @@
 [package]
 name = "si_trace_print"
 version = "0.2.5"
-edition = "2021"
+edition = "2018"
 description = "stack indented trace printing; a rust library to print messages indented to stack depth optionally preceded by the function name."
 repository = "https://github.com/jtmoon79/si_trace_print"
 authors = ["James Thomas Moon"]
@@ -9,6 +9,8 @@ license = "MIT"
 keywords = ["trace", "debug", "print"]
 categories = ["development-tools::debugging"]
 readme = "README.md"
+# this value must agree with the minimum at `.github/workflows/rust.yml`
+rust-version = "1.53.0"
 # Do not set metadata fields `documentation` or `homepage` unless using
 # non-standard websites.
 # See <https://rust-lang.github.io/api-guidelines/documentation.html#cargotoml-includes-all-common-metadata-c-metadata>
@@ -30,7 +32,7 @@ mut_static = "5.0.0"
 name = "si_trace_print"
 path = "src/lib.rs"
 crate-type = ["lib"]
-edition = "2021"
+edition = "2018"
 test = true
 doc = true
 doctest = true
