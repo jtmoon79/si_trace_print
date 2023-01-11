@@ -44,18 +44,28 @@ jobs:
       - name: git checkout
         uses: actions/checkout@v2
       - name: Check rustfmt
-        run: cargo fmt --verbose --check
+        shell: bash
+        run: |
+          cargo --version
+          cargo fmt --version
+          cargo fmt --verbose --check
       - name: Check clippy
-        run: cargo clippy --no-deps --verbose --all-targets --all-features --
+        shell: bash
+        run: |
+          cargo --version
+          cargo clippy --version
+          cargo clippy --no-deps --verbose --all-targets --all-features -- \
              -D warnings
       - name: Build Debug and Release
         run: |
           set -eux
+          cargo --version
           cargo build --verbose
           cargo build --verbose --release
       - name: Run All Tests Single-threaded
         run: |
           set -eux
+          cargo --version
           cargo test -j1 --verbose \
               --all-features \
               --future-incompat-report \
@@ -64,6 +74,7 @@ jobs:
       - name: Run Lib Tests Multi-threaded
         run: |
           set -eux
+          cargo --version
           cargo test -j2 --lib --verbose -- --test-threads=2
           cargo test -j4 --lib --verbose -- --test-threads=4
           cargo test -j8 --lib --verbose -- --test-threads=8
@@ -136,6 +147,7 @@ jobs:
                      -Cpanic=abort -Zpanic_abort_tests
         run: |
           set -eux
+          grcov --version
           grcov \
               . \
               --source-dir ./src \
