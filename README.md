@@ -279,7 +279,11 @@ profiles, some functions may be optimized inline.
 The count of stack frames may not change among function calls.
 This means the printed indentation will not reflect function call depth.
 This can be forcibly avoided by adding attribute `#[inline(never)]` to such
-functions, though even that is not guaranteed to work.
+functions, though [even that is not guaranteed to work].
+
+> Inline attributes do not guarantee that a function is inlined or not inlined,
+> but in practice, `#[inline(always)]` will cause inlining in all but the most
+> exceptional cases.
 
 ### Code Clutter
 
@@ -307,6 +311,7 @@ Here are some other tracing crates with different features.
 <!-- links -->
 
 [`backtrace::trace`]: https://docs.rs/backtrace/0.3.66/backtrace/fn.trace.html
+[even that is not guaranteed to work]: https://nnethercote.github.io/perf-book/inlining.html
 [`trace`]: https://crates.io/crates/trace
 [`tracing`]: https://crates.io/crates/tracing
 [`rftrace`]: https://crates.io/crates/rftrace
