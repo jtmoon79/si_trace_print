@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: git checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Check rustfmt
         shell: bash
         run: |
@@ -92,7 +92,7 @@ jobs:
     needs: [job_msrv, job_fmt_clippy_build_buildrelease_test_doc]
     steps:
       - name: git checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
       - name: get toolchain nightly
         uses: actions-rs/toolchain@v1
         env:
