@@ -222,7 +222,7 @@ pub use pñ;
 
 /// **p**rintln! in a **f**unction with **o**ffset.
 ///
-/// To signify printing wihtin a function.
+/// To signify printing within a function.
 /// Use to [`println!`] in a [function].
 ///
 /// ```rust
@@ -959,7 +959,7 @@ pub use eñ;
 
 /// **e**println! in a **f**unction with **o**ffset.
 ///
-/// To signify printing wihtin a function.
+/// To signify printing within a function.
 /// Use to [`eprintln!`] in a [function].
 ///
 /// ```rust
@@ -1131,7 +1131,7 @@ pub use efñ;
 /// **e**println! in a **f**unction with **one** namespace levels and
 /// **o**ffset.
 ///
-/// To signify printing wihtin a function.
+/// To signify printing within a function.
 /// Use to [`eprintln!`] in a [function].
 ///
 /// ```rust
@@ -1308,7 +1308,7 @@ pub use ef1ñ;
 /// **e**println! in a **f**unction with **two** namespace levels and
 /// **o**ffset.
 ///
-/// To signify printing wihtin a function.
+/// To signify printing within a function.
 /// Use to [`eprintln!`] in a [function].
 ///
 /// ```rust
@@ -1704,7 +1704,7 @@ pub use dpñ;
 
 /// **d**ebug **p**rintln! in a **f**unction with **o**ffset.
 ///
-/// To signify printing wihtin a function.
+/// To signify printing within a function.
 /// Use to [`println!`] in a [function].
 ///
 /// ```rust
@@ -1896,7 +1896,7 @@ pub use dpfñ;
 /// **d**ebug **p**rintln! in a **f**unction plus **one** namespace level with
 /// **o**ffset.
 ///
-/// To signify printing wihtin a function.
+/// To signify printing within a function.
 /// Use to [`println!`] in a [function].
 ///
 /// ```rust
@@ -2089,7 +2089,7 @@ pub use dpf1ñ;
 /// **d**ebug **p**rintln! in a **f**unction plus **two** namespace levels with
 /// **o**ffset
 ///
-/// To signify printing wihtin a function.
+/// To signify printing within a function.
 /// Use to [`println!`] in a [function].
 ///
 /// ```rust
@@ -2505,7 +2505,7 @@ pub use deñ;
 
 /// **d**ebug **e**println! in a **f**unction with **o**ffset.
 ///
-/// To signify printing wihtin a function.
+/// To signify printing within a function.
 /// Use to [`eprintln!`] in a [function].
 ///
 /// ```rust
@@ -2693,7 +2693,7 @@ pub use defñ;
 /// **d**ebug **e**println! in a **f**unction plus **one** namespace level
 /// with **o**ffset.
 ///
-/// To signify printing wihtin a function.
+/// To signify printing within a function.
 /// Use to [`eprintln!`] in a [function].
 ///
 /// ```rust
@@ -2886,7 +2886,7 @@ pub use def1ñ;
 /// **d**ebug **e**println! in a **f**unction plus **two** namespace levels
 /// with **o**ffset.
 ///
-/// To signify printing wihtin a function.
+/// To signify printing within a function.
 /// Use to [`eprintln!`] in a [function].
 ///
 /// ```rust
