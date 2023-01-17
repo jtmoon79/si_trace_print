@@ -31,13 +31,13 @@ approach.
 
 ## About
 
-The aim of `si_trace_print` is to be a simple libaary to aid developers manually
+The aim of `si_trace_print` is to be a simple library to aid developers manually
 reviewing singular program runs. It is simple to use; not a framework, does
 not require compiler changes, no new Computer Science theories must be studied
-to understand how it works. It offers decent control over what is printed.
-It's great for anyone that wants some tracing in debug builds (though it may
-also be used in release builds) but does not want
-to take on a new "tracing framework" or make compiler adjustments.
+to understand how it works.
+It's best suited for easily adding rudimentary tracing in debug builds (though
+it may also be used in release builds) without the burden of adhering to a
+"tracing framework" or adding unusual build parameters.
 
 `si_trace_print` is a good "entry-level" tracing library.
 
