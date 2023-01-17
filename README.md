@@ -205,7 +205,7 @@ prints poorly indented output
 ←main: goodbye from main (this is not indented!)
 ```
 
-Explictly call `stack_offset_set` near the beginning of the thread.
+Explicitly call `stack_offset_set` near the beginning of the thread.
 
 ```rust
 use si_trace_print::{
