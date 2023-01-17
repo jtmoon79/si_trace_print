@@ -269,7 +269,6 @@ pub use pfo;
 ///
 /// ```rust
 /// use si_trace_print::{pfn, pfx};
-/// use si_trace_print::pfn;
 /// fn func1() {
 ///     pfn!("hello");
 /// }
@@ -311,7 +310,6 @@ pub use pfn;
 ///
 /// ```rust
 /// use si_trace_print::{pfn, pfx};
-/// use si_trace_print::pfn;
 /// fn func1() {
 ///     pfn!("hello");
 /// }
@@ -1761,7 +1759,6 @@ pub use dpfo;
 ///
 /// ```rust
 /// use si_trace_print::{dpfn, dpfx};
-/// use si_trace_print::dpfn;
 /// fn func1() {
 ///     dpfn!("hello");
 /// }
@@ -1807,7 +1804,6 @@ pub use dpfn;
 ///
 /// ```rust
 /// use si_trace_print::{dpfn, dpfx};
-/// use si_trace_print::dpfx;
 /// fn func1() {
 ///     dpfx!("hello");
 /// }
@@ -2560,7 +2556,6 @@ pub use defo;
 ///
 /// ```rust
 /// use si_trace_print::{defn, defx};
-/// use si_trace_print::defn;
 /// fn func1() {
 ///     defn!("hello");
 /// }
@@ -2606,7 +2601,6 @@ pub use defn;
 ///
 /// ```rust
 /// use si_trace_print::{defn, defx};
-/// use si_trace_print::defx;
 /// fn func1() {
 ///     defx!("hello");
 /// }
