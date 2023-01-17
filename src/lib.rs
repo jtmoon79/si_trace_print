@@ -7,7 +7,7 @@
 //!
 //! ```rust
 //! use si_trace_print::{
-//!     den, deo, dex, defn, defx,
+//!     den, deo, dex, defn, defo, defx,
 //! };
 //!
 //! fn main() {
