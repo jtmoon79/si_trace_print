@@ -21,15 +21,15 @@
 /// For completeness, wrap [`println!`].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{pfn, pfx};
 /// use si_trace_print::p;
 /// fn func1() {
 ///     p!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     pfn!();
 ///     func1();
-///     efx!();
+///     pfx!();
 /// }
 /// ```
 ///
@@ -61,15 +61,15 @@ pub use p;
 /// Use this to [`println!`] within a function.
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{pfn, pfx};
 /// use si_trace_print::po;
 /// fn func1() {
 ///     po!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     pfn!();
 ///     func1();
-///     efx!();
+///     pfx!();
 /// }
 /// ```
 ///
@@ -102,15 +102,15 @@ pub use po;
 /// Use this as the first [`println!`] in a function.
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{pfn, pfx};
 /// use si_trace_print::pn;
 /// fn func1() {
 ///     pn!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     pfn!();
 ///     func1();
-///     efx!();
+///     pfx!();
 /// }
 /// ```
 ///
@@ -143,15 +143,15 @@ pub use pn;
 /// Use this as the last [`println!`] in a function.
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{pfn, pfx};
 /// use si_trace_print::px;
 /// fn func1() {
 ///     px!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     pfn!();
 ///     func1();
-///     efx!();
+///     pfx!();
 /// }
 /// ```
 ///
@@ -185,15 +185,15 @@ pub use px;
 /// Most suited for short functions.
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{pfn, pfx};
 /// use si_trace_print::pñ;
 /// fn func1() {
 ///     pñ!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     pfn!();
 ///     func1();
-///     efx!();
+///     pfx!();
 /// }
 /// ```
 ///
@@ -226,15 +226,15 @@ pub use pñ;
 /// Use to [`println!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{pfn, pfx};
 /// use si_trace_print::pfo;
 /// fn func1() {
 ///     pfo!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     pfn!();
 ///     func1();
-///     efx!();
+///     pfx!();
 /// }
 /// ```
 ///
@@ -268,15 +268,15 @@ pub use pfo;
 /// Use this as the first [`println!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{pfn, pfx};
 /// use si_trace_print::pfn;
 /// fn func1() {
 ///     pfn!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     pfn!();
 ///     func1();
-///     efx!();
+///     pfx!();
 /// }
 /// ```
 ///
@@ -310,15 +310,15 @@ pub use pfn;
 /// Use this as the last [`println!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{pfn, pfx};
 /// use si_trace_print::pfn;
 /// fn func1() {
 ///     pfn!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     pfn!();
 ///     func1();
-///     efx!();
+///     pfx!();
 /// }
 /// ```
 ///
@@ -353,15 +353,15 @@ pub use pfx;
 /// Most suited for short functions.
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{pfn, pfx};
 /// use si_trace_print::pfñ;
 /// fn func1() {
 ///     pfñ!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     pfn!();
 ///     func1();
-///     efx!();
+///     pfx!();
 /// }
 /// ```
 ///
@@ -400,15 +400,15 @@ pub use pfñ;
 /// Use to [`println!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{pfn, pfx};
 /// use si_trace_print::pf1o;
 /// fn func1() {
 ///     pf1o!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     pfn!();
 ///     func1();
-///     efx!();
+///     pfx!();
 /// }
 /// ```
 ///
@@ -443,15 +443,15 @@ pub use pf1o;
 /// Use this as the first [`println!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{pfn, pfx};
 /// use si_trace_print::pf1n;
 /// fn func1() {
 ///     pf1n!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     pfn!();
 ///     func1();
-///     efx!();
+///     pfx!();
 /// }
 /// ```
 ///
@@ -486,15 +486,15 @@ pub use pf1n;
 /// Use this as the last [`println!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{pfn, pfx};
 /// use si_trace_print::pf1x;
 /// fn func1() {
 ///     pf1x!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     pfn!();
 ///     func1();
-///     efx!();
+///     pfx!();
 /// }
 /// ```
 ///
@@ -530,15 +530,15 @@ pub use pf1x;
 /// Most suited for short functions.
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{pfn, pfx};
 /// use si_trace_print::pf1ñ;
 /// fn func1() {
 ///     pf1ñ!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     pfn!();
 ///     func1();
-///     efx!();
+///     pfx!();
 /// }
 /// ```
 ///
@@ -577,15 +577,15 @@ pub use pf1ñ;
 /// Use to [`println!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{pfn, pfx};
 /// use si_trace_print::pf2o;
 /// fn func1() {
 ///     pf2o!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     pfn!();
 ///     func1();
-///     efx!();
+///     pfx!();
 /// }
 /// ```
 ///
@@ -620,15 +620,15 @@ pub use pf2o;
 /// Use this as the first [`println!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{pfn, pfx};
 /// use si_trace_print::pf2n;
 /// fn func1() {
 ///     pf2n!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     pfn!();
 ///     func1();
-///     efx!();
+///     pfx!();
 /// }
 /// ```
 ///
@@ -663,15 +663,15 @@ pub use pf2n;
 /// Use this as the last [`println!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{pfn, pfx};
 /// use si_trace_print::pf2x;
 /// fn func1() {
 ///     pf2x!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     pfn!();
 ///     func1();
-///     efx!();
+///     pfx!();
 /// }
 /// ```
 ///
@@ -707,15 +707,15 @@ pub use pf2x;
 /// Most suited for short functions.
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{pfn, pfx};
 /// use si_trace_print::pf2ñ;
 /// fn func1() {
 ///     pf2ñ!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     pfn!();
 ///     func1();
-///     efx!();
+///     pfx!();
 /// }
 /// ```
 ///
@@ -1487,15 +1487,15 @@ pub use ef2ñ;
 /// **d**ebug **p**rintln!
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{dpfn, dpfx};
 /// use si_trace_print::dp;
 /// fn func1() {
 ///     dp!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     dpfn!();
 ///     func1();
-///     efx!();
+///     dpfx!();
 /// }
 /// ```
 ///
@@ -1529,15 +1529,15 @@ pub use dp;
 /// Use this to [`println!`] within a function.
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{dpfn, dpfx};
 /// use si_trace_print::dpo;
 /// fn func1() {
 ///     dpo!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     dpfn!();
 ///     func1();
-///     efx!();
+///     dpfx!();
 /// }
 /// ```
 ///
@@ -1574,15 +1574,15 @@ pub use dpo;
 /// Use this as the first [`println!`] in a function.
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{dpfn, dpfx};
 /// use si_trace_print::dpn;
 /// fn func1() {
 ///     dpn!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     dpfn!();
 ///     func1();
-///     efx!();
+///     dpfx!();
 /// }
 /// ```
 ///
@@ -1619,15 +1619,15 @@ pub use dpn;
 /// Use this as the last [`println!`] in a function.
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{dpfn, dpfx};
 /// use si_trace_print::dpx;
 /// fn func1() {
 ///     dpx!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     dpfn!();
 ///     func1();
-///     efx!();
+///     dpfx!();
 /// }
 /// ```
 ///
@@ -1665,15 +1665,15 @@ pub use dpx;
 /// Most suited for short functions.
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{dpfn, dpfx};
 /// use si_trace_print::dpñ;
 /// fn func1() {
 ///     dpñ!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     dpfn!();
 ///     func1();
-///     efx!();
+///     dpfx!();
 /// }
 /// ```
 ///
@@ -1710,15 +1710,15 @@ pub use dpñ;
 /// Use to [`println!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{dpfn, dpfx};
 /// use si_trace_print::dpfo;
 /// fn func1() {
 ///     dpfo!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     dpfn!();
 ///     func1();
-///     efx!();
+///     dpfx!();
 /// }
 /// ```
 ///
@@ -1760,15 +1760,15 @@ pub use dpfo;
 /// Use this as the first [`println!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{dpfn, dpfx};
 /// use si_trace_print::dpfn;
 /// fn func1() {
 ///     dpfn!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     dpfn!();
 ///     func1();
-///     efx!();
+///     dpfx!();
 /// }
 /// ```
 ///
@@ -1806,15 +1806,15 @@ pub use dpfn;
 /// Use this as the last [`println!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{dpfn, dpfx};
 /// use si_trace_print::dpfx;
 /// fn func1() {
 ///     dpfx!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     dpfn!();
 ///     func1();
-///     efx!();
+///     dpfx!();
 /// }
 /// ```
 ///
@@ -1853,15 +1853,15 @@ pub use dpfx;
 /// Most suited for short functions.
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{dpfn, dpfx};
 /// use si_trace_print::dpfñ;
 /// fn func1() {
 ///     dpfñ!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     dpfn!();
 ///     func1();
-///     efx!();
+///     dpfx!();
 /// }
 /// ```
 ///
@@ -1904,15 +1904,15 @@ pub use dpfñ;
 /// Use to [`println!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{dpfn, dpfx};
 /// use si_trace_print::dpf1o;
 /// fn func1() {
 ///     dpf1o!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     dpfn!();
 ///     func1();
-///     efx!();
+///     dpfx!();
 /// }
 /// ```
 ///
@@ -1951,15 +1951,15 @@ pub use dpf1o;
 /// Use this as the first [`println!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{dpfn, dpfx};
 /// use si_trace_print::dpf1n;
 /// fn func1() {
 ///     dpf1n!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     dpfn!();
 ///     func1();
-///     efx!();
+///     dpfx!();
 /// }
 /// ```
 ///
@@ -1998,15 +1998,15 @@ pub use dpf1n;
 /// Use this as the last [`println!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{dpfn, dpfx};
 /// use si_trace_print::dpf1x;
 /// fn func1() {
 ///     dpf1x!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     dpfn!();
 ///     func1();
-///     efx!();
+///     dpfx!();
 /// }
 /// ```
 ///
@@ -2046,15 +2046,15 @@ pub use dpf1x;
 /// Most suited for short functions.
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{dpfn, dpfx};
 /// use si_trace_print::dpf1ñ;
 /// fn func1() {
 ///     dpf1ñ!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     dpfn!();
 ///     func1();
-///     efx!();
+///     dpfx!();
 /// }
 /// ```
 ///
@@ -2097,15 +2097,15 @@ pub use dpf1ñ;
 /// Use to [`println!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{dpfn, dpfx};
 /// use si_trace_print::dpf2o;
 /// fn func1() {
 ///     dpf2o!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     dpfn!();
 ///     func1();
-///     efx!();
+///     dpfx!();
 /// }
 /// ```
 ///
@@ -2144,15 +2144,15 @@ pub use dpf2o;
 /// Use this as the first [`println!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{dpfn, dpfx};
 /// use si_trace_print::dpf2n;
 /// fn func1() {
 ///     dpf2n!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     dpfn!();
 ///     func1();
-///     efx!();
+///     dpfx!();
 /// }
 /// ```
 ///
@@ -2191,15 +2191,15 @@ pub use dpf2n;
 /// Use this as the last [`println!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{dpfn, dpfx};
 /// use si_trace_print::dpf2x;
 /// fn func1() {
 ///     dpf2x!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     dpfn!();
 ///     func1();
-///     efx!();
+///     dpfx!();
 /// }
 /// ```
 ///
@@ -2239,15 +2239,15 @@ pub use dpf2x;
 /// Most suited for short functions.
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{dpfn, dpfx};
 /// use si_trace_print::dpf2ñ;
 /// fn func1() {
 ///     dpf2ñ!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     dpfn!();
 ///     func1();
-///     efx!();
+///     dpfx!();
 /// }
 /// ```
 ///
@@ -2288,15 +2288,15 @@ pub use dpf2ñ;
 /// For completeness, wrap [`eprintln!`].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{defn, defx};
 /// use si_trace_print::de;
 /// fn func1() {
 ///     de!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     defn!();
 ///     func1();
-///     efx!();
+///     defx!();
 /// }
 /// ```
 ///
@@ -2328,15 +2328,15 @@ pub use de;
 /// Use this to [`eprintln!`] within a function.
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{defn, defx};
 /// use si_trace_print::deo;
 /// fn func1() {
 ///     deo!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     defn!();
 ///     func1();
-///     efx!();
+///     defx!();
 /// }
 /// ```
 ///
@@ -2373,15 +2373,15 @@ pub use deo;
 /// Use this as the first [`eprintln!`] in a function.
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{defn, defx};
 /// use si_trace_print::den;
 /// fn func1() {
 ///     den!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     defn!();
 ///     func1();
-///     efx!();
+///     defx!();
 /// }
 /// ```
 ///
@@ -2418,15 +2418,15 @@ pub use den;
 /// Use this as the last [`eprintln!`] in a function.
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{defn, defx};
 /// use si_trace_print::dex;
 /// fn func1() {
 ///     dex!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     defn!();
 ///     func1();
-///     efx!();
+///     defx!();
 /// }
 /// ```
 ///
@@ -2464,15 +2464,15 @@ pub use dex;
 /// Most suited for short functions.
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{defn, defx};
 /// use si_trace_print::deñ;
 /// fn func1() {
 ///     deñ!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     defn!();
 ///     func1();
-///     efx!();
+///     defx!();
 /// }
 /// ```
 ///
@@ -2513,15 +2513,15 @@ pub use deñ;
 /// Use to [`eprintln!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{defn, defx};
 /// use si_trace_print::defo;
 /// fn func1() {
 ///     defo!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     defn!();
 ///     func1();
-///     efx!();
+///     defx!();
 /// }
 /// ```
 ///
@@ -2559,15 +2559,15 @@ pub use defo;
 /// Use this as the first [`eprintln!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{defn, defx};
 /// use si_trace_print::defn;
 /// fn func1() {
 ///     defn!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     defn!();
 ///     func1();
-///     efx!();
+///     defx!();
 /// }
 /// ```
 ///
@@ -2605,15 +2605,15 @@ pub use defn;
 /// Use this as the last [`eprintln!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{defn, defx};
 /// use si_trace_print::defx;
 /// fn func1() {
 ///     defx!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     defn!();
 ///     func1();
-///     efx!();
+///     defx!();
 /// }
 /// ```
 ///
@@ -2652,15 +2652,15 @@ pub use defx;
 /// Most suited for short functions.
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{defn, defx};
 /// use si_trace_print::defñ;
 /// fn func1() {
 ///     defñ!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     defn!();
 ///     func1();
-///     efx!();
+///     defx!();
 /// }
 /// ```
 ///
@@ -2703,15 +2703,15 @@ pub use defñ;
 /// Use to [`eprintln!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{defn, defx};
 /// use si_trace_print::def1o;
 /// fn func1() {
 ///     def1o!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     defn!();
 ///     func1();
-///     efx!();
+///     defx!();
 /// }
 /// ```
 ///
@@ -2750,15 +2750,15 @@ pub use def1o;
 /// Use this as the first [`eprintln!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{defn, defx};
 /// use si_trace_print::def1n;
 /// fn func1() {
 ///     def1n!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     defn!();
 ///     func1();
-///     efx!();
+///     defx!();
 /// }
 /// ```
 ///
@@ -2797,15 +2797,15 @@ pub use def1n;
 /// Use this as the last [`eprintln!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{defn, defx};
 /// use si_trace_print::def1x;
 /// fn func1() {
 ///     def1x!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     defn!();
 ///     func1();
-///     efx!();
+///     defx!();
 /// }
 /// ```
 ///
@@ -2845,15 +2845,15 @@ pub use def1x;
 /// Most suited for short functions.
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{defn, defx};
 /// use si_trace_print::def1ñ;
 /// fn func1() {
 ///     def1ñ!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     defn!();
 ///     func1();
-///     efx!();
+///     defx!();
 /// }
 /// ```
 ///
@@ -2896,15 +2896,15 @@ pub use def1ñ;
 /// Use to [`eprintln!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{defn, defx};
 /// use si_trace_print::def2o;
 /// fn func1() {
 ///     def2o!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     defn!();
 ///     func1();
-///     efx!();
+///     defx!();
 /// }
 /// ```
 ///
@@ -2943,15 +2943,15 @@ pub use def2o;
 /// Use this as the first [`eprintln!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{defn, defx};
 /// use si_trace_print::def2n;
 /// fn func1() {
 ///     def2n!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     defn!();
 ///     func1();
-///     efx!();
+///     defx!();
 /// }
 /// ```
 ///
@@ -2990,15 +2990,15 @@ pub use def2n;
 /// Use this as the last [`eprintln!`] in a [function].
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{defn, defx};
 /// use si_trace_print::def2x;
 /// fn func1() {
 ///     def2x!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     defn!();
 ///     func1();
-///     efx!();
+///     defx!();
 /// }
 /// ```
 ///
@@ -3038,15 +3038,15 @@ pub use def2x;
 /// Most suited for short functions.
 ///
 /// ```rust
-/// use si_trace_print::{efn, efx};
+/// use si_trace_print::{defn, defx};
 /// use si_trace_print::def2ñ;
 /// fn func1() {
 ///     def2ñ!("hello");
 /// }
 /// fn main() {
-///     efn!();
+///     defn!();
 ///     func1();
-///     efx!();
+///     defx!();
 /// }
 /// ```
 ///
