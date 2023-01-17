@@ -137,6 +137,7 @@ fn stack_offset() -> StackDepth {
     // `stack_offset`.
     stack_offset_set(Some(1));
     let mut sd: StackDepth = stack_depth();
+    #[allow(clippy::implicit_saturating_sub)]
     if sd > 0 {
         sd -= 1;
     }
@@ -204,6 +205,7 @@ pub fn stack_offset_set(correction: Option<isize>) {
         }
     }
     let mut sd: StackDepth = stack_depth();
+    #[allow(clippy::implicit_saturating_sub)]
     if sd > 0 {
         // remove this function `stack_offset_set` stack frame depth
         sd -= 1;
