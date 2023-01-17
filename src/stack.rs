@@ -270,7 +270,7 @@ const S__: &str = "                                                             
 pub(crate) const SO_LEAD: &str = " ";
 
 /// Return a string of **s**paces that is a multiple of the current
-/// stack offset with one trailing space.
+/// stack **o**ffset with one trailing space.
 pub fn so() -> &'static str {
     let so_ = stack_offset();
     match so_ {
