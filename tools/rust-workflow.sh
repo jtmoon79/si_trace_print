@@ -21,4 +21,5 @@ cargo clippy --no-deps --all-targets --all-features
 cargo doc --locked --release --frozen --no-deps
 cargo publish --dry-run --allow-dirty
 cargo fmt --verbose --check
+cargo doc --locked --release --frozen --no-deps -v
 cargo clippy --no-deps --verbose --all-targets --all-features -- -D warnings
