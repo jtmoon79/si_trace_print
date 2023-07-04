@@ -23,7 +23,7 @@ exclude = [
 ]
 
 [dependencies]
-backtrace = "0.3.67"
+backtrace = "0.3.68"
 const_format = "0.2.26"
 lazy_static = "1.4.0"
 mut_static = "5.0.0"
