@@ -30,6 +30,7 @@ jobs:
         run: |
           set -eux
           cargo --version
+          rustc --print cfg
           cargo build --lib --verbose
       - name: Test using rust ${{ matrix.msrv }} on ${{ matrix.os }}
         shell: bash
