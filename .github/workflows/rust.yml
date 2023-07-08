@@ -12,7 +12,7 @@ env:
 jobs:
   # MSRV check
   job_msrv:
-    name: build MSRV ${{ matrix.msrv }} on ${{ matrix.os }}
+    name: build on ${{ matrix.msrv }} on ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
