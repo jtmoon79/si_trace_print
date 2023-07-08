@@ -15,6 +15,9 @@ set -x
 "${PYTHON-python}" -m yamllint --version
 
 exec "${PYTHON-python}" -m yamllint \
+    -c "configs/yamllint.yml" \
     ./.codecov.yml \
     ./configs/grcov.yml \
+    ./configs/yamllint.yml \
+    ./.github/dependabot.yml \
     ./.github/workflows/rust.yml \

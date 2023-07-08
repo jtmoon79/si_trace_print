@@ -1,3 +1,5 @@
+# rust.yml
+#
 # github workflows action file for si_trace_print
 ---
 name: Rust
@@ -81,7 +83,40 @@ jobs:
           cargo test -j8 --lib --verbose -- --test-threads=16
       - name: Build Documentation
         run: cargo doc --locked --release --frozen --no-deps -v
-  # run code coverage with rust "nightly", upload to codecov.io
+  job_yamllint:
+    # this job install Python PIP packages
+    name: yamllint
+    needs: [job_msrv]
+    runs-on: ubuntu-latest
+    steps:
+      - name: git checkout
+        uses: actions/checkout@v3
+      - name: Use Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          set -eux
+          python --version
+          python -m pip \
+            --disable-pip-version-check \
+            --no-python-version-warning \
+            --version
+          python -m pip install \
+            --disable-pip-version-check \
+            --no-python-version-warning \
+            --no-color \
+            yamllint
+          python -m pip list \
+            --disable-pip-version-check \
+            --no-python-version-warning \
+            -v -v
+      - name: Run yamllint.sh
+        run: |
+          # XXX: ignore yamllint.sh errors, see Issue #120
+          PYTHON=python3 ./tools/yamllint.sh || true
+  # run code coverage with rust "stable" then upload to codecov.io
   # help from
   # - https://github.com/marketplace/actions/rust-grcov
   # - https://eipi.xyz/blog/rust-code-coverage-with-github-workflows/

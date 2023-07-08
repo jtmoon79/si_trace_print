@@ -1,3 +1,6 @@
+# .codecov.yml
+#
 # Codecov configuration file, see https://docs.codecov.com/docs/codecov-yaml
 ---
 codecov:
+...
