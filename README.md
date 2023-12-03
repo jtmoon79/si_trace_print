@@ -8,8 +8,9 @@ approach.
 
 [![Build status](https://img.shields.io/github/actions/workflow/status/jtmoon79/si_trace_print/rust.yml?branch=main&style=flat-square&logo=github)](https://github.com/jtmoon79/si_trace_print/actions?query=workflow%3Arust)
 [![docs.rs](https://img.shields.io/docsrs/si_trace_print/latest?badge.svg&style=flat-square&logo=docsdotrs)](https://docs.rs/si_trace_print/latest/)
-[![codecov.io](https://img.shields.io/codecov/c/github/jtmoon79/si_trace_print/branch?main&token=Q2OXTL7U02&style=flat-square&logo=codecov)](https://codecov.io/gh/jtmoon79/si_trace_print)
+[![Rust](https://img.shields.io/badge/rust-1.56.0%2B-blue.svg?style=flat-square&logo=rust&cacheSeconds=3600&logoColor=800000)](https://github.com/jtmoon79/si_trace_print/)<!-- MSRV in this badge must match `rust-version` in `Cargo.toml` -->
 [![crates.io](https://img.shields.io/crates/v/si_trace_print.svg?style=flat-square&logo=rust)](https://crates.io/crates/si_trace_print)
+[![codecov.io](https://img.shields.io/codecov/c/github/jtmoon79/si_trace_print/branch?main&token=Q2OXTL7U02&style=flat-square&logo=codecov)](https://codecov.io/gh/jtmoon79/si_trace_print)
 [![Commits since](https://img.shields.io/github/commits-since/jtmoon79/si_trace_print/latest.svg?style=flat-square)](https://github.com/jtmoon79/si_trace_print/commits/main)
 [![License](https://img.shields.io/crates/l/si_trace_print?style=flat-square)](https://github.com/jtmoon79/si_trace_print/blob/main/LICENSE)
 
