@@ -31,13 +31,13 @@ jobs:
           set -eux
           cargo --version
           rustc --print cfg
-          cargo build --lib --verbose
+          cargo build --lib --verbose --locked
       - name: Test using rust ${{ matrix.msrv }} on ${{ matrix.os }}
         shell: bash
         run: |
           set -eux
           cargo --version
-          cargo test --lib
+          cargo test --lib --locked
   # do all the basic rust stuff
   job_fmt_clippy_build_buildrelease_test_doc:
     name: fmt clippy build test doc
