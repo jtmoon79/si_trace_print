@@ -36,7 +36,5 @@ edition = "2018"
 test = true
 doc = true
 doctest = true
-# Do not set `proc-macro = true`
-# It will cause failure to run grcov `cargo test:
-#     error: the linked panic runtime `panic_unwind` is not compiled with this
-#     crate's panic strategy `abort`
+# XXX: Do not set `proc-macro = true`, it will cause failure to run grcov
+#          cargo test: error: the linked panic runtime `panic_unwind` is not compiled with this crate's panic strategy `abort`
