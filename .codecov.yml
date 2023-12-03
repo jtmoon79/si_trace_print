@@ -1,6 +1,10 @@
 # .codecov.yml
 #
 # Codecov configuration file, see https://docs.codecov.com/docs/codecov-yaml
+#
+# Validate this file with command:
+#     curl --data-binary @.codecov.yml https://codecov.io/validate
 ---
 codecov:
+  branch: main
 ...
