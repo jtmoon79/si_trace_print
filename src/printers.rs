@@ -12,6 +12,15 @@
 //! [`sx`]: crate::stack::sx
 //! [`sñ`]: crate::stack::sñ
 
+use std::sync::Mutex;
+
+extern crate lazy_static;
+use lazy_static::lazy_static;
+
+lazy_static! {
+    pub static ref GLOBAL_LOCK_PRINTER: Mutex<()> = Mutex::new(());
+}
+
 //
 // `p`rintln
 //
@@ -46,12 +55,14 @@
 macro_rules! p {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
         // for consistency with other macros, invoke setting the
         // "original" stack depth via `so`
         $crate::stack::so();
-        println!($($args)*)
-    }
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
+        println!($($args)*);
+        drop(lock);
+    }}
 }
 pub use p;
 
@@ -89,10 +100,12 @@ pub use p;
 macro_rules! po {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         print!("{}", $crate::stack::so());
-        println!($($args)*)
-    }
+        println!($($args)*);
+        drop(lock);
+    }}
 }
 pub use po;
 
@@ -130,10 +143,12 @@ pub use po;
 macro_rules! pn {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         print!("{}", $crate::stack::sn());
-        println!($($args)*)
-    }
+        println!($($args)*);
+        drop(lock);
+    }}
 }
 pub use pn;
 
@@ -171,10 +186,12 @@ pub use pn;
 macro_rules! px {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         print!("{}", $crate::stack::sx());
-        println!($($args)*)
-    }
+        println!($($args)*);
+        drop(lock);
+    }}
 }
 pub use px;
 
@@ -213,10 +230,12 @@ pub use px;
 macro_rules! pñ {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         print!("{}", $crate::stack::sñ());
-        println!($($args)*)
-    }
+        println!($($args)*);
+        drop(lock);
+    }}
 }
 pub use pñ;
 
@@ -255,10 +274,12 @@ pub use pñ;
 macro_rules! pfo {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         print!("{}{}: ", $crate::stack::so(), $crate::function_name::function_name!());
-        println!($($args)*)
-    }
+        println!($($args)*);
+        drop(lock);
+    }}
 }
 pub use pfo;
 
@@ -296,10 +317,12 @@ pub use pfo;
 macro_rules! pfn {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         print!("{}{}: ", $crate::stack::sn(), $crate::function_name::function_name!());
-        println!($($args)*)
-    }
+        println!($($args)*);
+        drop(lock);
+    }}
 }
 pub use pfn;
 
@@ -337,10 +360,12 @@ pub use pfn;
 macro_rules! pfx {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         print!("{}{}: ", $crate::stack::sx(), $crate::function_name::function_name!());
-        println!($($args)*)
-    }
+        println!($($args)*);
+        drop(lock);
+    }}
 }
 pub use pfx;
 
@@ -380,10 +405,12 @@ pub use pfx;
 macro_rules! pfñ {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         print!("{}{}: ", $crate::stack::sñ(), $crate::function_name::function_name!());
-        println!($($args)*)
-    }
+        println!($($args)*);
+        drop(lock);
+    }}
 }
 pub use pfñ;
 
@@ -427,10 +454,12 @@ pub use pfñ;
 macro_rules! pf1o {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         print!("{}{}: ", $crate::stack::so(), $crate::function_name::function_name_plus!(1));
-        println!($($args)*)
-    }
+        println!($($args)*);
+        drop(lock);
+    }}
 }
 pub use pf1o;
 
@@ -470,10 +499,12 @@ pub use pf1o;
 macro_rules! pf1n {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         print!("{}{}: ", $crate::stack::sn(), $crate::function_name::function_name_plus!(1));
-        println!($($args)*)
-    }
+        println!($($args)*);
+        drop(lock);
+    }}
 }
 pub use pf1n;
 
@@ -513,10 +544,12 @@ pub use pf1n;
 macro_rules! pf1x {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         print!("{}{}: ", $crate::stack::sx(), $crate::function_name::function_name_plus!(1));
-        println!($($args)*)
-    }
+        println!($($args)*);
+        drop(lock);
+    }}
 }
 pub use pf1x;
 
@@ -557,10 +590,12 @@ pub use pf1x;
 macro_rules! pf1ñ {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         print!("{}{}: ", $crate::stack::sñ(), $crate::function_name::function_name_plus!(1));
-        println!($($args)*)
-    }
+        println!($($args)*);
+        drop(lock);
+    }}
 }
 pub use pf1ñ;
 
@@ -604,10 +639,12 @@ pub use pf1ñ;
 macro_rules! pf2o {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         print!("{}{}: ", $crate::stack::so(), $crate::function_name::function_name_plus!(2));
-        println!($($args)*)
-    }
+        println!($($args)*);
+        drop(lock);
+    }}
 }
 pub use pf2o;
 
@@ -647,10 +684,12 @@ pub use pf2o;
 macro_rules! pf2n {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         print!("{}{}: ", $crate::stack::sn(), $crate::function_name::function_name_plus!(2));
-        println!($($args)*)
-    }
+        println!($($args)*);
+        drop(lock);
+    }}
 }
 pub use pf2n;
 
@@ -690,10 +729,12 @@ pub use pf2n;
 macro_rules! pf2x {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         print!("{}{}: ", $crate::stack::sx(), $crate::function_name::function_name_plus!(2));
-        println!($($args)*)
-    }
+        println!($($args)*);
+        drop(lock);
+    }}
 }
 pub use pf2x;
 
@@ -734,10 +775,12 @@ pub use pf2x;
 macro_rules! pf2ñ {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         print!("{}{}: ", $crate::stack::sñ(), $crate::function_name::function_name_plus!(2));
-        println!($($args)*)
-    }
+        println!($($args)*);
+        drop(lock);
+    }}
 }
 pub use pf2ñ;
 
@@ -775,12 +818,14 @@ pub use pf2ñ;
 macro_rules! e {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
         // for consistency with other macros, invoke setting the
         // "original" stack depth via `so`
         $crate::stack::so();
-        eprintln!($($args)*)
-    }
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
+        eprintln!($($args)*);
+        drop(lock);
+    }}
 }
 pub use e;
 
@@ -818,10 +863,12 @@ pub use e;
 macro_rules! eo {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         eprint!("{}", $crate::stack::so());
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        drop(lock);
+    }}
 }
 pub use eo;
 
@@ -863,10 +910,12 @@ pub use eo;
 macro_rules! en {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         eprint!("{}", $crate::stack::sn());
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        drop(lock);
+    }}
 }
 pub use en;
 
@@ -904,10 +953,12 @@ pub use en;
 macro_rules! ex {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         eprint!("{}", $crate::stack::sx());
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        drop(lock);
+    }}
 }
 pub use ex;
 
@@ -946,10 +997,12 @@ pub use ex;
 macro_rules! eñ {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         eprint!("{}", $crate::stack::sñ());
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        drop(lock);
+    }}
 }
 pub use eñ;
 
@@ -992,10 +1045,12 @@ pub use eñ;
 macro_rules! efo {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         eprint!("{}{}: ", $crate::stack::so(), $crate::function_name::function_name!());
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        drop(lock);
+    }}
 }
 pub use efo;
 
@@ -1033,10 +1088,12 @@ pub use efo;
 macro_rules! efn {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         eprint!("{}{}: ", $crate::stack::sn(), $crate::function_name::function_name!());
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        drop(lock);
+    }}
 }
 pub use efn;
 
@@ -1074,10 +1131,12 @@ pub use efn;
 macro_rules! efx {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         eprint!("{}{}: ", $crate::stack::sx(), $crate::function_name::function_name!());
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        drop(lock);
+    }}
 }
 pub use efx;
 
@@ -1117,10 +1176,12 @@ pub use efx;
 macro_rules! efñ {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         eprint!("{}{}: ", $crate::stack::sñ(), $crate::function_name::function_name!());
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        drop(lock);
+    }}
 }
 pub use efñ;
 
@@ -1164,10 +1225,12 @@ pub use efñ;
 macro_rules! ef1o {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         eprint!("{}{}: ", $crate::stack::so(), $crate::function_name::function_name_plus!(1));
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        drop(lock);
+    }}
 }
 pub use ef1o;
 
@@ -1207,10 +1270,12 @@ pub use ef1o;
 macro_rules! ef1n {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         eprint!("{}{}: ", $crate::stack::sn(), $crate::function_name::function_name_plus!(1));
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        drop(lock);
+    }}
 }
 pub use ef1n;
 
@@ -1250,10 +1315,12 @@ pub use ef1n;
 macro_rules! ef1x {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         eprint!("{}{}: ", $crate::stack::sx(), $crate::function_name::function_name_plus!(1));
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        drop(lock);
+    }}
 }
 pub use ef1x;
 
@@ -1294,10 +1361,12 @@ pub use ef1x;
 macro_rules! ef1ñ {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         eprint!("{}{}: ", $crate::stack::sñ(), $crate::function_name::function_name_plus!(1));
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        drop(lock);
+    }}
 }
 pub use ef1ñ;
 
@@ -1341,10 +1410,12 @@ pub use ef1ñ;
 macro_rules! ef2o {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         eprint!("{}{}: ", $crate::stack::so(), $crate::function_name::function_name_plus!(2));
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        drop(lock);
+    }}
 }
 pub use ef2o;
 
@@ -1384,10 +1455,12 @@ pub use ef2o;
 macro_rules! ef2n {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         eprint!("{}{}: ", $crate::stack::sn(), $crate::function_name::function_name_plus!(2));
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        drop(lock);
+    }}
 }
 pub use ef2n;
 
@@ -1427,10 +1500,12 @@ pub use ef2n;
 macro_rules! ef2x {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         eprint!("{}{}: ", $crate::stack::sx(), $crate::function_name::function_name_plus!(2));
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        drop(lock);
+    }}
 }
 pub use ef2x;
 
@@ -1471,10 +1546,12 @@ pub use ef2x;
 macro_rules! ef2ñ {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         eprint!("{}{}: ", $crate::stack::sñ(), $crate::function_name::function_name_plus!(2));
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        drop(lock);
+    }}
 }
 pub use ef2ñ;
 
@@ -1514,10 +1591,14 @@ pub use ef2ñ;
 macro_rules! dp {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
         #[cfg(any(debug_assertions,test))]
-        println!($($args)*)
-    }
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
+        #[cfg(any(debug_assertions,test))]
+        println!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use dp;
 
@@ -1557,12 +1638,16 @@ pub use dp;
 macro_rules! dpo {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         print!("{}", $crate::stack::so());
         #[cfg(any(debug_assertions,test))]
-        println!($($args)*)
-    }
+        println!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use dpo;
 
@@ -1602,12 +1687,16 @@ pub use dpo;
 macro_rules! dpn {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         print!("{}", $crate::stack::sn());
         #[cfg(any(debug_assertions,test))]
-        println!($($args)*)
-    }
+        println!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use dpn;
 
@@ -1647,12 +1736,16 @@ pub use dpn;
 macro_rules! dpx {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         print!("{}", $crate::stack::sx());
         #[cfg(any(debug_assertions,test))]
-        println!($($args)*)
-    }
+        println!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use dpx;
 
@@ -1693,12 +1786,16 @@ pub use dpx;
 macro_rules! dpñ {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         print!("{}", $crate::stack::sñ());
         #[cfg(any(debug_assertions,test))]
-        println!($($args)*)
-    }
+        println!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use dpñ;
 
@@ -1739,12 +1836,16 @@ pub use dpñ;
 macro_rules! dpfo {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         print!("{}{}: ", $crate::stack::so(), $crate::function_name::function_name!());
         #[cfg(any(debug_assertions,test))]
-        println!($($args)*)
-    }
+        println!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use dpfo;
 
@@ -1788,12 +1889,16 @@ pub use dpfo;
 macro_rules! dpfn {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         print!("{}{}: ", $crate::stack::sn(), $crate::function_name::function_name!());
         #[cfg(any(debug_assertions,test))]
-        println!($($args)*)
-    }
+        println!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use dpfn;
 
@@ -1833,12 +1938,16 @@ pub use dpfn;
 macro_rules! dpfx {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         print!("{}{}: ", $crate::stack::sx(), $crate::function_name::function_name!());
         #[cfg(any(debug_assertions,test))]
-        println!($($args)*)
-    }
+        println!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use dpfx;
 
@@ -1880,12 +1989,16 @@ pub use dpfx;
 macro_rules! dpfñ {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         print!("{}{}: ", $crate::stack::sñ(), $crate::function_name::function_name!());
         #[cfg(any(debug_assertions,test))]
-        println!($($args)*)
-    }
+        println!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use dpfñ;
 
@@ -1931,12 +2044,16 @@ pub use dpfñ;
 macro_rules! dpf1o {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         print!("{}{}: ", $crate::stack::so(), $crate::function_name::function_name_plus!(1));
         #[cfg(any(debug_assertions,test))]
-        println!($($args)*)
-    }
+        println!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use dpf1o;
 
@@ -1978,12 +2095,16 @@ pub use dpf1o;
 macro_rules! dpf1n {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         print!("{}{}: ", $crate::stack::sn(), $crate::function_name::function_name_plus!(1));
         #[cfg(any(debug_assertions,test))]
-        println!($($args)*)
-    }
+        println!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use dpf1n;
 
@@ -2025,12 +2146,16 @@ pub use dpf1n;
 macro_rules! dpf1x {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         print!("{}{}: ", $crate::stack::sx(), $crate::function_name::function_name_plus!(1));
         #[cfg(any(debug_assertions,test))]
-        println!($($args)*)
-    }
+        println!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use dpf1x;
 
@@ -2073,12 +2198,16 @@ pub use dpf1x;
 macro_rules! dpf1ñ {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         print!("{}{}: ", $crate::stack::sñ(), $crate::function_name::function_name_plus!(1));
         #[cfg(any(debug_assertions,test))]
-        println!($($args)*)
-    }
+        println!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use dpf1ñ;
 
@@ -2124,12 +2253,16 @@ pub use dpf1ñ;
 macro_rules! dpf2o {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         print!("{}{}: ", $crate::stack::so(), $crate::function_name::function_name_plus!(2));
         #[cfg(any(debug_assertions,test))]
-        println!($($args)*)
-    }
+        println!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use dpf2o;
 
@@ -2171,12 +2304,16 @@ pub use dpf2o;
 macro_rules! dpf2n {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         print!("{}{}: ", $crate::stack::sn(), $crate::function_name::function_name_plus!(2));
         #[cfg(any(debug_assertions,test))]
-        println!($($args)*)
-    }
+        println!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use dpf2n;
 
@@ -2218,12 +2355,16 @@ pub use dpf2n;
 macro_rules! dpf2x {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         print!("{}{}: ", $crate::stack::sx(), $crate::function_name::function_name_plus!(2));
         #[cfg(any(debug_assertions,test))]
-        println!($($args)*)
-    }
+        println!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use dpf2x;
 
@@ -2266,12 +2407,16 @@ pub use dpf2x;
 macro_rules! dpf2ñ {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         print!("{}{}: ", $crate::stack::sñ(), $crate::function_name::function_name_plus!(2));
         #[cfg(any(debug_assertions,test))]
-        println!($($args)*)
-    }
+        println!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use dpf2ñ;
 
@@ -2311,10 +2456,14 @@ pub use dpf2ñ;
 macro_rules! de {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
-    }
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
+        #[cfg(any(debug_assertions,test))]
+        eprintln!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use de;
 
@@ -2354,12 +2503,16 @@ pub use de;
 macro_rules! deo {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         eprint!("{}", $crate::stack::so());
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use deo;
 
@@ -2399,12 +2552,16 @@ pub use deo;
 macro_rules! den {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         eprint!("{}", $crate::stack::sn());
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use den;
 
@@ -2444,12 +2601,16 @@ pub use den;
 macro_rules! dex {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         eprint!("{}", $crate::stack::sx());
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use dex;
 
@@ -2490,12 +2651,16 @@ pub use dex;
 macro_rules! deñ {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         eprint!("{}", $crate::stack::sñ());
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use deñ;
 
@@ -2540,12 +2705,16 @@ pub use deñ;
 macro_rules! defo {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         eprint!("{}{}: ", $crate::stack::so(), $crate::function_name::function_name!());
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use defo;
 
@@ -2585,12 +2754,16 @@ pub use defo;
 macro_rules! defn {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         eprint!("{}{}: ", $crate::stack::sn(), $crate::function_name::function_name!());
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use defn;
 
@@ -2630,12 +2803,16 @@ pub use defn;
 macro_rules! defx {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         eprint!("{}{}: ", $crate::stack::sx(), $crate::function_name::function_name!());
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use defx;
 
@@ -2677,12 +2854,16 @@ pub use defx;
 macro_rules! defñ {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         eprint!("{}{}: ", $crate::stack::sñ(), $crate::function_name::function_name!());
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use defñ;
 
@@ -2728,12 +2909,16 @@ pub use defñ;
 macro_rules! def1o {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         eprint!("{}{}: ", $crate::stack::so(), $crate::function_name::function_name_plus!(1));
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use def1o;
 
@@ -2775,12 +2960,16 @@ pub use def1o;
 macro_rules! def1n {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         eprint!("{}{}: ", $crate::stack::sn(), $crate::function_name::function_name_plus!(1));
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use def1n;
 
@@ -2822,12 +3011,16 @@ pub use def1n;
 macro_rules! def1x {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         eprint!("{}{}: ", $crate::stack::sx(), $crate::function_name::function_name_plus!(1));
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use def1x;
 
@@ -2870,12 +3063,16 @@ pub use def1x;
 macro_rules! def1ñ {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         eprint!("{}{}: ", $crate::stack::sñ(), $crate::function_name::function_name_plus!(1));
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use def1ñ;
 
@@ -2921,12 +3118,16 @@ pub use def1ñ;
 macro_rules! def2o {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         eprint!("{}{}: ", $crate::stack::so(), $crate::function_name::function_name_plus!(2));
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use def2o;
 
@@ -2968,12 +3169,16 @@ pub use def2o;
 macro_rules! def2n {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         eprint!("{}{}: ", $crate::stack::sn(), $crate::function_name::function_name_plus!(2));
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use def2n;
 
@@ -3015,12 +3220,16 @@ pub use def2n;
 macro_rules! def2x {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         eprint!("{}{}: ", $crate::stack::sx(), $crate::function_name::function_name_plus!(2));
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use def2x;
 
@@ -3063,12 +3272,16 @@ pub use def2x;
 macro_rules! def2ñ {
     (
         $($args:tt)*
-    ) => {
+    ) => {{
+        #[cfg(any(debug_assertions,test))]
+        let lock = $crate::printers::GLOBAL_LOCK_PRINTER.lock().unwrap();
         #[cfg(any(debug_assertions,test))]
         eprint!("{}{}: ", $crate::stack::sñ(), $crate::function_name::function_name_plus!(2));
         #[cfg(any(debug_assertions,test))]
-        eprintln!($($args)*)
-    }
+        eprintln!($($args)*);
+        #[cfg(any(debug_assertions,test))]
+        drop(lock);
+    }}
 }
 pub use def2ñ;
 
@@ -3079,6 +3292,8 @@ pub use def2ñ;
 #[cfg(test)]
 mod tests {
     use crate::stack::stack_offset_set;
+    use std::thread;
+    use std::time::Duration;
 
     // `p`rintln tests
 
@@ -3294,5 +3509,67 @@ mod tests {
         def2ñ!("def2ñ!");
         def2x!("def2x!");
         eprintln!();
+    }
+
+    #[test]
+    fn test_multithreaded() {
+        let mut handles: Vec<thread::JoinHandle<()>> = vec![];
+        for n in 0..10 {
+            let h = thread::spawn(move || {
+                thread::sleep(Duration::from_millis(18 - n));
+                p!("p! ({})", n);
+                e!("e! ({})", n);
+                de!("de! ({})", n);
+                dp!("dp! ({})", n);
+                thread::sleep(Duration::from_millis(16 - n));
+                po!("po! ({})", n);
+                eo!("eo! ({})", n);
+                dpo!("dpo! ({})", n);
+                deo!("deo! ({})", n);
+                defo!("defo! ({})", n);
+                def1o!("def1o! ({})", n);
+                def2o!("def2o! ({})", n);
+                dpfo!("dpfo! ({})", n);
+                dpf1o!("dpf1o! ({})", n);
+                dpf2o!("dpf2o! ({})", n);
+                thread::sleep(Duration::from_millis(14 - n));
+                en!("en! ({})", n);
+                pn!("pn! ({})", n);
+                den!("den! ({})", n);
+                dpn!("dpn! ({})", n);
+                defn!("defn! ({})", n);
+                def1n!("def1n! ({})", n);
+                def2n!("def2n! ({})", n);
+                dpfn!("dpfn! ({})", n);
+                dpf1n!("dpf1n! ({})", n);
+                dpf2n!("dpf2n! ({})", n);
+                thread::sleep(Duration::from_millis(12 - n));
+                eñ!("eñ! ({})", n);
+                pñ!("pñ! ({})", n);
+                deñ!("deñ! ({})", n);
+                dpñ!("dpñ! ({})", n);
+                defñ!("defñ! ({})", n);
+                def1ñ!("def1ñ! ({})", n);
+                def2ñ!("def2ñ! ({})", n);
+                dpfñ!("dpfñ! ({})", n);
+                dpf1ñ!("dpf1ñ! ({})", n);
+                dpf2ñ!("dpf2ñ! ({})", n);
+                thread::sleep(Duration::from_millis(10 - n));
+                ex!("ex! ({})", n);
+                px!("px! ({})", n);
+                dex!("dex! ({})", n);
+                dpx!("dpx! ({})", n);
+                defx!("defx! ({})", n);
+                def1x!("def1x! ({})", n);
+                def2x!("def2x! ({})", n);
+                dpfx!("dpfx! ({})", n);
+                dpf1x!("dpf1x! ({})", n);
+                dpf2x!("dpf2x! ({})", n);
+            });
+            handles.push(h);
+        }
+        for h in handles {
+            h.join().unwrap();
+        }
     }
 }
