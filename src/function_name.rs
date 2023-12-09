@@ -7,7 +7,7 @@
 //!
 //! [`printers`]: crate::printers
 
-/// Return the current the current function name as a `&'static str`,
+/// Return the current function name as a `&'static str`,
 /// e.g. `"my_func"`.
 ///
 /// `function_name` must be a macro (and not a function) to reliably use
@@ -110,7 +110,7 @@ macro_rules! function_name_plus {
 }
 pub use function_name_plus;
 
-/// Return the current current function name full path as a `&'static str`,
+/// Return the current function name full path as a `&'static str`,
 /// e.g. `"my_lib::my_mod::my_func"`.
 ///
 /// `function_name_full` must be a macro (and not a function) to reliably use
