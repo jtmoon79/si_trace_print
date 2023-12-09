@@ -15,7 +15,7 @@ set -x
 cargo msrv verify
 cargo build --lib --verbose
 cargo build --lib --verbose --release
-cargo test --lib --verbose --all-features --future-incompat-report
+cargo test --verbose --all-features --future-incompat-report
 cargo check --all-targets --release
 cargo clippy --no-deps --all-targets --all-features
 cargo doc --locked --release --frozen --no-deps
