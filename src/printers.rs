@@ -12,13 +12,57 @@
 //! [`sx`]: crate::stack::sx
 //! [`sñ`]: crate::stack::sñ
 
-use std::sync::Mutex;
+use std::sync::{Mutex, MutexGuard};
 
 extern crate lazy_static;
 use lazy_static::lazy_static;
 
+/// The [`GLOBAL_LOCK_PRINTER`] type.
+///
+/// [`GLOBAL_LOCK_PRINTER`]: struct@GLOBAL_LOCK_PRINTER
+pub type GlobalLockPrinterType = Mutex<()>;
+/// Returned by [`GLOBAL_LOCK_PRINTER.lock().unwrap()`]
+///
+/// [`GLOBAL_LOCK_PRINTER.lock().unwrap()`]: struct@GLOBAL_LOCK_PRINTER
+pub type GlobalLockPrinterGuardType<'a> = MutexGuard<'a, ()>;
+
 lazy_static! {
-    pub static ref GLOBAL_LOCK_PRINTER: Mutex<()> = Mutex::new(());
+    /// The global lock for all `si_trace_print` macro printing functions.
+    ///
+    /// If you are seeing interleaved printed output from multiple threads, then
+    /// lock this `Mutex` before calling print or write
+    /// functions outside of `si_trace_print` macros, i.e. `println!`.
+    ///
+    /// See the
+    /// [top-level section _Multi-threaded printing and the global lock_].
+    ///
+    /// [top-level section _Multi-threaded printing and the global lock_]: crate#multi-threaded-printing-and-the-global-lock
+    pub static ref GLOBAL_LOCK_PRINTER: GlobalLockPrinterType = Mutex::new(());
+}
+
+/// Merely a wrapper around [`GLOBAL_LOCK_PRINTER.lock().unwrap()`].
+///
+/// [`GLOBAL_LOCK_PRINTER.lock().unwrap()`]: struct@GLOBAL_LOCK_PRINTER
+#[inline(always)]
+pub fn print_guard() -> GlobalLockPrinterGuardType<'static> {
+    GLOBAL_LOCK_PRINTER.lock().unwrap()
+}
+
+/// In debug builds, return the [`GLOBAL_LOCK_PRINTER`] guard.
+/// In non-debug builds this will be defined to return `()`.
+///
+/// [`GLOBAL_LOCK_PRINTER`]: struct@GLOBAL_LOCK_PRINTER
+#[cfg(debug_assertions)]
+#[inline(always)]
+pub fn debug_print_guard() -> GlobalLockPrinterGuardType<'static> {
+    print_guard()
+}
+/// In debug builds, do nothing.
+// XXX: this docstring is not published
+#[cfg(not(debug_assertions))]
+#[inline(always)]
+pub fn debug_print_guard() -> () {
+    ()
 }
 
 //

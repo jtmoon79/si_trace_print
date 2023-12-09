@@ -114,7 +114,72 @@
 //! ←goodbye from main
 //! ```
 //!
+//! ## Multi-threaded printing and the global lock
+//!
+//! To avoid interleaved printing among threads, surround your `println!` or
+//! `eprintln!` statements in the global lock guard [`GLOBAL_LOCK_PRINTER`].
+//! Helper functions [`print_guard`] or [`debug_print_guard`] are provided.
+//!
+//! ```rust
+//! use ::si_trace_print::{efn, efx};
+//! use ::si_trace_print::printers::print_guard;
+//!
+//! let mut handles: Vec<std::thread::JoinHandle<()>> = vec![];
+//! for n in 0..10 {
+//!     let h = std::thread::spawn(move || {
+//!         efn!("time to do some work...");
+//!         // ...do some work...
+//!         let result = n;
+//!         // ...a few moments later...
+//!         // get the guard before printing
+//!         let guard = print_guard();
+//!         println!("{}", result);
+//!         // drop the guard before calling another si_trace_print macro
+//!         drop(guard);
+//!         efx!("work complete");
+//!     });
+//!     handles.push(h);
+//! }
+//! for h in handles {
+//!     h.join().unwrap();
+//! }
+//! ```
+//!
+//! If using `si_trace_print` ***d***ebug macros (the recommended way to use
+//! this module) then call the [`debug_print_guard`] helper function.
+//!
+//! In this code example, `guard` is a `MutexGuard` in debug builds and
+//! a `()` in non-debug release builds (which is likely optimized away).
+//!
+//! ```rust
+//! use ::si_trace_print::{defn, defx};
+//! use ::si_trace_print::printers::debug_print_guard;
+//!
+//! let mut handles: Vec<std::thread::JoinHandle<()>> = vec![];
+//! for n in 0..10 {
+//!     let h = std::thread::spawn(move || {
+//!         defn!("time to do some work...");
+//!         // ...do some work...
+//!         let result = n;
+//!         // ...a little while later...
+//!         // get the guard before printing
+//!         let guard = debug_print_guard();
+//!         println!("{}", result);
+//!         // explicitly drop the guard before calling another si_trace_print macro
+//!         drop(guard);
+//!         defx!("work complete");
+//!     });
+//!     handles.push(h);
+//! }
+//! for h in handles {
+//!     h.join().unwrap();
+//! }
+//! ```
+//!
 //! [`printers`]: crate::printers
+//! [`GLOBAL_LOCK_PRINTER`]: struct@crate::printers::GLOBAL_LOCK_PRINTER
+//! [`print_guard`]: crate::printers::print_guard
+//! [`debug_print_guard`]: crate::printers::debug_print_guard
 
 #![allow(uncommon_codepoints)]
 

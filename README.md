@@ -25,7 +25,6 @@ approach.
   - [Slow](#slow)
   - [Release builds](#release-builds)
   - [Code Clutter](#code-clutter)
-  - [Hogs *stdout* Or *stderr*](#hogs-stdout-or-stderr)
 - [Other tracing crates](#other-tracing-crates)
 
 ---
@@ -290,11 +289,6 @@ functions, though [even that is not guaranteed to work].
 
 This simple tracing helper requires explicit statements that some may find
 too messy.
-
-### Hogs *stdout* Or *stderr*
-
-If your rust code requires sending messages on both stdout and stderr then
-`si_trace_print` will interfere.
 
 ## Other tracing crates
 
