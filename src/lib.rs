@@ -5,6 +5,8 @@
 //! Library users should use macros provided in [`printers`] (which are
 //! also listed here).
 //!
+//! ## Basic Usage
+//!
 //! ```rust
 //! use si_trace_print::{
 //!     den, deo, dex, defn, defo, defx,
