@@ -27,8 +27,12 @@
 //! Lack of indentation may occur in a `--release` build or other optimized
 //! builds.
 //!
+//! Credit to [**@eggyal** for the Stackoverflow Answer] that inspired this
+//! crate.
+//!
 //! [`printers`]: crate::printers
 //! [_The Rust Performance Book_]: https://nnethercote.github.io/perf-book/inlining.html
+//! [**@eggyal** for the Stackoverflow Answer]: https://stackoverflow.com/a/69142325/471376
 
 use std::collections::HashMap;
 use std::thread;
@@ -74,9 +78,12 @@ lazy_static! {
 /// `stack_depth` decrements it's own stack depth by implied result of
 /// attribute `#[inline(always)]`.
 ///
+/// Credit to [@eggyal for the Stackoverflow Answer] that inspired this crate.
+///
 /// [`stack_offset`]: stack_offset
 /// [`backtrace::trace`]: https://docs.rs/backtrace/0.3.66/backtrace/fn.trace.html
 /// [_The Rust Performance Book_]: https://nnethercote.github.io/perf-book/inlining.html
+/// [@eggyal for the Stackoverflow Answer]: https://stackoverflow.com/a/69142325/471376
 #[inline(always)]
 fn stack_depth() -> StackDepth {
     let mut sd: StackDepth = 0;
