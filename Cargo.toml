@@ -10,7 +10,7 @@ keywords = ["trace", "debug", "print"]
 categories = ["development-tools::debugging"]
 readme = "README.md"
 # this value must agree with the minimum at `.github/workflows/rust.yml`
-rust-version = "1.56.0"
+rust-version = "1.66.1"
 # Do not set metadata fields `documentation` or `homepage` unless using
 # non-standard websites.
 # See <https://rust-lang.github.io/api-guidelines/documentation.html#cargotoml-includes-all-common-metadata-c-metadata>

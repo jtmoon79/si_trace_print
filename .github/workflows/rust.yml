@@ -18,7 +18,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         # first `msrv` value should match Cargo.toml:[package]:rust-version
-        msrv: [1.56.0, 1.58.1, 1.60.0, 1.62.1, 1.64.0, 1.66.1, 1.68.2, 1.70.0]
+        msrv: [1.66.1, 1.70.0, 1.75.0, 1.80.0, 1.83.0]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
